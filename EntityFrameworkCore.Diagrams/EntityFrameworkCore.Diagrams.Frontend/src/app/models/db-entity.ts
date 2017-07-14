@@ -5,14 +5,17 @@ import { DbEntityForeignKey } from './db-entity-foreign-key';
 import { DbEntityIndex } from './db-entity-index';
 
 export class DbEntity {
+    name: string;
     clrType: ClrType;
     properties: DbEntityProperty[] = [];
     keys: DbEntityKey[] = [];
     foreignKeys: DbEntityForeignKey[] = [];
     indexes: DbEntityIndex[] = [];
 
+    get shortName() { return this.name.split('.').reverse()[0]; }
+
     static fromJSON(obj: Object): DbEntity {
-        return Object.assign(new DbEntity(), {
+        return Object.assign(new DbEntity(), obj, {
             clrType: ClrType.fromJSON(obj['clrType']),
             properties: obj['properties'].map(e => DbEntityProperty.fromJSON(e)),
             keys: obj['keys'].map(e => DbEntityKey.fromJSON(e)),

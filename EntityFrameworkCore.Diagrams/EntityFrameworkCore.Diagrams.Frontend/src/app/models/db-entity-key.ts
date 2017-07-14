@@ -4,7 +4,7 @@ export class DbEntityKey {
     properties: DbEntityProperty[] = [];
 
     static fromJSON(obj: Object): DbEntityKey {
-        return Object.assign(new DbEntityKey(), {
+        return Object.assign(new DbEntityKey(), obj, {
             properties: obj['properties'].map(e => DbEntityProperty.fromJSON(e))
         });
     }

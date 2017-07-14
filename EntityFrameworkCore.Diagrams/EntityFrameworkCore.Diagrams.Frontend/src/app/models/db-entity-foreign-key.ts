@@ -4,13 +4,13 @@ import { DbEntityProperty } from './db-entity-property';
 
 export class DbEntityForeignKey {
     principalEntity: DbEntity;
-    principleKey: DbEntityKey;
+    principalKey: DbEntityKey;
     properties: DbEntityProperty[] = [];
 
     static fromJSON(obj: Object): DbEntityForeignKey {
-        return Object.assign(new DbEntityForeignKey(), {
+        return Object.assign(new DbEntityForeignKey(), obj, {
             principalEntity: DbEntity.fromJSON(obj['principalEntity']),
-            principleKey: DbEntityKey.fromJSON(obj['principleKey']),
+            principalKey: DbEntityKey.fromJSON(obj['principalKey']),
             properties: obj['properties'].map(e => DbEntityProperty.fromJSON(e)),
         });
     }

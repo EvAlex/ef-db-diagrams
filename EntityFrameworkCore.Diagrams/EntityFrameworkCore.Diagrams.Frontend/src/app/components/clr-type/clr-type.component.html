@@ -1,0 +1,8 @@
+
+<span
+    *ngFor="let token of tokens"
+    [class.token]="token.isToken"
+    [class.type]="token.isType"
+    [class.keyword]="token.isKeyword">
+    {{ token.value }}
+</span>

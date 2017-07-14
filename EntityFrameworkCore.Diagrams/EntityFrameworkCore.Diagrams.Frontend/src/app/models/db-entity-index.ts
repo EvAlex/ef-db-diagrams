@@ -5,7 +5,7 @@ export class DbEntityIndex {
     isUnique: boolean;
 
     static fromJSON(obj: Object): DbEntityIndex {
-        return Object.assign(new DbEntityIndex(), {
+        return Object.assign(new DbEntityIndex(), obj, {
             properties: obj['properties'].map(e => DbEntityProperty.fromJSON(e))
         });
     }

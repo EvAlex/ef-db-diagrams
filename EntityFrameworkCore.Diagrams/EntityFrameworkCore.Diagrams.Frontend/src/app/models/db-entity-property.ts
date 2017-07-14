@@ -14,7 +14,7 @@ export class DbEntityProperty {
     valueGenerated: ValueGenerated;
 
     static fromJSON(obj: Object): DbEntityProperty {
-        return Object.assign(new DbEntityProperty(), {
+        return Object.assign(new DbEntityProperty(), obj, {
             clrType: ClrType.fromJSON(obj['clrType'])
         });
     }

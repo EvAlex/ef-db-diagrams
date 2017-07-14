@@ -1,3 +1,6 @@
-<p>
-  db-diagram works!
-</p>
+
+<md-spinner *ngIf="!model"></md-spinner>
+
+<h1 *ngIf="!model.entities || model.entities.length === 0">Database model is empty</h1>
+
+<efd-db-entity-diagram-figure *ngFor="let e of model.entities" [entity]="e"></efd-db-entity-diagram-figure>

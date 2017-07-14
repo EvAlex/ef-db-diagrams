@@ -1,0 +1,12 @@
+
+<md-card>
+    <md-card-title>{{entity.shortName}}</md-card-title>
+    <md-card-content>
+        <md-list dense>
+            <md-list-item *ngFor="let p of entity.properties">
+                {{ p.name }}:
+                <efd-clr-type [type]="p.clrType"></efd-clr-type>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>
