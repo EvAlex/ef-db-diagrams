@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -55,7 +58,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
             try
             {
-                if (ShouldDisplayDiagramsPage(httpContext))
+                if (IsModelRequest(httpContext))
+                    await GetModel(httpContext);
+                else if (ShouldDisplayDiagramsPage(httpContext))
                     await DisplayDiagramsPage(httpContext);
                 else
                     await _next(httpContext);
@@ -67,14 +72,31 @@ namespace Microsoft.Extensions.DependencyInjection
             }
         }
 
-        private Task DisplayDiagramsPage(HttpContext httpContext)
+        private async Task DisplayDiagramsPage(HttpContext httpContext)
         {
-            throw new NotImplementedException();
+            string html = File.ReadAllText(Path.Combine("frontend", "index.html"));
+            await httpContext.Response.WriteAsync(html);
         }
 
         private bool ShouldDisplayDiagramsPage(HttpContext httpContext)
         {
-            return httpContext.Request.Path.Value.ToLower().StartsWith("/db-diagrams");
+            return httpContext.Request.Path.Value.ToLower().StartsWith("/db-diagrams")
+                && httpContext.Request.Method == HttpMethods.Get;
+        }
+
+        private async Task GetModel(HttpContext httpContext)
+        {
+            var dbContext = httpContext.RequestServices.GetService(_options.DbContextType) as DbContext;
+            var converter = new DtoConverter();
+            var dto = converter.ConvertToDto(dbContext.Model);
+            string json = JsonConvert.SerializeObject(dto);
+            await httpContext.Response.WriteAsync(json);
+        }
+
+        private bool IsModelRequest(HttpContext httpContext)
+        {
+            return httpContext.Request.Path.Value.ToLower().StartsWith("/db-diagrams/model")
+                && httpContext.Request.Method == HttpMethods.Get;
         }
     }
 }
