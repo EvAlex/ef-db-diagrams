@@ -3,9 +3,13 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
+import { CdkTableModule } from '@angular/cdk';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/timer';
+
+import 'hammerjs';
 
 import { AppComponent } from './components/app/app.component';
 import { DbDiagramComponent } from './components/db-diagram/db-diagram.component';
@@ -24,7 +28,8 @@ import { ClrTypeComponent } from './components/clr-type/clr-type.component';
         BrowserModule,
         HttpModule,
         BrowserAnimationsModule,
-        MaterialModule
+        MaterialModule,
+        CdkTableModule
     ],
     providers: [ApiService],
     bootstrap: [AppComponent],

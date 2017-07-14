@@ -2,4 +2,14 @@
 :host {
     display: inline-block;
     font-family: Roboto monospace;
+    min-width: 280px;
+
+    md-card-content {
+        margin-bottom: -24px;
+
+        md-table {
+            margin: 0 -24px;
+        }
+    }
+
 }

@@ -1,12 +1,23 @@
-
 <md-card>
     <md-card-title>{{entity.shortName}}</md-card-title>
     <md-card-content>
-        <md-list dense>
-            <md-list-item *ngFor="let p of entity.properties">
-                {{ p.name }}:
-                <efd-clr-type [type]="p.clrType"></efd-clr-type>
-            </md-list-item>
-        </md-list>
+        <md-table #table [dataSource]="propertiesDataSource">
+            <!-- Name Column -->
+            <ng-container cdkColumnDef="name">
+                <md-header-cell *cdkHeaderCellDef> Property </md-header-cell>
+                <md-cell *cdkCellDef="let row"> {{ row.name }} </md-cell>
+            </ng-container>
+
+            <!-- Type Column -->
+            <ng-container cdkColumnDef="clrType">
+                <md-header-cell *cdkHeaderCellDef> Type </md-header-cell>
+                <md-cell *cdkCellDef="let row">
+                    <efd-clr-type [type]="row.clrType"></efd-clr-type>
+                </md-cell>
+            </ng-container>
+
+            <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+            <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+        </md-table>
     </md-card-content>
 </md-card>
