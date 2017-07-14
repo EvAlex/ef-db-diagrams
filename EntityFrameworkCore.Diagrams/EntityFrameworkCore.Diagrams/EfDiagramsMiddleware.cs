@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EntityFrameworkCore.Diagrams.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -89,7 +91,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var dbContext = httpContext.RequestServices.GetService(_options.DbContextType) as DbContext;
             var converter = new DtoConverter();
             var dto = converter.ConvertToDto(dbContext.Model);
-            string json = JsonConvert.SerializeObject(dto);
+            string json = JsonConvert.SerializeObject(dto, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
             await httpContext.Response.WriteAsync(json);
         }
 

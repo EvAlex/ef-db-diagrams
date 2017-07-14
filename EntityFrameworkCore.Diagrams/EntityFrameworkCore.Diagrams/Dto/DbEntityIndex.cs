@@ -2,9 +2,8 @@
 
 namespace EntityFrameworkCore.Diagrams.Dto
 {
-    public class DbEntityIndex
+    public class DbEntityIndex : DbEntityIndexBase
     {
-        public IEnumerable<DbEntityProperty> Properties { get; internal set; }
-        public bool IsUnique { get; internal set; }
+        public IEnumerable<DbEntityProperty> Properties { get; set; }
     }
 }

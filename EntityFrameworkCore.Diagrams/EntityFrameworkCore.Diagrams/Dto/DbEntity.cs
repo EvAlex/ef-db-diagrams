@@ -2,10 +2,8 @@
 
 namespace EntityFrameworkCore.Diagrams.Dto
 {
-    public class DbEntity
+    public class DbEntity : DbEntityBase
     {
-        public string Name { get; set; }
-
         public ClrType ClrType { get; set; }
 
         public IEnumerable<DbEntityProperty> Properties { get; set; }

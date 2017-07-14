@@ -4,7 +4,7 @@ using EntityFrameworkCore.Diagrams.Dto;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace EntityFrameworkCore.Diagrams.Dto
 {
     internal class DtoConverter
     {
@@ -28,12 +28,7 @@ namespace Microsoft.Extensions.DependencyInjection
         private DbEntity ConvertToDto(IEntityType entityType)
         {
             var result = _convertedEntities
-                .FirstOrDefault(e => 
-                    e.Name == entityType.Name 
-                    && e.ClrType.Name == entityType.ClrType.Name
-                    && e.ClrType.Namespace == entityType.ClrType.Name 
-                    && e.ClrType.Assembly == entityType.ClrType.AssemblyQualifiedName
-                );
+                .FirstOrDefault(e => e.Name == entityType.Name && e.ClrType.Equals(entityType.ClrType));
             if (result == null)
             {
                 result = new DbEntity
@@ -56,7 +51,8 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 Name = type.Name,
                 Namespace = type.Name,
-                Assembly = type.AssemblyQualifiedName
+                Assembly = type.AssemblyQualifiedName,
+                GenericTypeArguments = type.GenericTypeArguments.Select(e => ConvertToDto(e))
             };
         }
 
