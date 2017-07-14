@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '@angular/material';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/timer';
@@ -14,7 +16,9 @@ import { ApiService } from './services/api.service';
     ],
     imports: [
         BrowserModule,
-        HttpModule
+        HttpModule,
+        BrowserAnimationsModule,
+        MaterialModule
     ],
     providers: [ApiService],
     bootstrap: [AppComponent]
