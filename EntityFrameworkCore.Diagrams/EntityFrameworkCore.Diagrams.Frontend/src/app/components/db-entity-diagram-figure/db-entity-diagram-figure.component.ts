@@ -24,9 +24,8 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        setTimeout(() => {
-            this._changeDetector.detectChanges();
-        });
+        //  NOTE: force md-table to display initial data. Seems like a bug in library
+        setTimeout(() => this._changeDetector.detectChanges());
     }
 
     ngOnChanges(changes) {

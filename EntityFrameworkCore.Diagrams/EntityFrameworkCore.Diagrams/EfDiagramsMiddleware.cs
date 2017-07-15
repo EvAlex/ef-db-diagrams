@@ -88,6 +88,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private async Task GetModel(HttpContext httpContext)
         {
+            float
             var dbContext = httpContext.RequestServices.GetService(_options.DbContextType) as DbContext;
             var converter = new DtoConverter();
             var dto = converter.ConvertToDto(dbContext.Model);

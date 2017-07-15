@@ -16,13 +16,15 @@ import { DbDiagramComponent } from './components/db-diagram/db-diagram.component
 import { ApiService } from './services/api.service';
 import { DbEntityDiagramFigureComponent } from './components/db-entity-diagram-figure/db-entity-diagram-figure.component';
 import { ClrTypeComponent } from './components/clr-type/clr-type.component';
+import { ScalableDirective } from './directives/scalable.directive';
 
 @NgModule({
     declarations: [
         AppComponent,
         DbDiagramComponent,
         DbEntityDiagramFigureComponent,
-        ClrTypeComponent
+        ClrTypeComponent,
+        ScalableDirective
     ],
     imports: [
         BrowserModule,
