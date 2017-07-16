@@ -1,4 +1,4 @@
-import { Directive, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Renderer2 } from '@angular/core';
+import { Directive, OnInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
 
 const MIN_HEIGHT = 200;
 const MIN_WIDTH = 200;
@@ -18,15 +18,12 @@ export class ScalableDirective implements OnInit, OnDestroy {
 
     constructor(
         private readonly _el: ElementRef,
-        private readonly _renderer: Renderer2,
-        changeDetector: ChangeDetectorRef
+        private readonly _renderer: Renderer2
     ) {
-        // changeDetector.detach();
     }
 
     ngOnInit() {
         this._removeMouseWheelListener = this._renderer.listen(this._el.nativeElement, 'mousewheel', e => this.onMouseWheel(e));
-
     }
 
     ngOnDestroy() {
@@ -65,8 +62,8 @@ export class ScalableDirective implements OnInit, OnDestroy {
 
     private canZoomOut(targetScale: number): boolean {
         const element = this._el.nativeElement as HTMLElement;
-        const width = element.clientWidth * targetScale;
-        const height = element.clientHeight * targetScale;
+        const width = element.scrollWidth * targetScale;
+        const height = element.scrollHeight * targetScale;
         return (height > element.clientHeight - ALLOWED_MARGIN * 2 || width > element.clientWidth - ALLOWED_MARGIN * 2)
             && height > MIN_HEIGHT && width > MIN_WIDTH;
     }

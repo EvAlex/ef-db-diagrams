@@ -10,4 +10,6 @@
     </pre>
 </ng-container>
 
-<efd-db-diagram *ngIf="!modelLoading && !modelLoadError" [model]="model" efdScalable></efd-db-diagram>
+<div *ngIf="!modelLoading && !modelLoadError" class="diagram-container">
+    <efd-db-diagram [model]="model" efdScalable></efd-db-diagram>
+</div>
