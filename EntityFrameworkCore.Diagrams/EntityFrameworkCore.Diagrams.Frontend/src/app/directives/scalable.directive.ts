@@ -13,8 +13,8 @@ export class ScalableDirective implements OnInit, OnDestroy {
     private _removeMouseWheelListener = noop;
 
     private _scale = 1;
-    private _originX: number = null;
-    private _originY: number = null;
+    private _translateX = 0;
+    private _translateY = 0;
 
     constructor(
         private readonly _el: ElementRef,
@@ -38,64 +38,26 @@ export class ScalableDirective implements OnInit, OnDestroy {
         const element = this._el.nativeElement as HTMLElement;
         const elementRect = element.getBoundingClientRect();
 
-        if (this._originX === null) {
-            this._originX = elementRect.width / 2;
-        }
-        if (this._originY === null) {
-            this._originY = elementRect.height / 2;
-        }
-
         const oldScale = this._scale;
-        const newScale = oldScale - Math.sign(e.deltaY) * 0.1 * 10;
+        const newScale = oldScale * Math.exp(- Math.sign(e.deltaY) * 0.15);
 
-        const mouseX = e.clientX - elementRect.left;
-        const mouseY = e.clientY - elementRect.top;
-        const oldOriginX = this._originX;
-        const oldOriginY = this._originY;
-        const newOriginX = mouseX / oldScale - (oldOriginX * oldScale - (oldOriginX - mouseX / oldScale) - mouseX);
-        const newOriginY = mouseY / oldScale - (oldOriginY * oldScale - (oldOriginY - mouseY / oldScale) - mouseY);
-        /*
-        let newOriginX = mouseX / oldScale;
-        let newOriginY = mouseY / oldScale;
-        */
+        if (newScale > oldScale || this.canZoomOut(newScale)) {
+            const mouseX = e.clientX - elementRect.left;
+            const mouseY = e.clientY - elementRect.top;
+            const dx = elementRect.width / 2 - mouseX;
+            const dy = elementRect.height / 2 - mouseY;
+            const oldX = this._translateX;
+            const oldY = this._translateY;
+            const newX = dx * (newScale / oldScale - 1) + oldX;
+            const newY = dy * (newScale / oldScale - 1) + oldY;
 
-        element.style.transform = `scale(${newScale})`;
-        element.style.transformOrigin = `${newOriginX}px ${newOriginY}px`;
+            element.style.transform = `translate(${newX}px, ${newY}px) scale(${newScale})`;
+            element.style.transformOrigin = `50% 50%`;
 
-        this._scale = newScale;
-        this._originX = newOriginX;
-        this._originY = newOriginY;
-
-        console.log([mouseX, mouseY, newOriginX, newOriginY, newScale].map(ee => ee.toFixed(2)));
-
-        /*
-            const scale = this._scale - Math.sign(e.deltaY) * 0.1;
-            if (scale > this._scale || this.canZoomOut(scale)) {
-                // console.log(e.clientX);
-                if (this._x !== null && e.clientX !== this._x) {
-                    const dw = element.clientWidth * (scale - this._scale);
-                    const dx = (this._x - e.clientX) / this._scale;
-
-                    this._x -= (this._x - e.clientX) / this._scale;
-                } else {
-                    this._x = e.clientX;
-                }
-                if (this._y !== null && e.clientY !== this._y) {
-                    this._y -= (this._y - e.clientY) / this._scale;
-                } else {
-                    this._y = e.clientY;
-                }
-                console.log(this._x);
-                this._scale = scale;
-                const x = (this._x / element.clientWidth) * 100;
-                const y = (this._y / element.clientHeight) * 100;
-                element.style.transform = `scale(${this._scale})`;
-                element.style.transformOrigin = `${x}% ${y}%`;
-
-                this._x = e.clientX;
-                this._y = e.clientY;
-            }
-        */
+            this._scale = newScale;
+            this._translateX = newX;
+            this._translateY = newY;
+        }
 
         e.preventDefault();
         e.stopPropagation();
@@ -103,9 +65,9 @@ export class ScalableDirective implements OnInit, OnDestroy {
 
     private canZoomOut(targetScale: number): boolean {
         const element = this._el.nativeElement as HTMLElement;
-        const width = targetScale * element.clientWidth;
-        const height = targetScale * element.clientHeight;
-        return (height > element.clientHeight - ALLOWED_MARGIN || width > element.clientWidth - ALLOWED_MARGIN)
+        const width = element.clientWidth * targetScale;
+        const height = element.clientHeight * targetScale;
+        return (height > element.clientHeight - ALLOWED_MARGIN * 2 || width > element.clientWidth - ALLOWED_MARGIN * 2)
             && height > MIN_HEIGHT && width > MIN_WIDTH;
     }
 
