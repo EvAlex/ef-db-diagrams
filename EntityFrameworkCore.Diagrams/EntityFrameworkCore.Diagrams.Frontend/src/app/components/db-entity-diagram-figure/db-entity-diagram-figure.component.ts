@@ -1,5 +1,9 @@
-import { Component, HostBinding, OnInit, Input, OnChanges, ChangeDetectorRef, AfterViewInit, ElementRef } from '@angular/core';
+import {
+    Component, HostBinding, OnInit, Input, OnChanges, ChangeDetectorRef, AfterViewInit, ElementRef,
+    ViewChildren, QueryList, ViewContainerRef
+} from '@angular/core';
 import { DataSource, CollectionViewer } from '@angular/cdk';
+import { MdRow } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -30,6 +34,9 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
     @HostBinding('style.left.px')
     get left() { return this.entityLayout.x; }
 
+    @ViewChildren(MdRow, { read: ViewContainerRef })
+    rows: QueryList<ViewContainerRef>;
+
     entityContext = new DbEntityContext();
     propertiesDataSource = new DbEntityPropertiesDataSource(this.entityContext);
     displayedColumns = ['name', 'clrType'];
@@ -55,6 +62,20 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
 
         this.entityLayout.width = this._el.nativeElement.clientWidth;
         this.entityLayout.height = this._el.nativeElement.clientHeight;
+
+        const entityElement = this._el.nativeElement as HTMLElement;
+        const entityRect = entityElement.getBoundingClientRect();
+        const rows = this.rows.toArray();
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const propElement = row.element.nativeElement as HTMLElement;
+            const propRect = propElement.getBoundingClientRect();
+            const propLayout = this.entityLayout.getPropertyLayout(this.entity.properties[i]);
+            propLayout.x = propRect.left - entityRect.left;
+            propLayout.y = propRect.top - entityRect.top;
+            propLayout.width = propRect.width;
+            propLayout.height = propRect.height;
+        }
     }
 
 }
