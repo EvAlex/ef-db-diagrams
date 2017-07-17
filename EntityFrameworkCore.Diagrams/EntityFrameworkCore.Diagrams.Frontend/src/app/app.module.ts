@@ -14,6 +14,7 @@ import 'hammerjs';
 import { AppComponent } from './components/app/app.component';
 import { DbDiagramComponent } from './components/db-diagram/db-diagram.component';
 import { ApiService } from './services/api.service';
+import { DiagramLayoutService } from './services/diagram-layout.service';
 import { DbEntityDiagramFigureComponent } from './components/db-entity-diagram-figure/db-entity-diagram-figure.component';
 import { ClrTypeComponent } from './components/clr-type/clr-type.component';
 import { ScalableDirective } from './directives/scalable.directive';
@@ -33,7 +34,7 @@ import { ScalableDirective } from './directives/scalable.directive';
         MaterialModule,
         CdkTableModule
     ],
-    providers: [ApiService],
+    providers: [ApiService, DiagramLayoutService],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
