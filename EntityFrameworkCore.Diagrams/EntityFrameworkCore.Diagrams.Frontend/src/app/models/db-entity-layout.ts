@@ -14,7 +14,7 @@ export class DbEntityLayout {
     }
 
     getPropertyLayout(property: DbEntityProperty): DbEntityPropertyLayout {
-        let result = this.properties.filter(e => e.property === property)[0];
+        let result = this.properties.filter(e => e.property.equals(property))[0];
         if (!result) {
             result = new DbEntityPropertyLayout(property);
             this.properties.push(result);

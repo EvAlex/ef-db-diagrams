@@ -18,4 +18,11 @@ export class DbEntityProperty {
             clrType: ClrType.fromJSON(obj['clrType'])
         });
     }
+
+    equals(other: DbEntityProperty): boolean {
+        return other instanceof DbEntityProperty && (
+            this === other
+            || this.name === other.name && this.clrType.equals(other.clrType)
+        );
+    }
 }

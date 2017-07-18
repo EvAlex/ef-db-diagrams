@@ -60,6 +60,17 @@ export class ClrType {
         return this.prettyName !== this.name;
     }
 
+    equals(other: ClrType): boolean {
+        return other instanceof ClrType && (
+            this === other
+            || this.assembly === other.assembly
+            && this.namespace === other.namespace
+            && this.name === other.name
+            && this.genericTypeArguments.length === other.genericTypeArguments.length
+            && this.genericTypeArguments.every((e, i) => other.genericTypeArguments[i].equals(e))
+        );
+    }
+
     static fromJSON(obj: Object) {
         return Object.assign(new ClrType(), obj, {
             genericTypeArguments: obj['genericTypeArguments'].map(e => ClrType.fromJSON(e))
