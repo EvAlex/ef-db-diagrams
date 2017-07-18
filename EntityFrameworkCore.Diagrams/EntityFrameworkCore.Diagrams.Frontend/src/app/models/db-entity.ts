@@ -23,4 +23,12 @@ export class DbEntity {
             indexes: obj['indexes'].map(e => DbEntityIndex.fromJSON(e)),
         });
     }
+
+    equals(other: DbEntity): boolean {
+        return other instanceof DbEntity && (
+            this === other
+            || this.name === other.name
+            && this.clrType.equals(other.clrType)
+        );
+    }
 }

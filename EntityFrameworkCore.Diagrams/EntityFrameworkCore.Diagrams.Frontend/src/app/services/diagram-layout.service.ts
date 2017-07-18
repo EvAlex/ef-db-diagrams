@@ -26,12 +26,12 @@ export class DiagramLayoutService {
             modelLayout.entities.map(e => `  - ${e.entity.shortName} (${e.width}, ${e.height})`).join('\n')
         );
 
-        const margin = 16;
+        const minEntitiesMargin = 16 + 2 * minRelationEdge;
         let curX = 0, curY = 0;
         for (const entity of modelLayout.entities) {
             entity.x = curX;
             entity.y = curY;
-            curX += entity.width + margin;
+            curX += entity.width + minEntitiesMargin;
         }
 
         for (const relation of modelLayout.relations) {
@@ -89,7 +89,7 @@ export class DiagramLayoutService {
 
             const hcX1 = vcX;
             const hcX2 = toTheRight ? vcX + minRelationEdge : vcX - minRelationEdge;
-            const hcY = (vcY2 - vcY1) / 2;
+            const hcY = vertConnector.center.y;
             const horConnector = new Line(new Point(hcX1, hcY), new Point(hcX2, hcY));
 
             lines.push(vertConnector, horConnector);
@@ -104,7 +104,7 @@ export class DiagramLayoutService {
         return entityLayout;
     }
 
-    private getModelLayout(model: DbModel): DbModelLayout {
+    getModelLayout(model: DbModel): DbModelLayout {
         let result = this._modelLayouts.filter(e => e.model === model)[0];
         if (!result) {
             result = new DbModelLayout(model);

@@ -18,6 +18,7 @@ import { DiagramLayoutService } from './services/diagram-layout.service';
 import { DbEntityDiagramFigureComponent } from './components/db-entity-diagram-figure/db-entity-diagram-figure.component';
 import { ClrTypeComponent } from './components/clr-type/clr-type.component';
 import { ScalableDirective } from './directives/scalable.directive';
+import { DbRelationConnectorComponent } from './components/db-relation-connector/db-relation-connector.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { ScalableDirective } from './directives/scalable.directive';
         DbDiagramComponent,
         DbEntityDiagramFigureComponent,
         ClrTypeComponent,
-        ScalableDirective
+        ScalableDirective,
+        DbRelationConnectorComponent
     ],
     imports: [
         BrowserModule,

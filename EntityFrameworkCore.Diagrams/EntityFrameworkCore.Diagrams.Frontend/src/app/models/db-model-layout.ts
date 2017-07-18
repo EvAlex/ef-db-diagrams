@@ -16,7 +16,7 @@ export class DbModelLayout {
     }
 
     getEntityLayout(entity: DbEntity): DbEntityLayout {
-        let result = this.entities.filter(e => e.entity === entity)[0];
+        let result = this.entities.filter(e => e.entity.equals(entity))[0];
         if (!result) {
             result = new DbEntityLayout(entity);
             this.entities.push(result);

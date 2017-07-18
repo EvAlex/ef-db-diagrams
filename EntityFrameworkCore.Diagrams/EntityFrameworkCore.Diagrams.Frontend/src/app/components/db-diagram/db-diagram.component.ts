@@ -14,6 +14,10 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
     @Input()
     model: DbModel;
 
+    get modelLayout() { return this._diagramLayout.getModelLayout(this.model); }
+
+    hoveredRelation: null;
+
     constructor(private readonly _diagramLayout: DiagramLayoutService) {
     }
 

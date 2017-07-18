@@ -1,0 +1,8 @@
+
+<div *ngFor="let line of relation.path"
+    class="relation-path-line"
+    [style.left.px]="line.isHorizontal ? line.left.x : line.p1.x"
+    [style.top.px]="line.isHorizontal ? line.p1.y : line.top.y"
+    [style.width.px]="line.isHorizontal ? line.dx : line.width"
+    [style.height.px]="line.isHorizontal ? line.width : line.dy">
+</div>

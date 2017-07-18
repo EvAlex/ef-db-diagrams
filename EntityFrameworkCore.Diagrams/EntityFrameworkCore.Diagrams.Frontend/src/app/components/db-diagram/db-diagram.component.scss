@@ -1,10 +1,21 @@
+@import '~@angular/material/theming';
+@import '../../../theme';
 
 :host {
     display: block;
     height: 100%;
     position: relative;
+    margin: 16px;
 
     efd-db-entity-diagram-figure {
-        margin: 16px;
+    }
+
+    .relation-path-line {
+        position: absolute;
+        background: black;
+
+        &.hover {
+            background: mat-color(map-get($efd-app-theme, accent));
+        }
     }
 }

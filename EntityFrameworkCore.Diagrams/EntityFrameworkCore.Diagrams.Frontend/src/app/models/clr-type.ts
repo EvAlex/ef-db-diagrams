@@ -60,6 +60,12 @@ export class ClrType {
         return this.prettyName !== this.name;
     }
 
+    static fromJSON(obj: Object) {
+        return Object.assign(new ClrType(), obj, {
+            genericTypeArguments: obj['genericTypeArguments'].map(e => ClrType.fromJSON(e))
+        });
+    }
+
     equals(other: ClrType): boolean {
         return other instanceof ClrType && (
             this === other
@@ -69,11 +75,5 @@ export class ClrType {
             && this.genericTypeArguments.length === other.genericTypeArguments.length
             && this.genericTypeArguments.every((e, i) => other.genericTypeArguments[i].equals(e))
         );
-    }
-
-    static fromJSON(obj: Object) {
-        return Object.assign(new ClrType(), obj, {
-            genericTypeArguments: obj['genericTypeArguments'].map(e => ClrType.fromJSON(e))
-        });
     }
 }

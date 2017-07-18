@@ -15,4 +15,12 @@ export class DbEntityRelationLayout {
         public readonly foreignKey: DbEntityForeignKey
     ) {
     }
+
+    toString(): string {
+        const dependentEntity = this.dependentEntity.shortName;
+        const dependentProperties = this.dependentProperties.map(e => e.name).join(', ');
+        const principalEntity = this.principalEntity.shortName;
+        const principalProperties = this.dependentProperties.map(e => e.name).join(', ');
+        return `${dependentEntity} (${dependentProperties}) → ${principalEntity} (${principalProperties})`;
+    }
 }
