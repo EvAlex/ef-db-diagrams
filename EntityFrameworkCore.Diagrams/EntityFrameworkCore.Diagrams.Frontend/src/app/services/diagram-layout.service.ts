@@ -8,12 +8,51 @@ import { DbModel } from '../models/db-model';
 import { DbEntity } from '../models/db-entity';
 import { Point } from '../models/point';
 import { Line } from '../models/line';
+import { DbEntityRelationConnector } from '../models/db-entity-relation-connector';
 
 const minRelationEdge = 16;
+const ENTITY_ZINDEX_NORMAL = 10;
+const ENTITY_ZINDEX_HOVER = 11;
+const RELATION_ZINDEX_NORMAL = 5;
+const RELATION_ZINDEX_HOVER = 6;
 
 @Injectable()
 export class DiagramLayoutService {
     private readonly _modelLayouts: DbModelLayout[] = [];
+
+    get hoveredRelation(): DbEntityRelationLayout { return this._hoveredRelation; }
+    set hoveredRelation(value: DbEntityRelationLayout) {
+        if (this._hoveredRelation) {
+            this._hoveredRelation.zIndex = RELATION_ZINDEX_NORMAL;
+        }
+        if (value) {
+            value.zIndex = RELATION_ZINDEX_HOVER;
+        }
+        this._hoveredRelation = value;
+
+        if (this._hoveredEntity) {
+            this._hoveredEntity.zIndex = ENTITY_ZINDEX_NORMAL;
+        }
+        this._hoveredEntity = null;
+    }
+    private _hoveredRelation: DbEntityRelationLayout = null;
+
+    get hoveredEntity(): DbEntityLayout { return this._hoveredEntity; }
+    set hoveredEntity(value: DbEntityLayout) {
+        if (this._hoveredEntity) {
+            this._hoveredEntity.zIndex = ENTITY_ZINDEX_NORMAL;
+        }
+        if (value) {
+            value.zIndex = ENTITY_ZINDEX_HOVER;
+        }
+        this._hoveredEntity = value;
+
+        if (this._hoveredRelation) {
+            this._hoveredRelation.zIndex = RELATION_ZINDEX_NORMAL;
+        }
+        this._hoveredRelation = null;
+    }
+    private _hoveredEntity: DbEntityLayout = null;
 
     constructor() {
 
@@ -32,6 +71,8 @@ export class DiagramLayoutService {
             entity.x = curX;
             entity.y = curY;
             curX += entity.width + minEntitiesMargin;
+
+            entity.zIndex = ENTITY_ZINDEX_NORMAL;
         }
 
         for (const relation of modelLayout.relations) {
@@ -50,18 +91,28 @@ export class DiagramLayoutService {
             );
 
             const principalIsLeftmost = principalEntityCenter.x < dependentEntityCenter.x;
-            const lines: Line[] = [
-                ...this.getRelationToEntityConnectorLines(principalEntity, relation.principalProperties, principalIsLeftmost),
-                ...this.getRelationToEntityConnectorLines(dependentEntity, relation.dependentProperties, !principalIsLeftmost)
-            ];
 
-            relation.path = lines;
+            relation.principalConnector =
+                this.getRelationToEntityConnector(principalEntity, relation.principalProperties, principalIsLeftmost);
+            relation.dependentConnector =
+                this.getRelationToEntityConnector(dependentEntity, relation.dependentProperties, !principalIsLeftmost);
+            relation.path.push(
+                relation.principalConnector.externalPoint,
+                new Point(relation.principalConnector.externalPoint.x, relation.dependentConnector.externalPoint.y),
+                relation.dependentConnector.externalPoint
+            );
+
+            relation.zIndex = RELATION_ZINDEX_NORMAL;
         }
 
     }
 
-    private getRelationToEntityConnectorLines(entity: DbEntityLayout, relationProperties: DbEntityProperty[], toTheRight: boolean): Line[] {
-        const lines: Line[] = [];
+    private getRelationToEntityConnector(
+        entity: DbEntityLayout,
+        relationProperties: DbEntityProperty[],
+        toTheRight: boolean
+    ): DbEntityRelationConnector {
+        const result = new DbEntityRelationConnector();
 
         for (const prop of relationProperties) {
             const propLayout = entity.getPropertyLayout(prop);
@@ -76,26 +127,35 @@ export class DiagramLayoutService {
             const p2y = p1y;
             const p2 = new Point(p2x, p2y);
 
-            lines.push(new Line(p1, p2));
+            result.lines.push(new Line(p1, p2));
         }
 
-        if (lines.length > 1) {
-            lines.sort((a, b) => a.p2.y - b.p2.y);
+        if (result.lines.length > 1) {
+            result.lines.sort((a, b) => a.p1.y - b.p1.y);
 
-            const vcX = toTheRight ? lines[0].right.x : lines[0].left.x;
-            const vcY1 = lines[0].p1.y;
-            const vcY2 = lines[lines.length - 1].p1.y;
-            const vertConnector = new Line(new Point(vcX, vcY1), new Point(vcX, vcY2));
+            const leftX = result.lines[0].left.x;
+            const rightX = result.lines[0].right.x;
+            const bottomY = result.lines[result.lines.length - 1].p1.y;
+            const topY = result.lines[0].p1.y;
+
+            const vcX = toTheRight ? rightX : leftX;
+            const vcY1 = topY;
+            const vcY2 = bottomY;
+            const verticalLine = new Line(new Point(vcX, vcY1), new Point(vcX, vcY2));
+            result.lines.push(verticalLine);
 
             const hcX1 = vcX;
             const hcX2 = toTheRight ? vcX + minRelationEdge : vcX - minRelationEdge;
-            const hcY = vertConnector.center.y;
-            const horConnector = new Line(new Point(hcX1, hcY), new Point(hcX2, hcY));
+            const hcY = topY + (bottomY - topY) / 2;
+            const horizontalLine = new Line(new Point(hcX1, hcY), new Point(hcX2, hcY));
+            result.lines.push(horizontalLine);
 
-            lines.push(vertConnector, horConnector);
+            result.externalPoint = horizontalLine.p2;
+        } else {
+            result.externalPoint = toTheRight ? result.lines[0].right : result.lines[0].left;
         }
 
-        return lines;
+        return result;
     }
 
     getEntityLayout(model: DbModel, entity: DbEntity): DbEntityLayout {

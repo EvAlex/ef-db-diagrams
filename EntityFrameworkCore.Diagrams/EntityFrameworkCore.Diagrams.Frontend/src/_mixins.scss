@@ -1,0 +1,7 @@
+@function easing-fn() {
+    @return cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@function transition-property($property: all, $delay: 0ms, $duration: 200ms) {
+    @return #{$property} #{$duration} easing-fn() #{$delay};
+}

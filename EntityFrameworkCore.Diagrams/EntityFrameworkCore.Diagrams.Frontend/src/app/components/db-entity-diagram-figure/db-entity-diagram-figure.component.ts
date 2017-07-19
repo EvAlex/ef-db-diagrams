@@ -1,6 +1,6 @@
 import {
     Component, HostBinding, OnInit, Input, OnChanges, ChangeDetectorRef, AfterViewInit, ElementRef,
-    ViewChildren, QueryList, ViewContainerRef
+    ViewChildren, QueryList, ViewContainerRef, HostListener
 } from '@angular/core';
 import { DataSource, CollectionViewer } from '@angular/cdk';
 import { MdRow } from '@angular/material';
@@ -33,6 +33,9 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
 
     @HostBinding('style.left.px')
     get left() { return this.entityLayout.x; }
+
+    @HostBinding('style.zIndex')
+    get zIndex() { return this.entityLayout.zIndex; }
 
     @ViewChildren(MdRow, { read: ViewContainerRef })
     rows: QueryList<ViewContainerRef>;
@@ -76,6 +79,12 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
             propLayout.width = propRect.width;
             propLayout.height = propRect.height;
         }
+    }
+
+    @HostListener('mouseover', ['$event'])
+    onMouseEnter(e: MouseEvent) {
+        this._diagramLayout.hoveredEntity = this.entityLayout;
+        e.stopPropagation();
     }
 
 }

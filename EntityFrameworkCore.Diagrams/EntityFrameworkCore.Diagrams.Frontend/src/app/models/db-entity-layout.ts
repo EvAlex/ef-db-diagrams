@@ -7,6 +7,7 @@ export class DbEntityLayout {
     y: number = null;
     width: number = null;
     height: number = null;
+    zIndex = 0;
 
     readonly properties: DbEntityPropertyLayout[] = [];
 

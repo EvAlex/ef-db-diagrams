@@ -3,21 +3,24 @@
 
 <h1 *ngIf="!model.entities || model.entities.length === 0">Database model is empty</h1>
 
-<efd-db-entity-diagram-figure *ngFor="let e of model.entities" [model]="model" [entity]="e"></efd-db-entity-diagram-figure>
+<efd-db-entity-diagram-figure
+    *ngFor="let e of model.entities"
+    [model]="model"
+    [entity]="e">
+</efd-db-entity-diagram-figure>
 
 <!-- <efd-db-relation-connector *ngFor="let relation of modelLayout.relations" [relation]="relation"></efd-db-relation-connector> -->
 
 <ng-container *ngFor="let relation of modelLayout.relations">
-    <div *ngFor="let line of relation.path"
+    <div *ngFor="let line of relation.fullPath"
         class="relation-path-line"
         [class.hover]="hoveredRelation === relation"
         [style.left.px]="line.isHorizontal ? line.left.x : line.p1.x - line.width / 2"
         [style.top.px]="line.isHorizontal ? line.p1.y - line.width / 2 : line.top.y"
         [style.width.px]="line.isHorizontal ? line.dx : line.width"
         [style.height.px]="line.isHorizontal ? line.width : line.dy"
-        [mdTooltip]="relation.toString()"
-        (mouseover)="hoveredRelation = relation"
-        (mouseenter)="hoveredRelation = relation"
-        (mouseleave)="hoveredRelation = null">
+        [style.zIndex]="relation.zIndex"
+        [title]="relation.toString()"
+        (mouseover)="onMouseOverRelation($event, relation)">
     </div>
 </ng-container>

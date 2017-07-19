@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
 @import '../../../theme';
+@import '../../../mixins';
 
 :host {
     display: block;
@@ -13,6 +14,7 @@
     .relation-path-line {
         position: absolute;
         background: black;
+        // transition: transition-property(background);
 
         &.hover {
             background: mat-color(map-get($efd-app-theme, accent));
