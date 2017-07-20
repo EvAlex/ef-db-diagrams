@@ -8,7 +8,7 @@
     <div class="diagram-container" efdScalable>
 
         <efd-db-entity-diagram-figure
-            *ngFor="let e of model.entities"
+            *ngFor="let e of model.entities; trackBy: getEntityKey"
             [model]="model"
             [entity]="e"
             efdDraggable

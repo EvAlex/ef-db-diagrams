@@ -16,7 +16,11 @@ export class DbEntityLayout {
 
     readonly properties: DbEntityPropertyLayout[] = [];
 
-    constructor(public readonly entity: DbEntity) {
+    /**
+     * @param entity Decorated entity
+     * @param key Identifier used in ngFor trackBy
+     */
+    constructor(public readonly entity: DbEntity, public readonly key: number) {
     }
 
     getPropertyLayout(property: DbEntityProperty): DbEntityPropertyLayout {

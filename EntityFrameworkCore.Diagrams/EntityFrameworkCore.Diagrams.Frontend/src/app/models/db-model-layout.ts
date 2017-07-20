@@ -3,6 +3,8 @@ import { DbEntity } from './db-entity';
 import { DbEntityLayout } from './db-entity-layout';
 import { DbEntityRelationLayout } from './db-entity-relation-layout';
 
+let entityKeyCounter = 0;
+
 export class DbModelLayout {
     readonly entities: DbEntityLayout[] = [];
     readonly relations: DbEntityRelationLayout[] = [];
@@ -18,7 +20,7 @@ export class DbModelLayout {
     getEntityLayout(entity: DbEntity): DbEntityLayout {
         let result = this.entities.filter(e => e.entity.equals(entity))[0];
         if (!result) {
-            result = new DbEntityLayout(entity);
+            result = new DbEntityLayout(entity, ++entityKeyCounter);
             this.entities.push(result);
         }
         return result;
