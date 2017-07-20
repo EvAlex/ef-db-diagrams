@@ -77,6 +77,40 @@ export class DiagramLayoutService {
 
     }
 
+    moveEntity(model: DbModel, entity: DbEntity, x: number, y: number) {
+        const modelLayout = this.getModelLayout(model);
+
+        const entityLayout = modelLayout.getEntityLayout(entity);
+        entityLayout.x = x;
+        entityLayout.y = y;
+        this.activeEntity = entityLayout;
+
+        //  TODO move connectors
+        const principalRelations = modelLayout.relations.filter(e => e.principalEntity.equals(entity));
+        for (const relation of principalRelations) {
+            const dependent = modelLayout.getEntityLayout(relation.dependentEntity);
+            const principalIsLeftmost = entityLayout.center.x < dependent.center.x;
+            relation.principalConnector = this.getRelationToEntityConnector(
+                entityLayout,
+                relation.principalProperties,
+                principalIsLeftmost
+            );
+            relation.connect();
+        }
+
+        const dependentRelations = modelLayout.relations.filter(e => e.dependentEntity.equals(entity));
+        for (const relation of dependentRelations) {
+            const principal = modelLayout.getEntityLayout(relation.principalEntity);
+            const principalIsLeftmost = principal.center.x < entityLayout.center.x;
+            relation.dependentConnector = this.getRelationToEntityConnector(
+                entityLayout,
+                relation.dependentProperties,
+                ! principalIsLeftmost
+            );
+            relation.connect();
+        }
+    }
+
     arrangeLayout(model: DbModel) {
         const modelLayout = this.getModelLayout(model);
         console.log(
@@ -100,26 +134,13 @@ export class DiagramLayoutService {
             const leftEntity = principalEntity.x < dependentEntity.x ? principalEntity : dependentEntity;
             const rightEntity = principalEntity.x < dependentEntity.x ? dependentEntity : principalEntity;
 
-            const principalEntityCenter = new Point(
-                principalEntity.x + principalEntity.width / 2,
-                principalEntity.y + principalEntity.height / 2
-            );
-            const dependentEntityCenter = new Point(
-                dependentEntity.x + dependentEntity.width / 2,
-                dependentEntity.y + dependentEntity.height / 2
-            );
-
-            const principalIsLeftmost = principalEntityCenter.x < dependentEntityCenter.x;
+            const principalIsLeftmost = principalEntity.center.x < dependentEntity.center.x;
 
             relation.principalConnector =
                 this.getRelationToEntityConnector(principalEntity, relation.principalProperties, principalIsLeftmost);
             relation.dependentConnector =
-                this.getRelationToEntityConnector(dependentEntity, relation.dependentProperties, !principalIsLeftmost);
-            relation.path.push(
-                relation.principalConnector.externalPoint,
-                new Point(relation.principalConnector.externalPoint.x, relation.dependentConnector.externalPoint.y),
-                relation.dependentConnector.externalPoint
-            );
+                this.getRelationToEntityConnector(dependentEntity, relation.dependentProperties, ! principalIsLeftmost);
+            relation.connect();
 
             relation.zIndex = RELATION_ZINDEX_NORMAL;
         }

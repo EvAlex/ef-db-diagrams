@@ -12,15 +12,8 @@ export class DbEntityRelationLayout {
 
     principalConnector = new DbEntityRelationConnector();
     dependentConnector = new DbEntityRelationConnector();
-    path: Point[] = [];
 
-    get fullPath(): Line[] {
-        return [
-            ...this.principalConnector.lines,
-            ...this.path.slice(1).reduce((p, c, i) => [...p, new Line(this.path[i], this.path[i + 1])], []),
-            ...this.dependentConnector.lines
-        ];
-    }
+    fullPath: Line[] = [];
 
     zIndex = 0;
 
@@ -28,6 +21,22 @@ export class DbEntityRelationLayout {
         public readonly dependentEntity: DbEntity,
         public readonly foreignKey: DbEntityForeignKey
     ) {
+    }
+
+    connect() {
+        const connectionPoints = [
+            this.principalConnector.externalPoint,
+            new Point(this.principalConnector.externalPoint.x, this.dependentConnector.externalPoint.y),
+            this.dependentConnector.externalPoint
+        ];
+        const connectionLines = connectionPoints
+            .slice(1)
+            .reduce((p, c, i) => [...p, new Line(connectionPoints[i], connectionPoints[i + 1])], []);
+        this.fullPath = [
+            ...this.principalConnector.lines,
+            ...connectionLines,
+            ...this.dependentConnector.lines
+        ];
     }
 
     toString(): string {

@@ -1,6 +1,7 @@
 import { DbEntity } from './db-entity';
 import { DbEntityPropertyLayout } from './db-entity-property-layout';
 import { DbEntityProperty } from './db-entity-property';
+import { Point } from './point';
 
 export class DbEntityLayout {
     x: number = null;
@@ -8,6 +9,10 @@ export class DbEntityLayout {
     width: number = null;
     height: number = null;
     zIndex = 0;
+
+    get center(): Point {
+        return new Point(this.x + this.width / 2, this.y + this.height / 2);
+    }
 
     readonly properties: DbEntityPropertyLayout[] = [];
 

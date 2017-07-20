@@ -45,10 +45,7 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
     }
 
     onEntityDrag(entity: DbEntity, { top, left }: { top: number, left: number }) {
-        const entityLayout = this._diagramLayout.getEntityLayout(this.model, entity);
-        entityLayout.x = left;
-        entityLayout.y = top;
-        this._diagramLayout.activeEntity = entityLayout;
+        this._diagramLayout.moveEntity(this.model, entity, left, top);
     }
 
     onMouseOverRelation(e: MouseEvent, relation: DbEntityRelationLayout) {
