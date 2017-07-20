@@ -12,7 +12,8 @@ import { DbEntityRelationConnector } from '../models/db-entity-relation-connecto
 
 const minRelationEdge = 16;
 const ENTITY_ZINDEX_NORMAL = 10;
-const ENTITY_ZINDEX_HOVER = 11;
+const ENTITY_ZINDEX_ACTIVE = 11;
+const ENTITY_ZINDEX_HOVER = 12;
 const RELATION_ZINDEX_NORMAL = 5;
 const RELATION_ZINDEX_HOVER = 6;
 
@@ -31,7 +32,9 @@ export class DiagramLayoutService {
         this._hoveredRelation = value;
 
         if (this._hoveredEntity) {
-            this._hoveredEntity.zIndex = ENTITY_ZINDEX_NORMAL;
+            this._hoveredEntity.zIndex = this._hoveredEntity === this._activeEntity
+                ? ENTITY_ZINDEX_ACTIVE
+                : ENTITY_ZINDEX_NORMAL;
         }
         this._hoveredEntity = null;
     }
@@ -40,7 +43,9 @@ export class DiagramLayoutService {
     get hoveredEntity(): DbEntityLayout { return this._hoveredEntity; }
     set hoveredEntity(value: DbEntityLayout) {
         if (this._hoveredEntity) {
-            this._hoveredEntity.zIndex = ENTITY_ZINDEX_NORMAL;
+            this._hoveredEntity.zIndex = this._hoveredEntity === this._activeEntity
+                ? ENTITY_ZINDEX_ACTIVE
+                : ENTITY_ZINDEX_NORMAL;
         }
         if (value) {
             value.zIndex = ENTITY_ZINDEX_HOVER;
@@ -53,6 +58,20 @@ export class DiagramLayoutService {
         this._hoveredRelation = null;
     }
     private _hoveredEntity: DbEntityLayout = null;
+
+    get activeEntity() { return this._activeEntity; }
+    set activeEntity(value: DbEntityLayout) {
+        if (this._activeEntity) {
+            this._activeEntity.zIndex = this._hoveredEntity === this._activeEntity
+                ? ENTITY_ZINDEX_HOVER
+                : ENTITY_ZINDEX_NORMAL;
+        }
+        if (value) {
+            value.zIndex = ENTITY_ZINDEX_ACTIVE;
+        }
+        this._activeEntity = value;
+    }
+    private _activeEntity: DbEntityLayout = null;
 
     constructor() {
 
