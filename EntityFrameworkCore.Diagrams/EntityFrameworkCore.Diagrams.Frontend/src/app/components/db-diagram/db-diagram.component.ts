@@ -48,6 +48,16 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
         return entity.key;
     }
 
+    onEntityDragStart(entity: DbEntity) {
+        const entityLayout = this._diagramLayout.getEntityLayout(this.model, entity);
+        this._diagramLayout.draggedEntity = entityLayout;
+    }
+
+    onEntityDragEnd(entity: DbEntity) {
+        const entityLayout = this._diagramLayout.getEntityLayout(this.model, entity);
+        this._diagramLayout.draggedEntity = null;
+    }
+
     onEntityDrag(entity: DbEntity, { top, left }: { top: number, left: number }) {
         this._diagramLayout.moveEntity(this.model, entity, left, top);
     }

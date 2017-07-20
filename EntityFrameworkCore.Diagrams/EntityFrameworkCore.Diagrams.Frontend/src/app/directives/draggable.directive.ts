@@ -14,6 +14,12 @@ export class DraggableDirective implements OnInit, OnDestroy {
     @Output()
     efdDrag = new EventEmitter<{ top: number, left: number }>();
 
+    @Output()
+    efdDragStart = new EventEmitter<never>();
+
+    @Output()
+    efdDragEnd = new EventEmitter<never>();
+
     @Input()
     scrollContainer: HTMLElement;
 
@@ -40,11 +46,13 @@ export class DraggableDirective implements OnInit, OnDestroy {
             this.removeEventsListeners.push(
                 renderer.listen('document', 'mouseup', e => {
                     mouseup.emit(e);
+                    this.efdDragEnd.emit();
                     e.stopPropagation();
                     e.preventDefault();
                 }),
                 renderer.listen(element.nativeElement, 'mousedown', e => {
                     mousedown.emit(e);
+                    this.efdDragStart.emit();
                     e.stopPropagation();
                     e.preventDefault();
                 }),

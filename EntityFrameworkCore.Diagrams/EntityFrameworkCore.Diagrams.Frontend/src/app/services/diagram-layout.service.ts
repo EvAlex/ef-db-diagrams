@@ -14,6 +14,7 @@ const minRelationEdge = 16;
 const ENTITY_ZINDEX_NORMAL = 10;
 const ENTITY_ZINDEX_ACTIVE = 11;
 const ENTITY_ZINDEX_HOVER = 12;
+const ENTITY_ZINDEX_DRAG = 13;
 const RELATION_ZINDEX_NORMAL = 5;
 const RELATION_ZINDEX_HOVER = 6;
 
@@ -72,6 +73,18 @@ export class DiagramLayoutService {
         this._activeEntity = value;
     }
     private _activeEntity: DbEntityLayout = null;
+
+    get draggedEntity() { return this._draggedEntity; }
+    set draggedEntity(value: DbEntityLayout) {
+        if (this._draggedEntity) {
+            this.activeEntity = this._draggedEntity;
+        }
+        if (value) {
+            value.zIndex = ENTITY_ZINDEX_DRAG;
+        }
+        this._draggedEntity = value;
+    }
+    private _draggedEntity: DbEntityLayout = null;
 
     constructor() {
 
