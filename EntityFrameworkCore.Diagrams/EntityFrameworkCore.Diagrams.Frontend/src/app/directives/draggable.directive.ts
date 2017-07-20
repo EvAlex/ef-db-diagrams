@@ -14,6 +14,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
     @Output()
     efdDrag = new EventEmitter<{ top: number, left: number }>();
 
+    @Input()
+    scrollContainer: HTMLElement;
+
     mousedrag: Observable<any>;
 
     removeEventsListeners: Function[] = [];
@@ -46,7 +49,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
                     e.preventDefault();
                 }),
                 renderer.listen('document', 'mousemove', e => {
-                    mousemove.emit(e);console.log('mousemove', e.clientX, e.screenX, e.pageX);
+                    mousemove.emit(e);
                     e.stopPropagation();
                     e.preventDefault();
                 }),
@@ -63,8 +66,8 @@ export class DraggableDirective implements OnInit, OnDestroy {
             })
             .flatMap(offset =>
                 mousemove.map(e => ({
-                    top: e.clientY - offset.top,
-                    left: e.clientX - offset.left
+                    top: e.clientY - offset.top + (this.scrollContainer ? this.scrollContainer.scrollTop : 0),
+                    left: e.clientX - offset.left + (this.scrollContainer ? this.scrollContainer.scrollLeft : 0)
                 }))
                 .takeUntil(mouseup)
             );
