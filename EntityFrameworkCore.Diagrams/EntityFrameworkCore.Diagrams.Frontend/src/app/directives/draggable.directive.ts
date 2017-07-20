@@ -1,0 +1,100 @@
+import { Directive, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef, Renderer2, NgZone } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { EventDebouncer } from '../core/event-debouncer';
+
+@Directive({
+    selector: '[efdDraggable]'
+})
+export class DraggableDirective implements OnInit, OnDestroy {
+
+    @Input()
+    dragChangeElementStyle = true;
+
+    @Output()
+    efdDrag = new EventEmitter<{ top: number, left: number }>();
+
+    mousedrag: Observable<any>;
+
+    removeEventsListeners: Function[] = [];
+
+    constructor(public element: ElementRef, renderer: Renderer2, private zone: NgZone) {
+        this.element.nativeElement.style.cursor = 'pointer';
+
+        const mouseup = new EventEmitter<MouseEvent>();
+        const mousedown = new EventEmitter<MouseEvent>();
+        const mousemove = new EventEmitter<MouseEvent>();
+
+        /* const debouncer = new EventDebouncer(zone, renderer);
+        this.removeEventsListeners.push(
+            debouncer.listen('document', 'mouseup', e => mouseup.emit(e)),
+            debouncer.listen(element.nativeElement, 'mousedown', e => mousedown.emit(e)),
+            debouncer.listen('document', 'mousemove', e => mousemove.emit(e)),
+        ); */
+
+
+        zone.runOutsideAngular(() => {
+            this.removeEventsListeners.push(
+                renderer.listen('document', 'mouseup', e => {
+                    mouseup.emit(e);
+                    e.stopPropagation();
+                    e.preventDefault();
+                }),
+                renderer.listen(element.nativeElement, 'mousedown', e => {
+                    mousedown.emit(e);
+                    e.stopPropagation();
+                    e.preventDefault();
+                }),
+                renderer.listen('document', 'mousemove', e => {
+                    mousemove.emit(e);console.log('mousemove', e.clientX, e.screenX, e.pageX);
+                    e.stopPropagation();
+                    e.preventDefault();
+                }),
+            );
+        });
+
+        this.mousedrag = mousedown
+            .map(e => {
+                const { top, left } = this.element.nativeElement.getBoundingClientRect();
+                return {
+                    top: e.clientY - top,
+                    left: e.clientX - left,
+                };
+            })
+            .flatMap(offset =>
+                mousemove.map(e => ({
+                    top: e.clientY - offset.top,
+                    left: e.clientX - offset.left
+                }))
+                .takeUntil(mouseup)
+            );
+    }
+
+    ngOnInit() {
+        this.removeEventsListeners.push(
+            this.mousedrag
+                // .debounceTime(40)
+                .subscribe(pos => {
+                    if (this.dragChangeElementStyle) {
+                        this.element.nativeElement.style.top = pos.top + 'px';
+                        this.element.nativeElement.style.left = pos.left + 'px';
+                    }
+                    // this.zone.run(() => {
+                    this.efdDrag.emit({
+                        top: pos.top,
+                        left: pos.left
+                    });
+                    // });
+                })
+                .unsubscribe
+        );
+    }
+
+    ngOnDestroy() {
+        for (const fn of this.removeEventsListeners) {
+            fn();
+        }
+        this.removeEventsListeners = [];
+    }
+
+}

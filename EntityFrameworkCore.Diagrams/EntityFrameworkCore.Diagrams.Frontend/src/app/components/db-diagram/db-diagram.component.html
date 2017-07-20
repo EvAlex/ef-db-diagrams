@@ -6,7 +6,13 @@
 <efd-db-entity-diagram-figure
     *ngFor="let e of model.entities"
     [model]="model"
-    [entity]="e">
+    [entity]="e"
+    efdDraggable
+    [dragChangeElementStyle]="false"
+    (efdDrag)="onEntityDrag(e, $event)"
+    >
+    <!--
+    -->
 </efd-db-entity-diagram-figure>
 
 <!-- <efd-db-relation-connector *ngFor="let relation of modelLayout.relations" [relation]="relation"></efd-db-relation-connector> -->

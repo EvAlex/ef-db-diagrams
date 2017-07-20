@@ -6,6 +6,9 @@ import { MaterialModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/timer';
 
@@ -19,6 +22,7 @@ import { DbEntityDiagramFigureComponent } from './components/db-entity-diagram-f
 import { ClrTypeComponent } from './components/clr-type/clr-type.component';
 import { ScalableDirective } from './directives/scalable.directive';
 import { DbRelationConnectorComponent } from './components/db-relation-connector/db-relation-connector.component';
+import { DraggableDirective } from './directives/draggable.directive';
 
 @NgModule({
     declarations: [
@@ -27,7 +31,8 @@ import { DbRelationConnectorComponent } from './components/db-relation-connector
         DbEntityDiagramFigureComponent,
         ClrTypeComponent,
         ScalableDirective,
-        DbRelationConnectorComponent
+        DbRelationConnectorComponent,
+        DraggableDirective,
     ],
     imports: [
         BrowserModule,

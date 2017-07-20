@@ -1,9 +1,13 @@
-import { Component, OnInit, Input, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, HostListener, Renderer2, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';
+import { DbEntity } from '../../models/db-entity';
+import { DbEntityLayout } from '../../models/db-entity-layout';
 import { DbEntityRelationLayout } from '../../models/db-entity-relation-layout';
+import { EventDebouncer } from '../../core/event-debouncer';
 
 @Component({
     selector: 'efd-db-diagram',
@@ -11,6 +15,7 @@ import { DbEntityRelationLayout } from '../../models/db-entity-relation-layout';
     styleUrls: ['./db-diagram.component.scss']
 })
 export class DbDiagramComponent implements OnInit, AfterViewInit {
+    private mouseOverListener: Function;
 
     @Input()
     model: DbModel;
@@ -19,7 +24,15 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
 
     get modelLayout() { return this._diagramLayout.getModelLayout(this.model); }
 
-    constructor(private readonly _diagramLayout: DiagramLayoutService) {
+    constructor(private readonly _diagramLayout: DiagramLayoutService, renderer: Renderer2, zone: NgZone) {
+        const debouncer = new EventDebouncer(zone, renderer);
+        this.mouseOverListener = debouncer.listen('window', 'mouseover', e => {
+            zone.run(() => {
+                this._diagramLayout.hoveredRelation = null;
+                this._diagramLayout.hoveredEntity = null;
+            });
+            e.stopPropagation();
+        });
     }
 
     ngOnInit() {
@@ -31,11 +44,10 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
             .subscribe(() => this._diagramLayout.arrangeLayout(this.model));
     }
 
-    @HostListener('window:mouseover', ['$event'])
-    onMouseEnter(e: MouseEvent) {
-        this._diagramLayout.hoveredRelation = null;
-        this._diagramLayout.hoveredEntity = null;
-        e.stopPropagation();
+    onEntityDrag(entity: DbEntity, { top, left }: { top: number, left: number }) {
+        const entityLayout = this._diagramLayout.getEntityLayout(this.model, entity);
+        entityLayout.x = left;
+        entityLayout.y = top;
     }
 
     onMouseOverRelation(e: MouseEvent, relation: DbEntityRelationLayout) {

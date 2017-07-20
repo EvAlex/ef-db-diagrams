@@ -1,6 +1,6 @@
 import {
-    Component, HostBinding, OnInit, Input, OnChanges, ChangeDetectorRef, AfterViewInit, ElementRef,
-    ViewChildren, QueryList, ViewContainerRef, HostListener
+    Component, HostBinding, OnInit, Input, OnChanges, OnDestroy, ChangeDetectorRef, AfterViewInit, ElementRef,
+    ViewChildren, QueryList, ViewContainerRef, HostListener, NgZone, Renderer2
 } from '@angular/core';
 import { DataSource, CollectionViewer } from '@angular/cdk';
 import { MdRow } from '@angular/material';
@@ -12,13 +12,15 @@ import { DbModel } from '../../models/db-model';
 import { DbEntity } from '../../models/db-entity';
 import { DbEntityProperty } from '../../models/db-entity-property';
 import { DbEntityLayout } from '../../models/db-entity-layout';
+import { EventDebouncer } from '../../core/event-debouncer';
 
 @Component({
     selector: 'efd-db-entity-diagram-figure',
     templateUrl: './db-entity-diagram-figure.component.html',
     styleUrls: ['./db-entity-diagram-figure.component.scss']
 })
-export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterViewInit {
+export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+    private _removeListeners: Function[] = [];
 
     @Input()
     model: DbModel;
@@ -44,11 +46,40 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
     propertiesDataSource = new DbEntityPropertiesDataSource(this.entityContext);
     displayedColumns = ['name', 'clrType'];
 
+    private _draggingPoint: { x: number, y: number } = null;
+
+
     constructor(
         private readonly _el: ElementRef,
         private readonly _changeDetector: ChangeDetectorRef,
-        private readonly _diagramLayout: DiagramLayoutService
+        private readonly _diagramLayout: DiagramLayoutService,
+        zone: NgZone,
+        renderer: Renderer2
     ) {
+        const debouncer = new EventDebouncer(zone, renderer);
+        this._removeListeners.push(
+            debouncer.listen(_el.nativeElement, 'mouseover', e => {
+                this._diagramLayout.hoveredEntity = this.entityLayout;
+            }),
+            /* renderer.listen(_el.nativeElement, 'mousedown', (e: MouseEvent) => {
+                const element = this._el.nativeElement as HTMLElement;
+                const { top, left } = element.getBoundingClientRect();
+                const x = e.clientX - left;
+                const y = e.clientY - top;
+                this._draggingPoint = { x, y };
+            }),
+            renderer.listen('document', 'mouseup', e => {
+                this._draggingPoint = null;
+            }),
+            renderer.listen('document', 'mousemove', (e: MouseEvent) => {
+                if (this._draggingPoint) {
+                    this.entityLayout.x = e.clientX - this._draggingPoint.x;
+                    this.entityLayout.y = e.clientY - this._draggingPoint.y;
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
+            }) */
+        );
     }
 
     ngOnInit() {
@@ -81,10 +112,11 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
         }
     }
 
-    @HostListener('mouseover', ['$event'])
-    onMouseEnter(e: MouseEvent) {
-        this._diagramLayout.hoveredEntity = this.entityLayout;
-        e.stopPropagation();
+    ngOnDestroy() {
+        for (const fn of this._removeListeners) {
+            fn();
+        }
+        this._removeListeners = [];
     }
 
 }
