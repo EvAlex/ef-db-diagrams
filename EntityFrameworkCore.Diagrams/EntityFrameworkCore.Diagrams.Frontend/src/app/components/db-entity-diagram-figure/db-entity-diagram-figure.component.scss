@@ -1,9 +1,11 @@
+@import '../../../mixins';
 
 :host {
     position: absolute;
     display: inline-block;
     font-family: Roboto monospace;
     min-width: 280px;
+    transition: transition-property(top) transition-property(left);
 
     md-card-content {
         margin-bottom: -24px;
