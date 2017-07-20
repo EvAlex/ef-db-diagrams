@@ -1,5 +1,5 @@
 
-<div *ngFor="let line of relation.path"
+<div *ngFor="let line of relation.fullPath"
     class="relation-path-line"
     [style.left.px]="line.isHorizontal ? line.left.x : line.p1.x"
     [style.top.px]="line.isHorizontal ? line.p1.y : line.top.y"

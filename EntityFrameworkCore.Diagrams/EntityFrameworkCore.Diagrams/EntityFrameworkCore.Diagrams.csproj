@@ -1,13 +1,64 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageVersion>0.1.3</PackageVersion>
+    <Description>EntityFrameworkCore.Diagrams is a tool to visualize entity model created with EntityFramework.
+    
+The tool is exposed as a middleware for ASP.NET Core app. To use it call `app.AddEfDiagrams()` in your `Configure` method within `Startup` class.
+Use it only in development mode (`if (env.IsDevelopment())`): you don't want everyone in public see your entire data structure :)
+
+That's all the config! Start your app and browse to `/ef-diagrams` page. You should see yor entity model diagram.
+
+Feel free to report any bugs or feature requests. Contributions are appreciated!
+    </Description>
+    <Authors>Alexander Pavlyuk (EvAlex)</Authors>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageTags>ef;diagram;</PackageTags>
+    <RepositoryUrl>https://github.com/EvAlex/ef-db-diagrams</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="frontend\**\*.*">
-      <Pack>true</Pack>
-    <PackagePath>content\myfiles\</PackagePath>
+    <None Remove="wwwroot\db-diagrams\3rdpartylicenses.txt" />
+    <None Remove="wwwroot\db-diagrams\favicon.ico" />
+    <None Remove="wwwroot\db-diagrams\index.html" />
+    <None Remove="wwwroot\db-diagrams\inline.bundle.js" />
+    <None Remove="wwwroot\db-diagrams\main.bundle.js" />
+    <None Remove="wwwroot\db-diagrams\polyfills.bundle.js" />
+    <None Remove="wwwroot\db-diagrams\styles.bundle.css" />
+    <None Remove="wwwroot\db-diagrams\vendor.bundle.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\db-diagrams\3rdpartylicenses.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\db-diagrams\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\db-diagrams\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\db-diagrams\inline.bundle.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\db-diagrams\main.bundle.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\db-diagrams\polyfills.bundle.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\db-diagrams\styles.bundle.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\db-diagrams\vendor.bundle.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -18,8 +69,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="frontend\" />
-  </ItemGroup>
+  <Target Name="BuildFrontend" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <Message Text="Downloading dependencies for Frontend App..." />
+    <Exec Command="npm i" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
+    <Message Text="Building Frontend App..." />
+    <Exec Command="ng build --prod --progress=false --output-hashing=none" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
+  </Target>
 
 </Project>
