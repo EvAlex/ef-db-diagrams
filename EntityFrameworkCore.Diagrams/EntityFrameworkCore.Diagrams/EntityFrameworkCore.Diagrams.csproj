@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageVersion>0.1.3</PackageVersion>
+    <PackageVersion>0.1.5</PackageVersion>
     <Description>EntityFrameworkCore.Diagrams is a tool to visualize entity model created with EntityFramework.
     
 The tool is exposed as a middleware for ASP.NET Core app. To use it call `app.AddEfDiagrams()` in your `Configure` method within `Startup` class.
@@ -73,7 +73,7 @@ Feel free to report any bugs or feature requests. Contributions are appreciated!
     <Message Text="Downloading dependencies for Frontend App..." />
     <Exec Command="npm i" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
     <Message Text="Building Frontend App..." />
-    <Exec Command="ng build --prod --progress=false --output-hashing=none" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
+    <Exec Command="ng build --prod --base-href=/db-diagrams/ --progress=false --output-hashing=none" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
   </Target>
 
 </Project>

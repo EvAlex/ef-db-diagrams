@@ -91,7 +91,7 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
         const element = this._el.nativeElement as HTMLElement;
         const width = element.scrollWidth * targetScale;
         const height = element.scrollHeight * targetScale;
-        return (height > element.clientHeight - ALLOWED_MARGIN * 2 || width > element.clientWidth - ALLOWED_MARGIN * 2)
+        return true || (height > element.clientHeight - ALLOWED_MARGIN * 2 || width > element.clientWidth - ALLOWED_MARGIN * 2)
             && height > MIN_HEIGHT && width > MIN_WIDTH;
     }
 
