@@ -90,12 +90,12 @@ export class DraggableDirective implements OnInit, OnDestroy {
                         this.element.nativeElement.style.top = pos.top + 'px';
                         this.element.nativeElement.style.left = pos.left + 'px';
                     }
-                    // this.zone.run(() => {
-                    this.efdDrag.emit({
-                        top: pos.top,
-                        left: pos.left
+                    this.zone.run(() => {
+                        this.efdDrag.emit({
+                            top: pos.top,
+                            left: pos.left
+                        });
                     });
-                    // });
                 })
                 .unsubscribe
         );

@@ -1,4 +1,4 @@
-import { Directive, OnInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, OnInit, AfterViewInit, OnDestroy, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 
 const MIN_HEIGHT = 200;
 const MIN_WIDTH = 200;
@@ -6,15 +6,25 @@ const ALLOWED_MARGIN = 64;
 
 const noop = () => {};
 
+export interface IScaleEvent {
+    scale: number;
+    translateX: number;
+    translateY: number;
+    clientRect: ClientRect;
+}
+
 @Directive({
     selector: '[efdScalable]'
 })
-export class ScalableDirective implements OnInit, OnDestroy {
+export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
     private _removeMouseWheelListener = noop;
 
     private _scale = 1;
     private _translateX = 0;
     private _translateY = 0;
+
+    @Output()
+    scale = new EventEmitter<IScaleEvent>();
 
     constructor(
         private readonly _el: ElementRef,
@@ -24,6 +34,16 @@ export class ScalableDirective implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._removeMouseWheelListener = this._renderer.listen(this._el.nativeElement, 'mousewheel', e => this.onMouseWheel(e));
+    }
+
+    ngAfterViewInit() {
+        const element = this._el.nativeElement as HTMLElement;
+        this.scale.emit({
+            scale: this._scale,
+            translateX: this._translateX,
+            translateY: this._translateY,
+            clientRect: element.getBoundingClientRect()
+        });
     }
 
     ngOnDestroy() {
@@ -54,6 +74,13 @@ export class ScalableDirective implements OnInit, OnDestroy {
             this._scale = newScale;
             this._translateX = newX;
             this._translateY = newY;
+
+            this.scale.emit({
+                scale: newScale,
+                translateX: newX,
+                translateY: newY,
+                clientRect: element.getBoundingClientRect()
+            });
         }
 
         e.preventDefault();

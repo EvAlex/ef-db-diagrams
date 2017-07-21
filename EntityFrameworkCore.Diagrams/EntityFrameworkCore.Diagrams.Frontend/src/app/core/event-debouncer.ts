@@ -18,7 +18,7 @@ export class EventDebouncer {
                 e.preventDefault();
                 e.stopPropagation();
             });
-            tempSubj.debounceTime(40).subscribe(e => this._zone.run(() => listener(e)));
+            tempSubj.debounceTime(debounceTime).subscribe(e => this._zone.run(() => listener(e)));
             return result;
         });
     }

@@ -5,7 +5,7 @@
 
 <div *ngIf="model?.entities.length > 0" #scrollContainer class="diagram-scroll-container">
 
-    <div class="diagram-container" efdScalable>
+    <div class="diagram-container" efdScalable (scale)="onScale($event)">
 
         <efd-db-entity-diagram-figure
             *ngFor="let e of model.entities; trackBy: getEntityKey"

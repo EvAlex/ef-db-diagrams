@@ -96,9 +96,7 @@ export class DiagramLayoutService {
         const entityLayout = modelLayout.getEntityLayout(entity);
         entityLayout.x = x;
         entityLayout.y = y;
-        this.activeEntity = entityLayout;
 
-        //  TODO move connectors
         const principalRelations = modelLayout.relations.filter(e => e.principalEntity.equals(entity));
         for (const relation of principalRelations) {
             const dependent = modelLayout.getEntityLayout(relation.dependentEntity);
