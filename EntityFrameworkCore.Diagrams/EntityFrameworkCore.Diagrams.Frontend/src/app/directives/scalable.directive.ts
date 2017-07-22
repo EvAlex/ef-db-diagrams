@@ -33,7 +33,14 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
-        this._removeMouseWheelListener = this._renderer.listen(this._el.nativeElement, 'mousewheel', e => this.onMouseWheel(e));
+        const element = this._el.nativeElement as HTMLElement;
+        if (element) {
+            this._removeMouseWheelListener = this._renderer.listen(
+                element.parentElement,
+                'mousewheel',
+                e => this.onMouseWheel(e)
+            );
+        }
     }
 
     ngAfterViewInit() {
@@ -91,7 +98,7 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
         const element = this._el.nativeElement as HTMLElement;
         const width = element.scrollWidth * targetScale;
         const height = element.scrollHeight * targetScale;
-        return true || (height > element.clientHeight - ALLOWED_MARGIN * 2 || width > element.clientWidth - ALLOWED_MARGIN * 2)
+        return (height > element.clientHeight - ALLOWED_MARGIN * 2 || width > element.clientWidth - ALLOWED_MARGIN * 2)
             && height > MIN_HEIGHT && width > MIN_WIDTH;
     }
 
