@@ -1,16 +1,18 @@
-import { Directive, OnInit, AfterViewInit, OnDestroy, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
+import { Directive, OnInit, AfterViewInit, OnDestroy, ElementRef, Renderer2, Input, Output, EventEmitter } from '@angular/core';
 
 const MIN_HEIGHT = 200;
 const MIN_WIDTH = 200;
 const ALLOWED_MARGIN = 64;
 
+export const DEFAULT_SCALE = 1;
+
 const noop = () => {};
 
 export interface IScaleEvent {
     scale: number;
-    translateX: number;
-    translateY: number;
-    clientRect: ClientRect;
+    translateX?: number;
+    translateY?: number;
+    clientRect?: ClientRect;
 }
 
 @Directive({
@@ -19,12 +21,28 @@ export interface IScaleEvent {
 export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
     private _removeMouseWheelListener = noop;
 
-    private _scale = 1;
+    private _scale = DEFAULT_SCALE;
     private _translateX = 0;
     private _translateY = 0;
 
+    @Input()
+    set scale(value: number) {
+        const element = this._el.nativeElement as HTMLElement;
+        const elementRect = element.getBoundingClientRect();
+        const parentElementRect = element.parentElement.getBoundingClientRect();
+        if (value === DEFAULT_SCALE) {
+            //  TODO this is bad, but provides stable way out for user.
+            this._translateX = this._translateY = 0;
+            this.zoom(value, elementRect.width / 2, elementRect.height / 2);
+        } else {
+            const mouseX = elementRect.left + parentElementRect.width / 2;
+            const mouseY = elementRect.top + parentElementRect.height / 2;
+            this.zoom(value, mouseX, mouseY);
+        }
+    }
+
     @Output()
-    scale = new EventEmitter<IScaleEvent>();
+    scaleChange = new EventEmitter<IScaleEvent>();
 
     constructor(
         private readonly _el: ElementRef,
@@ -45,7 +63,7 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         const element = this._el.nativeElement as HTMLElement;
-        this.scale.emit({
+        this.scaleChange.emit({
             scale: this._scale,
             translateX: this._translateX,
             translateY: this._translateY,
@@ -65,9 +83,20 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
         const oldScale = this._scale;
         const newScale = oldScale * Math.exp(- Math.sign(e.deltaY) * 0.15);
 
+        const mouseX = e.clientX - elementRect.left;
+        const mouseY = e.clientY - elementRect.top;
+
+        this.zoom(newScale, mouseX, mouseY);
+
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    private zoom(newScale: number, mouseX: number, mouseY: number) {
+        const element = this._el.nativeElement as HTMLElement;
+        const elementRect = element.getBoundingClientRect();
+        const oldScale = this._scale;
         if (newScale > oldScale || this.canZoomOut(newScale)) {
-            const mouseX = e.clientX - elementRect.left;
-            const mouseY = e.clientY - elementRect.top;
             const dx = elementRect.width / 2 - mouseX;
             const dy = elementRect.height / 2 - mouseY;
             const oldX = this._translateX;
@@ -82,16 +111,13 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
             this._translateX = newX;
             this._translateY = newY;
 
-            this.scale.emit({
+            this.scaleChange.emit({
                 scale: newScale,
                 translateX: newX,
                 translateY: newY,
                 clientRect: element.getBoundingClientRect()
             });
         }
-
-        e.preventDefault();
-        e.stopPropagation();
     }
 
     private canZoomOut(targetScale: number): boolean {

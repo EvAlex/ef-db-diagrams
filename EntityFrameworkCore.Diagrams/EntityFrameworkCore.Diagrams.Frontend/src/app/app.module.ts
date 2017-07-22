@@ -23,6 +23,7 @@ import { ClrTypeComponent } from './components/clr-type/clr-type.component';
 import { ScalableDirective } from './directives/scalable.directive';
 import { DbRelationConnectorComponent } from './components/db-relation-connector/db-relation-connector.component';
 import { DraggableDirective } from './directives/draggable.directive';
+import { ScalingToolbarComponent } from './components/scaling-toolbar/scaling-toolbar.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { DraggableDirective } from './directives/draggable.directive';
         ScalableDirective,
         DbRelationConnectorComponent,
         DraggableDirective,
+        ScalingToolbarComponent,
     ],
     imports: [
         BrowserModule,
