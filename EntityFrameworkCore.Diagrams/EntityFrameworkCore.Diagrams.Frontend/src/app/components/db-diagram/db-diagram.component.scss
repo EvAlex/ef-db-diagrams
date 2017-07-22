@@ -19,6 +19,12 @@
             position: relative;
             height: 100%;
         }
+
+        efd-scaling-toolbar {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+        }
     }
 
     efd-db-entity-diagram-figure {
