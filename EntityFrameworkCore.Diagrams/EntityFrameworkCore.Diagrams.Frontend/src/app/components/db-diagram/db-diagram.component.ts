@@ -8,7 +8,7 @@ import { DbEntity } from '../../models/db-entity';
 import { DbEntityLayout } from '../../models/db-entity-layout';
 import { DbEntityRelationLayout } from '../../models/db-entity-relation-layout';
 import { EventDebouncer } from '../../core/event-debouncer';
-import { IScaleEvent } from '../../directives/scalable.directive';
+import { IScaleEvent, DEFAULT_SCALE } from '../../directives/scalable.directive';
 
 @Component({
     selector: 'efd-db-diagram',
@@ -21,7 +21,7 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
     @Input()
     model: DbModel;
 
-    private _currentScale: IScaleEvent;
+    currentScale: IScaleEvent = { scale: DEFAULT_SCALE };
 
     get hoveredRelation() { return this._diagramLayout.hoveredRelation; }
 
@@ -48,7 +48,7 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
     }
 
     onScale(e: IScaleEvent) {
-        this._currentScale = e;
+        this.currentScale = e;
         console.log('scale:', e);
     }
 
@@ -67,8 +67,8 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
     }
 
     onEntityDrag(entity: DbEntity, { top, left }: { top: number, left: number }) {
-        left = left / this._currentScale.scale - this._currentScale.clientRect.left / this._currentScale.scale;
-        top = top / this._currentScale.scale - this._currentScale.clientRect.top / this._currentScale.scale;
+        left = left / this.currentScale.scale - this.currentScale.clientRect.left / this.currentScale.scale;
+        top = top / this.currentScale.scale - this.currentScale.clientRect.top / this.currentScale.scale;
         this._diagramLayout.moveEntity(this.model, entity, left, top);
     }
 

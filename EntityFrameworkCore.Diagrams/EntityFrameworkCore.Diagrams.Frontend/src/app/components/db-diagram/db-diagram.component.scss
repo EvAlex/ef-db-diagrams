@@ -21,9 +21,16 @@
         }
 
         efd-scaling-toolbar {
-            position: absolute;
-            right: 8px;
-            bottom: 8px;
+            position: fixed;
+            z-index: 30;
+            right: 17px; // these offsets equal Chrome scrollbar width. TODO what about other sizes?
+            bottom: 17px;
+            padding: 8px;
+            background: white;
+            border: 1px solid #eee;
+            border-right-width: 0;
+            border-bottom-width: 0;
+            border-top-left-radius: 2px;
         }
     }
 
