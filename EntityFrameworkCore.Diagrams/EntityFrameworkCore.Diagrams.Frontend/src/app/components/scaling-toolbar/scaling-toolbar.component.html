@@ -1,3 +1,13 @@
-<p>
-  scaling-toolbar works!
-</p>
+
+<button type="button" md-icon-button [disabled]="scale <= minScale" (click)="zoomOut()">
+    <md-icon>zoom_out</md-icon>
+</button>
+
+
+<button type="button" md-button (click)="resetZoom()">
+    {{ scale * 100 | number:'1.0-0' }} %
+</button>
+
+<button type="button" md-icon-button [disabled]="scale >= maxScale" (click)="zoomIn()">
+    <md-icon>zoom_in</md-icon>
+</button>
