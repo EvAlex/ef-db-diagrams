@@ -34,7 +34,12 @@
                 [style.height.px]="line.isHorizontal ? line.width : line.dy"
                 [style.zIndex]="relation.zIndex"
                 [title]="relation.toString()"
-                (mouseover)="onMouseOverRelation($event, relation)">
+                (mouseover)="onMouseOverRelation($event, relation)"
+                [efdDraggable]="relation.isDraggable(line)"
+                [dragChangeElementStyle]="false"
+                (efdDrag)="onRelationLineDrag(relation, line, $event)"
+                (efdDragStart)="onRelationLineDragStart(relation, line)"
+                (efdDragEnd)="onRelationLineDragEnd(relation, line)">
             </div>
         </ng-container>
 
