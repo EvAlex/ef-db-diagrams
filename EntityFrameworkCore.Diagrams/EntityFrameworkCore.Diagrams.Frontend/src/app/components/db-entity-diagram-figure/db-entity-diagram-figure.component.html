@@ -1,12 +1,12 @@
 <md-card>
     <md-card-title>
         <span>{{entity.shortName}}</span>
-        <button type="button" md-icon-button (click)="contentCollapsed = !contentCollapsed">
-            <md-icon *ngIf="contentCollapsed">expand_more</md-icon>
-            <md-icon *ngIf="!contentCollapsed">expand_less</md-icon>
+        <button type="button" md-icon-button (click)="toggleEntityCollapsed()">
+            <md-icon *ngIf="entityLayout.collapsed">expand_more</md-icon>
+            <md-icon *ngIf="!entityLayout.collapsed">expand_less</md-icon>
         </button>
     </md-card-title>
-    <md-card-content [class.collapsed]="contentCollapsed">
+    <md-card-content [class.collapsed]="entityLayout.collapsed">
         <md-table #table [dataSource]="propertiesDataSource">
             <!-- Key Column -->
             <ng-container cdkColumnDef="key">

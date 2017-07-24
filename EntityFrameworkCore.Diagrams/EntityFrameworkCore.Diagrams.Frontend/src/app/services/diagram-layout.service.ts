@@ -102,6 +102,53 @@ export class DiagramLayoutService {
 
         for (const relation of affectedRelations) {
             this.layoutRelation(modelLayout, relation);
+
+            if (entityLayout.collapsed) {
+                this.setEntityCollapsed(modelLayout, entityLayout);
+            }
+        }
+    }
+
+    toggleEntityCollapsed(model: DbModel, entity: DbEntity) {
+        const modelLayout = this.getModelLayout(model);
+        const entityLayout = modelLayout.getEntityLayout(entity);
+
+        if (entityLayout.collapsed) {
+            this.setEntityExpanded(modelLayout, entityLayout);
+        } else {
+            this.setEntityCollapsed(modelLayout, entityLayout);
+        }
+    }
+
+    private setEntityExpanded(modelLayout: DbModelLayout, entityLayout: DbEntityLayout) {
+        entityLayout.collapsed = false;
+
+        const affectedPrincipalRelations = modelLayout.relations
+            .filter(e => e.principalEntity.equals(entityLayout.entity));
+        for (const relation of affectedPrincipalRelations) {
+            relation.expandConnector(relation.principalConnector);
+        }
+        const affectedDependentRelations = modelLayout.relations
+            .filter(e => e.dependentEntity.equals(entityLayout.entity));
+        for (const relation of affectedDependentRelations) {
+            relation.expandConnector(relation.dependentConnector);
+        }
+    }
+
+    private setEntityCollapsed(modelLayout: DbModelLayout, entityLayout: DbEntityLayout) {
+        entityLayout.collapsed = true;
+
+        const collapsedConnectorY = entityLayout.y + entityLayout.properties[0].y / 2;
+
+        const affectedPrincipalRelations = modelLayout.relations
+            .filter(e => e.principalEntity.equals(entityLayout.entity));
+        for (const relation of affectedPrincipalRelations) {
+            relation.collapseConnector(relation.principalConnector, collapsedConnectorY);
+        }
+        const affectedDependentRelations = modelLayout.relations
+            .filter(e => e.dependentEntity.equals(entityLayout.entity));
+        for (const relation of affectedDependentRelations) {
+            relation.collapseConnector(relation.dependentConnector, collapsedConnectorY);
         }
     }
 

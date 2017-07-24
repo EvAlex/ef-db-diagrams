@@ -12,6 +12,8 @@ export class DbEntityRelationLayout {
 
     principalConnector = new DbEntityRelationConnector();
     dependentConnector = new DbEntityRelationConnector();
+    private _collapsedPrincipalConnector: DbEntityRelationConnector;
+    private _collapsedDependentConnector: DbEntityRelationConnector;
 
     fullPath: Line[] = [];
     private _draggableLines: Line[] = [];
@@ -156,6 +158,46 @@ export class DbEntityRelationLayout {
 
     private moveLineVertically(line: Line, y: number) {
         throw new Error('Moving line vertically is not implemented yet');
+    }
+
+    collapseConnector(connector: DbEntityRelationConnector, y: number) {
+        const newConnector = new DbEntityRelationConnector();
+        newConnector.externalPoint = new Point(connector.externalPoint.x, y);
+        if (connector.direction === Direction.LeftToRight) {
+            const lines = connector.lines.slice();
+            lines.sort((a, b) => a.left.x - b.left.x);
+            const line = new Line(new Point(lines[0].left.x, y), newConnector.externalPoint);
+            newConnector.lines.push(line);
+        } else {
+            const lines = connector.lines.slice();
+            lines.sort((a, b) => b.right.x - a.right.x);
+            const line = new Line(newConnector.externalPoint, new Point(lines[0].right.x, y));
+            newConnector.lines.push(line);
+        }
+
+        if (this.principalConnector === connector) {
+            this._collapsedPrincipalConnector = this.principalConnector;
+            this.principalConnector = newConnector;
+        } else if (this.dependentConnector === connector) {
+            this._collapsedDependentConnector = this.dependentConnector;
+            this.dependentConnector = newConnector;
+        } else {
+            throw new Error('Connector must be one of 2 connectors of current relation.');
+        }
+
+        this.connect();
+    }
+
+    expandConnector(connector: DbEntityRelationConnector) {
+        if (this.principalConnector === connector) {
+            this.principalConnector = this._collapsedPrincipalConnector;
+        } else if (this.dependentConnector === connector) {
+            this.dependentConnector = this._collapsedDependentConnector;
+        } else {
+            throw new Error('Connector must be one of 2 connectors of current relation.');
+        }
+
+        this.connect();
     }
 
     toString(): string {
