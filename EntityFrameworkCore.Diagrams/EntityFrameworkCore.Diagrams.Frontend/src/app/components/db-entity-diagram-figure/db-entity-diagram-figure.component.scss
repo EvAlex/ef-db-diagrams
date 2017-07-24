@@ -4,7 +4,7 @@
     position: absolute;
     display: inline-block;
     font-family: Roboto monospace;
-    min-width: 280px;
+    min-width: 320px;
     transition: transition-property(top) transition-property(left);
 
     md-card {
@@ -48,6 +48,15 @@
 
             .mat-column-clrType {
                 text-align: right;
+            }
+
+            .mat-column-nullable {
+                flex: 0 0 60px;
+                text-align: right;
+
+                &.mat-cell {
+                    color: rgba(0, 0, 0, 0.4);
+                }
             }
 
             @media print {

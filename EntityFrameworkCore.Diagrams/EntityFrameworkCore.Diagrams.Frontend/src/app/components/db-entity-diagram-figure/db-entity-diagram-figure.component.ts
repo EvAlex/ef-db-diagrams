@@ -44,7 +44,7 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
 
     entityContext = new DbEntityContext();
     propertiesDataSource = new DbEntityPropertiesDataSource(this.entityContext);
-    displayedColumns = ['key', 'name', 'clrType'];
+    displayedColumns = ['key', 'name', 'clrType', 'nullable'];
 
     private _draggingPoint: { x: number, y: number } = null;
 

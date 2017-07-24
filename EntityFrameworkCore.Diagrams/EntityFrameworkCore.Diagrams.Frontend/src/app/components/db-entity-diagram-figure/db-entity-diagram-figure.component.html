@@ -31,6 +31,14 @@
                 </md-cell>
             </ng-container>
 
+            <!-- Nullable Column -->
+            <ng-container cdkColumnDef="nullable">
+                <md-header-cell *cdkHeaderCellDef> Nullable </md-header-cell>
+                <md-cell *cdkCellDef="let row">
+                    <ng-container *ngIf="row.isNullable">NULL</ng-container>
+                </md-cell>
+            </ng-container>
+
             <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
             <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
         </md-table>
