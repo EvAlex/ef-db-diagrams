@@ -44,7 +44,9 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
 
     entityContext = new DbEntityContext();
     propertiesDataSource = new DbEntityPropertiesDataSource(this.entityContext);
-    displayedColumns = ['name', 'clrType'];
+    displayedColumns = ['key', 'name', 'clrType'];
+
+    contentCollapsed = false;
 
     private _draggingPoint: { x: number, y: number } = null;
 
@@ -117,6 +119,14 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
             fn();
         }
         this._removeListeners = [];
+    }
+
+    isKey(property: DbEntityProperty) {
+        return this.entity.keys.some(e => e.properties.some(ee => ee.equals(property)));
+    }
+
+    isForeignKey(property: DbEntityProperty) {
+        return this.entity.foreignKeys.some(e => e.properties.some(ee => ee.equals(property)));
     }
 
 }

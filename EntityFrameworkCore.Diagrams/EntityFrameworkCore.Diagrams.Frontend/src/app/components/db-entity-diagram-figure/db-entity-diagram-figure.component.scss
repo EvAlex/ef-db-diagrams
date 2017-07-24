@@ -13,12 +13,42 @@
         }
     }
 
+    md-card-title {
+        display: flex;
+        align-items: center;
+
+        span {
+            flex: 1;
+        }
+    }
+
 
     md-card-content {
-        margin-bottom: -24px;
+        margin: 0 -24px -24px;
+        overflow: hidden;
+
+        &.collapsed {
+            display: none;
+        }
 
         md-table {
-            margin: 0 -24px;
+
+            .mat-column-key {
+                flex: 0 0 36px;
+
+                &.mat-cell {
+                    color: rgba(0, 0, 0, 0.4);
+                }
+
+                md-icon {
+                    font-size: 16px;
+                    height: 16px;
+                }
+            }
+
+            .mat-column-clrType {
+                text-align: right;
+            }
 
             @media print {
             }

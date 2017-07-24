@@ -1,7 +1,22 @@
 <md-card>
-    <md-card-title>{{entity.shortName}}</md-card-title>
-    <md-card-content>
+    <md-card-title>
+        <span>{{entity.shortName}}</span>
+        <button type="button" md-icon-button (click)="contentCollapsed = !contentCollapsed">
+            <md-icon *ngIf="contentCollapsed">expand_more</md-icon>
+            <md-icon *ngIf="!contentCollapsed">expand_less</md-icon>
+        </button>
+    </md-card-title>
+    <md-card-content [class.collapsed]="contentCollapsed">
         <md-table #table [dataSource]="propertiesDataSource">
+            <!-- Key Column -->
+            <ng-container cdkColumnDef="key">
+                <md-header-cell *cdkHeaderCellDef> Key </md-header-cell>
+                <md-cell *cdkCellDef="let row">
+                    <md-icon *ngIf="isKey(row)">vpn_key</md-icon>
+                    <span *ngIf="isForeignKey(row)">FK</span>
+                </md-cell>
+            </ng-container>
+
             <!-- Name Column -->
             <ng-container cdkColumnDef="name">
                 <md-header-cell *cdkHeaderCellDef> Property </md-header-cell>
