@@ -12,6 +12,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
     efdDraggable: boolean | '' = true;
 
     @Input()
+    dragCursor = 'move';
+
+    @Input()
     dragChangeElementStyle = true;
 
     @Output()
@@ -88,7 +91,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
         }
 
         if (this.efdDraggable) {
-            this.element.nativeElement.style.cursor = 'move';
+            this.element.nativeElement.style.cursor = this.dragCursor;
 
             const subscription = this.mousedrag
                 // .debounceTime(40)

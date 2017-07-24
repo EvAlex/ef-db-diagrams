@@ -24,6 +24,20 @@ export class DbEntityRelationLayout {
     ) {
     }
 
+    isConnectedBefore(line: Line): boolean {
+        const point = line.isHorizontal ? line.left : line.top;
+        return this.fullPath
+            .filter(e => e !== line)
+            .filter(e => e.p1.equals(point) || e.p2.equals(point)).length > 0;
+    }
+
+    isConnectedAfter(line: Line): boolean {
+        const point = line.isHorizontal ? line.right : line.bottom;
+        return this.fullPath
+            .filter(e => e !== line)
+            .filter(e => e.p1.equals(point) || e.p2.equals(point)).length > 0;
+    }
+
     connect() {
         let left: Point, right: Point;
         if (this.principalConnector.externalPoint.x < this.dependentConnector.externalPoint.x) {

@@ -44,6 +44,40 @@
 
         &.hover {
             background: mat-color(map-get($efd-app-theme, accent));
+
+            &.connected-before:before,
+            &.connected-after:after {
+                background: mat-color(map-get($efd-app-theme, accent));
+            }
+        }
+
+        &.connected-before:before,
+        &.connected-after:after {
+            content: ' ';
+            display: block;
+            width: 4px;
+            height: 4px;
+            position: absolute;
+            background: black;
+            border-radius: 2px;
+        }
+
+        &.horizontal {
+            &.connected-before:before {
+                left: -2px;
+            }
+            &.connected-after:after {
+                right: -2px;
+            }
+        }
+
+        &.vertical {
+            &.connected-before:before {
+                top: -2px;
+            }
+            &.connected-after:after {
+                bottom: -2px;
+            }
         }
     }
 }
