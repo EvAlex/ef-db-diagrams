@@ -7,11 +7,29 @@
     min-width: 280px;
     transition: transition-property(top) transition-property(left);
 
+    md-card {
+        @media print {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+    }
+
+
     md-card-content {
         margin-bottom: -24px;
 
         md-table {
             margin: 0 -24px;
+
+            @media print {
+            }
+
+            @media print and (orientation: landscape) {
+                margin: 0 -23px;
+            }
+
+            @media print and (orientation: portrait) {
+                margin: 0 -15px;
+            }
         }
     }
 
