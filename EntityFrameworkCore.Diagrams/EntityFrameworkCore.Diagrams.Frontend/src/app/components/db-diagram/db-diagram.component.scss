@@ -8,11 +8,15 @@
     position: relative;
 
     .diagram-scroll-container {
-            height: 100%;
-            width: 100%;
-            overflow: auto;
-            // border: 1px solid black;
-            position: relative;
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        // border: 1px solid black;
+        position: relative;
+
+        @media print {
+            overflow: hidden;
+        }
 
         .diagram-container {
             margin: 16px;
@@ -31,6 +35,12 @@
             border-right-width: 0;
             border-bottom-width: 0;
             border-top-left-radius: 2px;
+
+
+
+            @media print {
+                display: none;
+            }
         }
     }
 
@@ -42,8 +52,46 @@
         background: black;
         // transition: transition-property(background);
 
+        @media print {
+            -webkit-print-color-adjust: exact;
+        }
+
         &.hover {
             background: mat-color(map-get($efd-app-theme, accent));
+
+            &.connected-before:before,
+            &.connected-after:after {
+                background: mat-color(map-get($efd-app-theme, accent));
+            }
+        }
+
+        &.connected-before:before,
+        &.connected-after:after {
+            content: ' ';
+            display: block;
+            width: 4px;
+            height: 4px;
+            position: absolute;
+            background: black;
+            border-radius: 2px;
+        }
+
+        &.horizontal {
+            &.connected-before:before {
+                left: -2px;
+            }
+            &.connected-after:after {
+                right: -2px;
+            }
+        }
+
+        &.vertical {
+            &.connected-before:before {
+                top: -2px;
+            }
+            &.connected-after:after {
+                bottom: -2px;
+            }
         }
     }
 }

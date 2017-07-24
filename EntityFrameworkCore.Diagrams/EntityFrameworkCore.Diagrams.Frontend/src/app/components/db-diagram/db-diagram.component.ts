@@ -7,6 +7,7 @@ import { DbModel } from '../../models/db-model';
 import { DbEntity } from '../../models/db-entity';
 import { DbEntityLayout } from '../../models/db-entity-layout';
 import { DbEntityRelationLayout } from '../../models/db-entity-relation-layout';
+import { Line } from '../../models/line';
 import { EventDebouncer } from '../../core/event-debouncer';
 import { IScaleEvent, DEFAULT_SCALE } from '../../directives/scalable.directive';
 
@@ -75,6 +76,21 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
     onMouseOverRelation(e: MouseEvent, relation: DbEntityRelationLayout) {
         this._diagramLayout.hoveredRelation = relation;
         e.stopPropagation();
+    }
+
+    onRelationLineDrag(relation: DbEntityRelationLayout, line: Line, { top, left }: { top: number, left: number }) {
+        left = left / this.currentScale.scale - this.currentScale.clientRect.left / this.currentScale.scale;
+        top = top / this.currentScale.scale - this.currentScale.clientRect.top / this.currentScale.scale;
+        // console.log('drag line:', left, top);
+        relation.moveLine(line, left, top);
+    }
+
+    onRelationLineDragStart(relation: DbEntityRelationLayout, line: Line) {
+
+    }
+
+    onRelationLineDragEnd(relation: DbEntityRelationLayout, line: Line) {
+
     }
 
 }

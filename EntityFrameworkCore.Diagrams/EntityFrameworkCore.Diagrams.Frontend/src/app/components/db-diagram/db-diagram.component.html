@@ -27,6 +27,10 @@
         <ng-container *ngFor="let relation of modelLayout.relations">
             <div *ngFor="let line of relation.fullPath"
                 class="relation-path-line"
+                [class.horizontal]="line.isHorizontal"
+                [class.vertical]="line.isVertical"
+                [class.connected-before]="relation.isConnectedBefore(line) && line.length >= line.width"
+                [class.connected-after]="relation.isConnectedAfter(line) && line.length >= line.width"
                 [class.hover]="hoveredRelation === relation"
                 [style.left.px]="line.isHorizontal ? line.left.x : line.p1.x - line.width / 2"
                 [style.top.px]="line.isHorizontal ? line.p1.y - line.width / 2 : line.top.y"
@@ -34,7 +38,13 @@
                 [style.height.px]="line.isHorizontal ? line.width : line.dy"
                 [style.zIndex]="relation.zIndex"
                 [title]="relation.toString()"
-                (mouseover)="onMouseOverRelation($event, relation)">
+                (mouseover)="onMouseOverRelation($event, relation)"
+                [efdDraggable]="relation.isDraggable(line)"
+                dragCursor="ew-resize"
+                [dragChangeElementStyle]="false"
+                (efdDrag)="onRelationLineDrag(relation, line, $event)"
+                (efdDragStart)="onRelationLineDragStart(relation, line)"
+                (efdDragEnd)="onRelationLineDragEnd(relation, line)">
             </div>
         </ng-container>
 

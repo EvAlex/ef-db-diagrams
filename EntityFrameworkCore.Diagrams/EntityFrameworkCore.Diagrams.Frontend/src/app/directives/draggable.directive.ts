@@ -9,6 +9,12 @@ import { EventDebouncer } from '../core/event-debouncer';
 export class DraggableDirective implements OnInit, OnDestroy {
 
     @Input()
+    efdDraggable: boolean | '' = true;
+
+    @Input()
+    dragCursor = 'move';
+
+    @Input()
     dragChangeElementStyle = true;
 
     @Output()
@@ -28,8 +34,6 @@ export class DraggableDirective implements OnInit, OnDestroy {
     removeEventsListeners: Function[] = [];
 
     constructor(public element: ElementRef, renderer: Renderer2, private zone: NgZone) {
-        this.element.nativeElement.style.cursor = 'pointer';
-
         const mouseup = new EventEmitter<MouseEvent>();
         const mousedown = new EventEmitter<MouseEvent>();
         const mousemove = new EventEmitter<MouseEvent>();
@@ -82,8 +86,14 @@ export class DraggableDirective implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.removeEventsListeners.push(
-            this.mousedrag
+        if (this.efdDraggable === '') {
+            this.efdDraggable = true;
+        }
+
+        if (this.efdDraggable) {
+            this.element.nativeElement.style.cursor = this.dragCursor;
+
+            const subscription = this.mousedrag
                 // .debounceTime(40)
                 .subscribe(pos => {
                     if (this.dragChangeElementStyle) {
@@ -96,9 +106,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
                             left: pos.left
                         });
                     });
-                })
-                .unsubscribe
-        );
+                });
+            this.removeEventsListeners.push(() => subscription.unsubscribe());
+        }
     }
 
     ngOnDestroy() {
