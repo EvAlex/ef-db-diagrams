@@ -40,4 +40,12 @@ export class AppComponent implements OnInit {
         this.modelLoading = false;
         this.modelLoadError = err;
     }
+
+    saveLayout() {
+        this._diagramLayout.saveLayout(this.model);
+    }
+
+    restoreLayout() {
+        this._diagramLayout.restoreLayout(this.model);
+    }
 }

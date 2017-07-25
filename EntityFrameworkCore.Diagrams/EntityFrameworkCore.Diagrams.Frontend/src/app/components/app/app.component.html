@@ -4,7 +4,13 @@
         <div *ngIf="model && modelLayout" class="toolbar-inner">
 
             <md-toolbar color="primary">
-                Db Diagram
+                <span class="spacer">Db Diagram</span>
+                <button type="button" md-icon-button (click)="saveLayout()">
+                    <md-icon>save</md-icon>
+                </button>
+                <button type="button" md-icon-button (click)="restoreLayout()">
+                    <md-icon>restore</md-icon>
+                </button>
             </md-toolbar>
 
             <div class="spacer"></div>

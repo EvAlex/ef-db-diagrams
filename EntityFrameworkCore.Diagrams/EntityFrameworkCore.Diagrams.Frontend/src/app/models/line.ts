@@ -3,6 +3,17 @@ import { Point } from './point';
 export class Line {
     width = 4;
 
+    static fromJSON(value: Object): Line {
+        return Object.assign(
+            new Line(null, null),
+            value,
+            {
+                p1: Point.fromJSON(value['p1']),
+                p2: Point.fromJSON(value['p2'])
+            }
+        );
+    }
+
     constructor(public p1: Point, public p2: Point) {
     }
 

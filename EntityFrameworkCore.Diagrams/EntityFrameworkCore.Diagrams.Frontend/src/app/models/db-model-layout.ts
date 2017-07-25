@@ -50,9 +50,9 @@ export class DbModelLayout {
             const match = this.relations
                 .filter(e =>
                     e.principalEntity.name === relation.principalEntityName
-                    && e.principalEntity.clrType === relation.principalEntityType
+                    && e.principalEntity.clrType.equals(relation.principalEntityType)
                     && e.dependentEntity.name === relation.dependentEntityName
-                    && e.dependentEntity.clrType === relation.dependentEntityType
+                    && e.dependentEntity.clrType.equals(relation.dependentEntityType)
                 )[0];
             if (match) {
                 match.applyLayout(relation);
