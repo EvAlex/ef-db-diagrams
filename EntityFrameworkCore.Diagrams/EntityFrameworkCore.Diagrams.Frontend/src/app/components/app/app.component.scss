@@ -1,7 +1,47 @@
+@import '~@angular/material/theming';
 
 :host {
     display: block;
     overflow: hidden;
     height: 100vh;
     width: 100vw;
+
+    md-grid-list {
+        height: 100%;
+
+        .toolbar {
+            @include mat-elevation(8);
+            z-index: 30;
+
+            @media print {
+                display: none;
+            }
+
+            &-inner {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+
+                .spacer {
+                    flex: 1;
+                }
+
+                efd-scaling-toolbar {
+                    padding: 8px;
+                    background: white;
+                    border-top: 1px solid #eee;
+                    text-align: center;
+                }
+            }
+        }
+
+        .diagram {
+            @media print {
+                left: 0 !important;
+                width: 100vw !important;
+            }
+        }
+    }
 }

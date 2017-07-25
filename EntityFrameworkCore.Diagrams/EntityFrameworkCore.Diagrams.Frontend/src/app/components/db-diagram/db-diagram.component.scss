@@ -2,8 +2,11 @@
 @import '../../../theme';
 @import '../../../mixins';
 
+$relation-color-normal: #cacaca;
+
 :host {
     display: block;
+    width: 100%;
     height: 100%;
     position: relative;
 
@@ -23,25 +26,6 @@
             position: relative;
             height: 100%;
         }
-
-        efd-scaling-toolbar {
-            position: fixed;
-            z-index: 30;
-            right: 17px; // these offsets equal Chrome scrollbar width. TODO what about other sizes?
-            bottom: 17px;
-            padding: 8px;
-            background: white;
-            border: 1px solid #eee;
-            border-right-width: 0;
-            border-bottom-width: 0;
-            border-top-left-radius: 2px;
-
-
-
-            @media print {
-                display: none;
-            }
-        }
     }
 
     efd-db-entity-diagram-figure {
@@ -49,7 +33,7 @@
 
     .relation-path-line {
         position: absolute;
-        background: black;
+        background: $relation-color-normal;
         // transition: transition-property(background);
 
         @media print {
@@ -72,7 +56,7 @@
             width: 4px;
             height: 4px;
             position: absolute;
-            background: black;
+            background: $relation-color-normal;
             border-radius: 2px;
         }
 

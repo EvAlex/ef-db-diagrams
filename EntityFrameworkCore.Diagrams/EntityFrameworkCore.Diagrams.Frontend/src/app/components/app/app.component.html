@@ -1,13 +1,29 @@
 
-<md-spinner *ngIf="modelLoading"></md-spinner>
+<md-grid-list cols="4" rowHeight="fit">
+    <md-grid-tile class="toolbar">
+        <div *ngIf="model && modelLayout" class="toolbar-inner">
 
-<ng-container *ngIf="modelLoadError">
+            <md-toolbar color="primary">
+                Db Diagram
+            </md-toolbar>
 
-    <h1>Failed to load database model.</h1>
+            <div class="spacer"></div>
 
-    <pre>
-        {{ modelLoadError }}
-    </pre>
-</ng-container>
+            <efd-scaling-toolbar [(scale)]="modelLayout.currentScale.scale"></efd-scaling-toolbar>
+        </div>
+    </md-grid-tile>
+    <md-grid-tile colspan="3" class="diagram">
+        <md-spinner *ngIf="modelLoading"></md-spinner>
 
-<efd-db-diagram *ngIf="!modelLoading && !modelLoadError" [model]="model"></efd-db-diagram>
+        <ng-container *ngIf="modelLoadError">
+
+            <h1>Failed to load database model.</h1>
+
+            <pre>
+                {{ modelLoadError }}
+            </pre>
+        </ng-container>
+
+        <efd-db-diagram *ngIf="!modelLoading && !modelLoadError" [model]="model"></efd-db-diagram>
+    </md-grid-tile>
+</md-grid-list>

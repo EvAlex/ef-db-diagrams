@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ApiService } from '../../services/api.service';
+import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';
 
 @Component({
@@ -14,7 +15,12 @@ export class AppComponent implements OnInit {
     modelLoading = false;
     modelLoadError = null;
 
-    constructor(private readonly _api: ApiService) {
+    get modelLayout() { return this._diagramLayout.getModelLayout(this.model); }
+
+    constructor(
+        private readonly _api: ApiService,
+        private readonly _diagramLayout: DiagramLayoutService
+    ) {
     }
 
     ngOnInit() {

@@ -5,7 +5,7 @@
 
 <div *ngIf="model?.entities.length > 0" #scrollContainer class="diagram-scroll-container">
 
-    <div class="diagram-container" efdScalable [scale]="currentScale?.scale" (scaleChange)="onScale($event)">
+    <div class="diagram-container" efdScalable [scale]="modelLayout.currentScale.scale" (scaleChange)="modelLayout.currentScale = $event">
 
         <efd-db-entity-diagram-figure
             *ngFor="let e of model.entities; trackBy: getEntityKey"
@@ -49,7 +49,5 @@
         </ng-container>
 
     </div>
-
-    <efd-scaling-toolbar [(scale)]="currentScale.scale"></efd-scaling-toolbar>
 
 </div>
