@@ -2,6 +2,8 @@
 @import '../../../theme';
 @import '../../../mixins';
 
+$relation-color-normal: #cacaca;
+
 :host {
     display: block;
     width: 100%;
@@ -31,7 +33,7 @@
 
     .relation-path-line {
         position: absolute;
-        background: black;
+        background: $relation-color-normal;
         // transition: transition-property(background);
 
         @media print {
@@ -54,7 +56,7 @@
             width: 4px;
             height: 4px;
             position: absolute;
-            background: black;
+            background: $relation-color-normal;
             border-radius: 2px;
         }
 

@@ -3,6 +3,10 @@
     <md-grid-tile class="toolbar">
         <div *ngIf="model && modelLayout" class="toolbar-inner">
 
+            <md-toolbar color="primary">
+                Db Diagram
+            </md-toolbar>
+
             <div class="spacer"></div>
 
             <efd-scaling-toolbar [(scale)]="modelLayout.currentScale.scale"></efd-scaling-toolbar>
