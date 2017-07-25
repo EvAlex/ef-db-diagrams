@@ -16,6 +16,8 @@ export class DbEntityLayout {
 
     readonly properties: DbEntityPropertyLayout[] = [];
 
+    collapsed = false;
+
     /**
      * @param entity Decorated entity
      * @param key Identifier used in ngFor trackBy

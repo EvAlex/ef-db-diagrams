@@ -42,7 +42,7 @@ namespace EntityFrameworkCore.Diagrams.Demo.Models
             modelBuilder.Entity<AlbumContent>()
                 .HasOne(e => e.Content)
                 .WithMany(e => e.AlbumContents)
-                .HasForeignKey(e => e.AlbumId);
+                .HasForeignKey(e => e.ContentId);
 
             modelBuilder.Entity<AlbumContentComment>()
                 .HasKey(e => new { e.AlbumId, e.ContentId, e.PostId });
