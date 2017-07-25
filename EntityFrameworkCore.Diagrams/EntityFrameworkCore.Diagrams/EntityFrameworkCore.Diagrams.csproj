@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageVersion>0.1.6</PackageVersion>
+    <PackageVersion>0.2.0</PackageVersion>
     <Description>EntityFrameworkCore.Diagrams is a tool to visualize entity model created with EntityFramework.
     
 The tool is exposed as a middleware for ASP.NET Core app. To use it call `app.AddEfDiagrams()` in your `Configure` method within `Startup` class.
@@ -22,6 +22,10 @@ Feel free to report any bugs or feature requests. Contributions are appreciated!
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <FileVersion>0.1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.6\EntityFrameworkCore.Diagrams.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
