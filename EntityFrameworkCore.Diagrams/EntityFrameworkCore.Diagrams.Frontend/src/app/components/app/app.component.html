@@ -1,9 +1,14 @@
 
 <md-grid-list cols="4" rowHeight="fit">
     <md-grid-tile class="toolbar">
-        toolbar
+        <div *ngIf="model && modelLayout" class="toolbar-inner">
+
+            <div class="spacer"></div>
+
+            <efd-scaling-toolbar [(scale)]="modelLayout.currentScale.scale"></efd-scaling-toolbar>
+        </div>
     </md-grid-tile>
-    <md-grid-tile colspan="3">
+    <md-grid-tile colspan="3" class="diagram">
         <md-spinner *ngIf="modelLoading"></md-spinner>
 
         <ng-container *ngIf="modelLoadError">

@@ -8,7 +8,7 @@ export const DEFAULT_SCALE = 1;
 
 const noop = () => {};
 
-export interface IScaleEvent {
+export interface IScaleInfo {
     scale: number;
     translateX?: number;
     translateY?: number;
@@ -42,7 +42,7 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
     }
 
     @Output()
-    scaleChange = new EventEmitter<IScaleEvent>();
+    scaleChange = new EventEmitter<IScaleInfo>();
 
     constructor(
         private readonly _el: ElementRef,
