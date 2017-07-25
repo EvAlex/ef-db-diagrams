@@ -1,5 +1,6 @@
 ﻿using EntityFrameworkCore.Diagrams.Dto;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -19,11 +20,19 @@ namespace Microsoft.Extensions.DependencyInjection
         private readonly EfDiagramsOptions _options;
         private readonly ILogger _logger;
 
-        private const string prefix = @"\/db-diagrams";
-
-        private string StaticFilePattern
+        internal static string GetEfDiagramsContentRoot()
         {
-            get { return $@"^{prefix}$|^{prefix}\/$|^{prefix}\/index$|^{prefix}\/(index\.html)$|^{prefix}\/([^\/]{{1,}}\.[^\/]{{1,}})$"; }
+            var asm = typeof(EfDiagramsMiddleware).GetTypeInfo().Assembly;
+            var dllPath = Path.GetDirectoryName(asm.Location);
+            var nupkgRoot = Path.Combine(dllPath, "..", "..");
+            var contentRoot = Path.Combine(nupkgRoot, "content");
+            if (!Directory.Exists(contentRoot))
+            {
+                //  NOTE: this means that we are not installed as NuGet packange
+                contentRoot = Path.Combine(dllPath, "..", "..", "..", "..", "EntityFrameworkCore.Diagrams");
+            }
+            contentRoot = Path.Combine(contentRoot, "wwwroot", "db-diagrams");
+            return contentRoot;
         }
 
         /// <summary>
@@ -71,10 +80,6 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 if (IsModelRequest(httpContext))
                     await GetModel(httpContext);
-                else if (IsStaticFileRequest(httpContext))
-                    await ServeStaticFile(httpContext);
-                else if (ShouldDisplayDiagramsPage(httpContext))
-                    await DisplayDiagramsPage(httpContext);
                 else
                     await _next(httpContext);
             }
@@ -83,44 +88,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 _logger.LogError(new EventId(1, "EfDiagrams"), ex, $"Error in {nameof(EfDiagramsMiddleware)}");
                 throw;
             }
-        }
-
-        private async Task DisplayDiagramsPage(HttpContext httpContext)
-        {
-            var asm = typeof(EfDiagramsMiddleware).GetTypeInfo().Assembly;
-            var dllPath = Path.GetDirectoryName(asm.Location);
-            var nupkgRoot = Path.Combine(dllPath, "..", "..");
-            var contentRoot = Path.Combine(nupkgRoot, "content");
-            string html = File.ReadAllText(Path.Combine(contentRoot, "wwwroot", "db-diagrams", "index.html"));
-
-            await httpContext.Response.WriteAsync(html);
-        }
-
-        private bool ShouldDisplayDiagramsPage(HttpContext httpContext)
-        {
-            return Regex.IsMatch(httpContext.Request.Path.Value, "^/db-diagrams", RegexOptions.IgnoreCase)
-                && httpContext.Request.Method == HttpMethods.Get;
-        }
-
-        private async Task ServeStaticFile(HttpContext httpContext)
-        {
-            var match = Regex.Match(httpContext.Request.Path.Value, StaticFilePattern, RegexOptions.IgnoreCase);
-            string fileName = string.IsNullOrWhiteSpace(match.Groups[2].Value) ? "index.html" : match.Groups[2].Value;
-
-            var asm = typeof(EfDiagramsMiddleware).GetTypeInfo().Assembly;
-            var dllPath = Path.GetDirectoryName(asm.Location);
-            var nupkgRoot = Path.Combine(dllPath, "..", "..");
-            var contentRoot = Path.Combine(nupkgRoot, "content");
-            string html = File.ReadAllText(Path.Combine(contentRoot, "wwwroot", "db-diagrams", fileName));
-
-            await httpContext.Response.WriteAsync(html);
-        }
-
-        private bool IsStaticFileRequest(HttpContext httpContext)
-        {            
-            var match = Regex.Match(httpContext.Request.Path.Value, StaticFilePattern, RegexOptions.IgnoreCase);
-            return match.Success && httpContext.Request.Method == HttpMethods.Get;
-
         }
 
         private async Task GetModel(HttpContext httpContext)

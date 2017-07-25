@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageVersion>0.1.5</PackageVersion>
+    <PackageVersion>0.1.6</PackageVersion>
     <Description>EntityFrameworkCore.Diagrams is a tool to visualize entity model created with EntityFramework.
     
 The tool is exposed as a middleware for ASP.NET Core app. To use it call `app.AddEfDiagrams()` in your `Configure` method within `Startup` class.
@@ -25,47 +25,11 @@ Feel free to report any bugs or feature requests. Contributions are appreciated!
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="wwwroot\db-diagrams\3rdpartylicenses.txt" />
-    <None Remove="wwwroot\db-diagrams\favicon.ico" />
-    <None Remove="wwwroot\db-diagrams\index.html" />
-    <None Remove="wwwroot\db-diagrams\inline.bundle.js" />
-    <None Remove="wwwroot\db-diagrams\main.bundle.js" />
-    <None Remove="wwwroot\db-diagrams\polyfills.bundle.js" />
-    <None Remove="wwwroot\db-diagrams\styles.bundle.css" />
-    <None Remove="wwwroot\db-diagrams\vendor.bundle.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\db-diagrams\3rdpartylicenses.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\db-diagrams\favicon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\db-diagrams\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\db-diagrams\inline.bundle.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\db-diagrams\main.bundle.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\db-diagrams\polyfills.bundle.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\db-diagrams\styles.bundle.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\db-diagrams\vendor.bundle.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
@@ -73,7 +37,13 @@ Feel free to report any bugs or feature requests. Contributions are appreciated!
     <Message Text="Downloading dependencies for Frontend App..." />
     <Exec Command="npm i" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
     <Message Text="Building Frontend App..." />
-    <Exec Command="ng build --prod --base-href=/db-diagrams/ --progress=false --output-hashing=none" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
+    <Exec Command="ng build --prod --base-href=/db-diagrams/ --progress=false" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
+
+    <ItemGroup>
+      <Content Include="wwwroot\db-diagrams\*.*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
   </Target>
 
 </Project>
