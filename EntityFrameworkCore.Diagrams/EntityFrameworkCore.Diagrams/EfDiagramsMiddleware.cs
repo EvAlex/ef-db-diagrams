@@ -14,26 +14,17 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// Middleware for application's request pipeline, that handles requests
+    /// within <see cref="EfDiagramsOptions.RequestPath"/> except ones that
+    /// request frontend app static files - they are served with 
+    /// <see cref="StaticFileMiddleware"/>.
+    /// </summary>
     public class EfDiagramsMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly EfDiagramsOptions _options;
         private readonly ILogger _logger;
-
-        internal static string GetEfDiagramsContentRoot()
-        {
-            var asm = typeof(EfDiagramsMiddleware).GetTypeInfo().Assembly;
-            var dllPath = Path.GetDirectoryName(asm.Location);
-            var nupkgRoot = Path.Combine(dllPath, "..", "..");
-            var contentRoot = Path.Combine(nupkgRoot, "content");
-            if (!Directory.Exists(contentRoot))
-            {
-                //  NOTE: this means that we are not installed as NuGet packange
-                contentRoot = Path.Combine(dllPath, "..", "..", "..", "..", "EntityFrameworkCore.Diagrams");
-            }
-            contentRoot = Path.Combine(contentRoot, "wwwroot", "db-diagrams");
-            return contentRoot;
-        }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DatabaseErrorPageMiddleware" /> class
@@ -78,7 +69,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             try
             {
-                if (IsModelRequest(httpContext))
+                if (IsGet(httpContext, "/model"))
                     await GetModel(httpContext);
                 else
                     await _next(httpContext);
@@ -99,9 +90,9 @@ namespace Microsoft.Extensions.DependencyInjection
             await httpContext.Response.WriteAsync(json);
         }
 
-        private bool IsModelRequest(HttpContext httpContext)
+        private bool IsGet(HttpContext httpContext, string pathSegment)
         {
-            return httpContext.Request.Path.Value.ToLower().StartsWith("/db-diagrams/model")
+            return httpContext.Request.Path.Equals(_options.RequestPath.Add(pathSegment), StringComparison.OrdinalIgnoreCase)
                 && httpContext.Request.Method == HttpMethods.Get;
         }
     }
