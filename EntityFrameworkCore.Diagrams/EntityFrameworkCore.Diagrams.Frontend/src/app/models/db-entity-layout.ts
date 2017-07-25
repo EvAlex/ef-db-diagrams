@@ -2,6 +2,7 @@ import { DbEntity } from './db-entity';
 import { DbEntityPropertyLayout } from './db-entity-property-layout';
 import { DbEntityProperty } from './db-entity-property';
 import { Point } from './point';
+import { DbEntityLayoutDto } from './dto/db-entity-layout-dto';
 
 export class DbEntityLayout {
     x: number = null;
@@ -31,6 +32,15 @@ export class DbEntityLayout {
             result = new DbEntityPropertyLayout(property);
             this.properties.push(result);
         }
+        return result;
+    }
+
+    toDto(): DbEntityLayoutDto {
+        const result = new DbEntityLayoutDto();
+        result.name = this.entity.name;
+        result.type = this.entity.clrType;
+        result.x = this.x;
+        result.y = this.y;
         return result;
     }
 }

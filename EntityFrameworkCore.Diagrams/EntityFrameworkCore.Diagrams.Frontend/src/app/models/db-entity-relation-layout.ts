@@ -4,6 +4,7 @@ import { DbEntityProperty } from './db-entity-property';
 import { DbEntityRelationConnector, Direction } from '../models/db-entity-relation-connector';
 import { Line } from './line';
 import { Point } from './point';
+import { DbEntityRelationLayoutDto } from './dto/db-entity-relation-layout-dto';
 
 export class DbEntityRelationLayout {
     get principalEntity(): DbEntity { return this.foreignKey.principalEntity; }
@@ -206,5 +207,33 @@ export class DbEntityRelationLayout {
         const principalEntity = this.principalEntity.shortName;
         const principalProperties = this.dependentProperties.map(e => e.name).join(', ');
         return `${dependentEntity} (${dependentProperties}) → ${principalEntity} (${principalProperties})`;
+    }
+
+    toDto(): DbEntityRelationLayoutDto {
+        const result = new DbEntityRelationLayoutDto();
+        result.principalEntityName = this.principalEntity.name;
+        result.principalEntityType = this.principalEntity.clrType;
+        result.dependentEntityName = this.dependentEntity.name;
+        result.dependentEntityType = this.dependentEntity.clrType;
+        result.principalConnector = this.principalConnector;
+        result.dependentConnector = this.dependentConnector;
+        if (this._collapsedPrincipalConnector) {
+            result.collapsedPrincipalConnector = this._collapsedPrincipalConnector;
+        }
+        if (this._collapsedDependentConnector) {
+            result.collapsedDependentConnector = this._collapsedDependentConnector;
+        }
+        result.fullPath = this.fullPath;
+        result.draggableLines = this._draggableLines;
+        return result;
+    }
+
+    applyLayout(dto: DbEntityRelationLayoutDto) {
+        this.principalConnector = dto.principalConnector;
+        this.dependentConnector = dto.dependentConnector;
+        this._collapsedPrincipalConnector = dto.collapsedPrincipalConnector;
+        this._collapsedDependentConnector = dto.collapsedDependentConnector;
+        this.fullPath = dto.fullPath;
+        this._draggableLines = dto.draggableLines;
     }
 }
