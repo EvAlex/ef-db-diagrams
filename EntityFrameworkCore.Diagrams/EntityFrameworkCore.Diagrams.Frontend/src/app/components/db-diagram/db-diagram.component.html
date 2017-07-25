@@ -24,7 +24,7 @@
 
         <!-- <efd-db-relation-connector *ngFor="let relation of modelLayout.relations" [relation]="relation"></efd-db-relation-connector> -->
 
-        <ng-container *ngFor="let relation of modelLayout.relations">
+        <ng-container *ngFor="let relation of modelLayout.visibleRelations">
             <div *ngFor="let line of relation.fullPath"
                 class="relation-path-line"
                 [class.horizontal]="line.isHorizontal"

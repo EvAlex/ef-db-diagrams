@@ -11,6 +11,11 @@ export class DbModelLayout {
     readonly entities: DbEntityLayout[] = [];
     readonly relations: DbEntityRelationLayout[] = [];
 
+    get visibleEntities() { return this._visibleEntities; }
+    get visibleRelations() { return this._visibleRelations; }
+    private _visibleEntities = this.entities;
+    private _visibleRelations = this.relations;
+
     currentScale: IScaleInfo = { scale: DEFAULT_SCALE };
 
     constructor(public readonly model: DbModel) {
@@ -19,6 +24,16 @@ export class DbModelLayout {
                 this.relations.push(new DbEntityRelationLayout(entity, fk));
             }
         }
+    }
+
+    toggleEntityVisibility(entity: DbEntityLayout) {
+        if (this.entities.indexOf(entity) === -1) {
+            throw new Error('Specified entity belongs to other model');
+        }
+
+        entity.visible = !entity.visible;
+
+        this.updateVisibleObjects();
     }
 
     getEntityLayout(entity: DbEntity): DbEntityLayout {
@@ -57,5 +72,16 @@ export class DbModelLayout {
                 match.applyLayout(relation);
             }
         }
+
+        this.updateVisibleObjects();
+    }
+
+    private updateVisibleObjects() {
+        this._visibleEntities = this.entities.filter(e => e.visible);
+        this._visibleRelations = this.relations
+            .filter(e =>
+                this._visibleEntities.some(ee => ee.entity.equals(e.principalEntity))
+                && this._visibleEntities.some(ee => ee.entity.equals(e.dependentEntity))
+        );
     }
 }

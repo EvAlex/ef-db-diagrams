@@ -6,6 +6,7 @@ export class DbEntityLayoutDto {
     name: string;
     type: ClrType;
     collapsed: boolean;
+    visible: boolean;
 
     static fromJSON(value: Object): DbEntityLayoutDto {
         return Object.assign(

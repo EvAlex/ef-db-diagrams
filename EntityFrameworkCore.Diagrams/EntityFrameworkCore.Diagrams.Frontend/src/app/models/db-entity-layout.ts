@@ -19,6 +19,8 @@ export class DbEntityLayout {
 
     collapsed = false;
 
+    visible = true;
+
     /**
      * @param entity Decorated entity
      * @param key Identifier used in ngFor trackBy
@@ -42,6 +44,7 @@ export class DbEntityLayout {
         result.x = this.x;
         result.y = this.y;
         result.collapsed = this.collapsed;
+        result.visible = this.visible;
         return result;
     }
 
@@ -49,5 +52,6 @@ export class DbEntityLayout {
         this.x = dto.x;
         this.y = dto.y;
         this.collapsed = dto.collapsed;
+        this.visible = dto.visible;
     }
 }
