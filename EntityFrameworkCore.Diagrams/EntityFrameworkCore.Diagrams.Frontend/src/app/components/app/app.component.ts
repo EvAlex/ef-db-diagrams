@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';
+import { DbEntityLayout } from '../../models/db-entity-layout';
 
 @Component({
     selector: 'efd-root',
@@ -47,5 +48,18 @@ export class AppComponent implements OnInit {
 
     restoreLayout() {
         this._diagramLayout.restoreLayout(this.model);
+    }
+
+    toggleAllEntitiesVisibility() {
+        const targetEntities = this.modelLayout.visibleEntities.length > 0
+            ? this.modelLayout.visibleEntities
+            : this.modelLayout.entities;
+        for (const entity of targetEntities) {
+            this.modelLayout.toggleEntityVisibility(entity);
+        }
+    }
+
+    toggleEntityVisibility(entity: DbEntityLayout) {
+        this.modelLayout.toggleEntityVisibility(entity);
     }
 }

@@ -28,6 +28,10 @@
                     flex: 1;
                 }
 
+                .toolbar-content {
+                    overflow: auto;
+                }
+
                 efd-scaling-toolbar {
                     padding: 8px;
                     background: white;

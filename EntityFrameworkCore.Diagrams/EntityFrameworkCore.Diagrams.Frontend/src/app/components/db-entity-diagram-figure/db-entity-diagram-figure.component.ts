@@ -39,6 +39,9 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
     @HostBinding('style.zIndex')
     get zIndex() { return this.entityLayout.zIndex; }
 
+    @HostBinding('style.display')
+    get display() { return this.entityLayout.visible ? 'inline-block' : 'none'; }
+
     @ViewChildren(MdRow, { read: ViewContainerRef })
     rows: QueryList<ViewContainerRef>;
 

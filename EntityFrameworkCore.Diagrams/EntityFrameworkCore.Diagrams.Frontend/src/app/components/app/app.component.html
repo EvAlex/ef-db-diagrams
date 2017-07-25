@@ -13,7 +13,30 @@
                 </button>
             </md-toolbar>
 
-            <div class="spacer"></div>
+            <div class="spacer toolbar-content">
+                <md-toolbar>
+                    <span class="spacer">Entities</span>
+                    <button type="button" md-icon-button (click)="toggleAllEntitiesVisibility()">
+                        <md-icon *ngIf="modelLayout.visibleEntities.length > 0">visibility</md-icon>
+                        <md-icon *ngIf="modelLayout.visibleEntities.length === 0">visibility_off</md-icon>
+                    </button>
+                </md-toolbar>
+                <md-nav-list>
+                    <md-list-item *ngFor="let entity of modelLayout.entities">
+                        <md-icon md-list-icon>web_asset</md-icon>
+                        <a href="javascript:void(0);" md-line>
+                            {{ entity.entity.shortName }}
+                        </a>
+                        <button
+                            type="button"
+                            md-icon-button
+                            (click)="toggleEntityVisibility(entity); $event.stopPropagation()">
+                            <md-icon *ngIf="entity.visible">visibility</md-icon>
+                            <md-icon *ngIf="!entity.visible">visibility_off</md-icon>
+                        </button>
+                    </md-list-item>
+                </md-nav-list>
+            </div>
 
             <efd-scaling-toolbar [(scale)]="modelLayout.currentScale.scale"></efd-scaling-toolbar>
         </div>
