@@ -11,6 +11,7 @@ import { Line } from '../models/line';
 import { DbEntityRelationConnector, Direction } from '../models/db-entity-relation-connector';
 
 const MIN_RELATION_EDGE = 16;
+
 const ENTITY_ZINDEX_NORMAL = 10;
 const ENTITY_ZINDEX_ACTIVE = 11;
 const ENTITY_ZINDEX_HOVER = 12;
@@ -159,20 +160,52 @@ export class DiagramLayoutService {
             modelLayout.entities.map(e => `  - ${e.entity.shortName} (${e.width}, ${e.height})`).join('\n')
         );
 
-        const minEntitiesMargin = 16 + 2 * MIN_RELATION_EDGE;
-        let curX = 0, curY = 0;
-        for (const entity of modelLayout.entities) {
-            entity.x = curX;
-            entity.y = curY;
-            curX += entity.width + minEntitiesMargin;
-
-            entity.zIndex = ENTITY_ZINDEX_NORMAL;
-        }
+        this.layoutEntities(modelLayout);
 
         for (const relation of modelLayout.relations) {
             this.layoutRelation(modelLayout, relation);
         }
 
+    }
+
+    private layoutEntities(modelLayout: DbModelLayout) {
+        let linesCount = 0, aspectRatio = 100;
+        while (modelLayout.entities.length > linesCount && aspectRatio > 16 / 9) {
+            linesCount++;
+
+            const lines: DbEntityLayout[][] = [];
+            const count = Math.ceil(modelLayout.entities.length / linesCount);
+            for (let i = 0; i < linesCount; i++) {
+                const start = i * count;
+                const line = modelLayout.entities.slice(start, start + count);
+                if (line.length > 0) {
+                    lines.push(line);
+                }
+            }
+            const width = lines.map(e => e.reduce((p, c) => p + c.width, 0)).sort().reverse()[0];
+            const height = lines.map(e => e.sort((a, b) => b.height - a.height)[0].height).reduce((p, c) => p + c);
+
+            aspectRatio = width / height;
+        }
+
+        const minEntitiesMargin = 16 + 2 * MIN_RELATION_EDGE;
+        const entitiesInLine = Math.ceil(modelLayout.entities.length / linesCount);
+        let curX = 0, curY = 0, i = 0;
+        for (const entity of modelLayout.entities) {
+            entity.x = curX;
+            entity.y = curY;
+            entity.zIndex = ENTITY_ZINDEX_NORMAL;
+
+            i++;
+            if (i % entitiesInLine === 0) {
+                curX = 0;
+                curY += modelLayout.entities
+                    .slice(i - entitiesInLine, i)
+                    .sort((a, b) => b.height - a.height)[0].height + minEntitiesMargin;
+            } else {
+                curX += entity.width + minEntitiesMargin;
+            }
+        }
     }
 
     private layoutRelation(modelLayout: DbModelLayout, relation: DbEntityRelationLayout) {
