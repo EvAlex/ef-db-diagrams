@@ -1,13 +1,20 @@
 
-<md-spinner *ngIf="modelLoading"></md-spinner>
+<md-grid-list cols="4" rowHeight="fit">
+    <md-grid-tile class="toolbar">
+        toolbar
+    </md-grid-tile>
+    <md-grid-tile colspan="3">
+        <md-spinner *ngIf="modelLoading"></md-spinner>
 
-<ng-container *ngIf="modelLoadError">
+        <ng-container *ngIf="modelLoadError">
 
-    <h1>Failed to load database model.</h1>
+            <h1>Failed to load database model.</h1>
 
-    <pre>
-        {{ modelLoadError }}
-    </pre>
-</ng-container>
+            <pre>
+                {{ modelLoadError }}
+            </pre>
+        </ng-container>
 
-<efd-db-diagram *ngIf="!modelLoading && !modelLoadError" [model]="model"></efd-db-diagram>
+        <efd-db-diagram *ngIf="!modelLoading && !modelLoadError" [model]="model"></efd-db-diagram>
+    </md-grid-tile>
+</md-grid-list>

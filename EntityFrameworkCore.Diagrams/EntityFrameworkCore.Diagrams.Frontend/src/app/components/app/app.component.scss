@@ -1,7 +1,17 @@
+@import '~@angular/material/theming';
 
 :host {
     display: block;
     overflow: hidden;
     height: 100vh;
     width: 100vw;
+
+    md-grid-list {
+        height: 100%;
+
+        .toolbar {
+            @include mat-elevation(8);
+            z-index: 30;
+        }
+    }
 }
