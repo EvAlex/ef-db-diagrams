@@ -11,6 +11,17 @@ export class DbEntityRelationConnector {
             : Direction.RightToLeft;
     }
 
+    static fromJSON(value: Object): DbEntityRelationConnector {
+        return Object.assign(
+            new DbEntityRelationConnector(),
+            value,
+            {
+                lines: value['lines'].map(e => Line.fromJSON(e)),
+                externalPoint: Point.fromJSON(value['externalPoint']),
+            }
+        );
+    }
+
     // directionOverride: Direction | null = null;
 }
 

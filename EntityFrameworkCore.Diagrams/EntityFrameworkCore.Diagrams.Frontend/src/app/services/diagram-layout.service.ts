@@ -9,6 +9,7 @@ import { DbEntity } from '../models/db-entity';
 import { Point } from '../models/point';
 import { Line } from '../models/line';
 import { DbEntityRelationConnector, Direction } from '../models/db-entity-relation-connector';
+import { DbModelLayoutDto } from '../models/dto/db-model-layout-dto';
 
 const MIN_RELATION_EDGE = 16;
 
@@ -18,6 +19,8 @@ const ENTITY_ZINDEX_HOVER = 12;
 const ENTITY_ZINDEX_DRAG = 13;
 const RELATION_ZINDEX_NORMAL = 5;
 const RELATION_ZINDEX_HOVER = 6;
+
+const LOCAL_STORAGE_KEY_MODEL_LAYOUT = 'ModelLayout';
 
 @Injectable()
 export class DiagramLayoutService {
@@ -343,6 +346,23 @@ export class DiagramLayoutService {
             this._modelLayouts.push(result);
         }
         return result;
+    }
+
+    saveLayout(model: DbModel) {
+        const modelLayout = this.getModelLayout(model);
+        const dto = modelLayout.toDto();
+        const dtoStr = JSON.stringify(dto);
+        localStorage.setItem(LOCAL_STORAGE_KEY_MODEL_LAYOUT, dtoStr);
+    }
+
+    restoreLayout(model: DbModel) {
+        const modelLayout = this.getModelLayout(model);
+        const dtoStr = localStorage.getItem(LOCAL_STORAGE_KEY_MODEL_LAYOUT);
+        if (dtoStr) {
+            const dtoObj = JSON.parse(dtoStr);
+            const dto = DbModelLayoutDto.fromJSON(dtoObj);
+            modelLayout.applyLayout(dto);
+        }
     }
 
 }
