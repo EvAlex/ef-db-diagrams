@@ -41,6 +41,13 @@ export class DbEntityLayout {
         result.type = this.entity.clrType;
         result.x = this.x;
         result.y = this.y;
+        result.collapsed = this.collapsed;
         return result;
+    }
+
+    applyLayout(dto: DbEntityLayoutDto) {
+        this.x = dto.x;
+        this.y = dto.y;
+        this.collapsed = dto.collapsed;
     }
 }

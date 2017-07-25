@@ -42,8 +42,7 @@ export class DbModelLayout {
             const match = this.entities
                 .filter(e => e.entity.name === entity.name && e.entity.clrType.equals(entity.type))[0];
             if (match) {
-                match.x = entity.x;
-                match.y = entity.y;
+                match.applyLayout(entity);
             }
         }
         for (const relation of dto.relations) {
