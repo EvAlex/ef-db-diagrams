@@ -25,6 +25,7 @@ import { ScalableDirective } from './directives/scalable.directive';
 import { DbRelationConnectorComponent } from './components/db-relation-connector/db-relation-connector.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { ScalingToolbarComponent } from './components/scaling-toolbar/scaling-toolbar.component';
+import { MouseEdgePanDirective } from './directives/mouse-edge-pan.directive';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { ScalingToolbarComponent } from './components/scaling-toolbar/scaling-to
         DbRelationConnectorComponent,
         DraggableDirective,
         ScalingToolbarComponent,
+        MouseEdgePanDirective,
     ],
     imports: [
         BrowserModule,
