@@ -30,6 +30,8 @@ import { DbRelationConnectorComponent } from './components/db-relation-connector
 import { DraggableDirective } from './directives/draggable.directive';
 import { ScalingToolbarComponent } from './components/scaling-toolbar/scaling-toolbar.component';
 import { MouseEdgePanDirective } from './directives/mouse-edge-pan.directive';
+import { MinimapComponent } from './components/minimap/minimap.component';
+import { ScrollbarWidthDirective } from './directives/scrollbar-width.directive';
 
 @NgModule({
     declarations: [
@@ -42,6 +44,8 @@ import { MouseEdgePanDirective } from './directives/mouse-edge-pan.directive';
         DraggableDirective,
         ScalingToolbarComponent,
         MouseEdgePanDirective,
+        MinimapComponent,
+        ScrollbarWidthDirective,
     ],
     imports: [
         BrowserModule,

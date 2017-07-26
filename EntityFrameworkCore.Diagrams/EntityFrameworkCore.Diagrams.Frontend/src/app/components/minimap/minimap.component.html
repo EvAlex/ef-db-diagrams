@@ -1,0 +1,12 @@
+
+<div
+    class="viewport"
+    [style.width.px]="viewportWidth"
+    [style.height.px]="viewportHeight"
+    [style.marginLeft.px]="viewportLeft"
+    [style.marginTop.px]="viewportTop"
+    efdDraggable
+    dragCursor="default"
+    [dragChangeElementStyle]="false"
+    (efdDrag)="onViewportDrag($event)">
+</div>

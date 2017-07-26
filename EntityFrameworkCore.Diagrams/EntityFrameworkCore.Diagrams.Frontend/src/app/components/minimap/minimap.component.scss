@@ -1,0 +1,21 @@
+
+:host {
+    display: block;
+    border: 1px solid rgba(black, 0.4);
+    border-radius: 2px;
+
+    &:hover {
+        .viewport {
+            background: rgba(black, 0.1);
+        }
+    }
+
+    .viewport {
+        border: 1px solid rgba(black, 0.4);
+        border-radius: 2px;
+
+        &:hover {
+            background: rgba(black, 0.2);
+        }
+    }
+}
