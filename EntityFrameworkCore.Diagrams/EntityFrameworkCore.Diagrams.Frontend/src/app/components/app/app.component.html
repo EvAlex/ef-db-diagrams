@@ -59,6 +59,23 @@
                                 [placeholder]="'Column title - ' + column.key"
                                 [(ngModel)]="column.name">
                         </md-input-container>
+
+                        <span class="reorder-buttons-container">
+                            <button
+                                type="button"
+                                md-icon-button
+                                [disabled]="!modelLayout.entitiesTableSettings.canMoveColumnUp(column)"
+                                (click)="modelLayout.entitiesTableSettings.moveColumnUp(column)">
+                                <md-icon>arrow_drop_up</md-icon>
+                            </button>
+                            <button
+                                type="button"
+                                md-icon-button
+                                [disabled]="!modelLayout.entitiesTableSettings.canMoveColumnDown(column)"
+                                (click)="modelLayout.entitiesTableSettings.moveColumnDown(column)">
+                                <md-icon>arrow_drop_down</md-icon>
+                            </button>
+                        </span>
                     </div>
                 </section>
             </div>

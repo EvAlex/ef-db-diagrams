@@ -59,7 +59,28 @@
                         }
 
                         md-slide-toggle {
-                            margin-right: 16px;
+                            margin-right: 8px;
+                        }
+
+                        .reorder-buttons-container {
+                            display: inline-flex;
+                            flex-direction: column;
+                            align-items: center;
+                            vertical-align: middle;
+                            margin-left: 8px;
+
+                            [md-icon-button] {
+                                width: 20px;
+                                height: 20px;
+                                line-height: 20px;
+
+                                md-icon {
+                                    width: 20px;
+                                    height: 20px;
+                                    line-height: 20px;
+                                    font-size: 20px;
+                                }
+                            }
                         }
                     }
                 }
