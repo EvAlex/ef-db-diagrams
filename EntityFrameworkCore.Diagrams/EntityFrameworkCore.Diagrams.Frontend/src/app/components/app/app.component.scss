@@ -30,6 +30,38 @@
 
                 .toolbar-content {
                     overflow: auto;
+
+                    .entities-list {
+
+                        [md-icon-button] {
+                            width: 20px;
+                            height: 20px;
+                            line-height: 20px;
+
+                            md-icon {
+                                width: 20px;
+                                height: 20px;
+                                line-height: 20px;
+                                font-size: 20px;
+                            }
+                        }
+                    }
+
+                    md-toolbar {
+                        margin-top: 16px;
+                    }
+
+                    section {
+                        margin: 16px;
+
+                        h4 {
+                            font-weight: normal;
+                        }
+
+                        md-slide-toggle {
+                            margin-right: 16px;
+                        }
+                    }
                 }
 
                 efd-scaling-toolbar {

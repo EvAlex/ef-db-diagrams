@@ -4,10 +4,14 @@ import { DbEntityLayout } from './db-entity-layout';
 import { DbEntityRelationLayout } from './db-entity-relation-layout';
 import { IScaleInfo, DEFAULT_SCALE } from '../directives/scalable.directive';
 import { DbModelLayoutDto } from './dto/db-model-layout-dto';
+import { TableSettings } from './table-settings';
+import { ColumnSettings } from './column-settings';
+
 
 let entityKeyCounter = 0;
 
 export class DbModelLayout {
+    initialized = false;
     readonly entities: DbEntityLayout[] = [];
     readonly relations: DbEntityRelationLayout[] = [];
 
@@ -17,6 +21,8 @@ export class DbModelLayout {
     private _visibleRelations = this.relations;
 
     currentScale: IScaleInfo = { scale: DEFAULT_SCALE };
+
+    entitiesTableSettings = getDefaultEntityTableSettings();
 
     constructor(public readonly model: DbModel) {
         for (const entity of model.entities) {
@@ -41,6 +47,7 @@ export class DbModelLayout {
         if (!result) {
             result = new DbEntityLayout(entity, ++entityKeyCounter);
             this.entities.push(result);
+            this.updateVisibleObjects();
         }
         return result;
     }
@@ -49,6 +56,7 @@ export class DbModelLayout {
         const result = new DbModelLayoutDto();
         result.entities = this.entities.map(e => e.toDto());
         result.relations = this.relations.map(e => e.toDto());
+        result.entitiesTableSettings = this.entitiesTableSettings;
         return result;
     }
 
@@ -72,6 +80,7 @@ export class DbModelLayout {
                 match.applyLayout(relation);
             }
         }
+        this.entitiesTableSettings = dto.entitiesTableSettings;
 
         this.updateVisibleObjects();
     }
@@ -84,4 +93,13 @@ export class DbModelLayout {
                 && this._visibleEntities.some(ee => ee.entity.equals(e.dependentEntity))
         );
     }
+}
+
+function getDefaultEntityTableSettings(): TableSettings {
+    return new TableSettings([
+        new ColumnSettings('key', 'Key', true, false),
+        new ColumnSettings('name', 'Property', true, true),
+        new ColumnSettings('clrType', 'Type', true, false),
+        new ColumnSettings('nullable', 'Nullable', true, false),
+    ]);
 }
