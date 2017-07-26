@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageVersion>0.2.3</PackageVersion>
+    <PackageVersion>0.2.4</PackageVersion>
     <Description>
-      ASP.NET Core Middleware serving Angular app displaying your EF Core DbContext model as a diagram.
+ASP.NET Core Middleware serving Angular app displaying your EF Core DbContext model as a diagram.
 
-      To use it call `app.AddEfDiagrams()` in your `Configure` method within `Startup` class.
-      Use it only in development mode (`if (env.IsDevelopment())`): you don't want everyone in public see your entire data structure :)
+To use it call `app.AddEfDiagrams()` in your `Configure` method within `Startup` class.
+Use it only in development mode (`if (env.IsDevelopment())`): you don't want everyone in public see your entire data structure :)
 
-      That's all the config! Start your app and browse to `/ef-diagrams` page. You should see yor entity model diagram.
+That's all the config! Start your app and browse to `/ef-diagrams` page. You should see yor entity model diagram.
 
-      Feel free to report any bugs or feature requests. Contributions are appreciated!
+Feel free to report any bugs or feature requests. Contributions are appreciated!
     </Description>
     <PackageIconUrl>https://github.com/EvAlex/ef-db-diagrams/raw/master/icon.png</PackageIconUrl>
     <Authors>Alexander Pavlyuk (EvAlex)</Authors>
@@ -23,8 +23,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <AssemblyVersion>0.2.2.0</AssemblyVersion>
-    <FileVersion>0.2.2.0</FileVersion>
+    <AssemblyVersion>0.2.4.0</AssemblyVersion>
+    <FileVersion>0.2.4.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

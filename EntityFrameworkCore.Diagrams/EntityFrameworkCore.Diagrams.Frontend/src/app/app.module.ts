@@ -7,9 +7,13 @@ import { MaterialModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/debounce';
+import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/timer';
 
@@ -25,6 +29,7 @@ import { ScalableDirective } from './directives/scalable.directive';
 import { DbRelationConnectorComponent } from './components/db-relation-connector/db-relation-connector.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { ScalingToolbarComponent } from './components/scaling-toolbar/scaling-toolbar.component';
+import { MouseEdgePanDirective } from './directives/mouse-edge-pan.directive';
 
 @NgModule({
     declarations: [
@@ -36,6 +41,7 @@ import { ScalingToolbarComponent } from './components/scaling-toolbar/scaling-to
         DbRelationConnectorComponent,
         DraggableDirective,
         ScalingToolbarComponent,
+        MouseEdgePanDirective,
     ],
     imports: [
         BrowserModule,
