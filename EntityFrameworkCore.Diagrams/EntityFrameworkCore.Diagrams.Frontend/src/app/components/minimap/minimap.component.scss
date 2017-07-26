@@ -1,0 +1,11 @@
+
+:host {
+    display: block;
+    border: 1px solid rgba(black, 0.4);
+    border-radius: 2px;
+
+    .viewport {
+        border: 1px solid rgba(black, 0.4);
+        border-radius: 2px;
+    }
+}
