@@ -1,7 +1,7 @@
 
 <md-grid-list cols="4" rowHeight="fit">
     <md-grid-tile class="toolbar">
-        <div *ngIf="model && modelLayout" class="toolbar-inner">
+        <div *ngIf="model && modelLayout && modelLayout.initialized" class="toolbar-inner">
 
             <md-toolbar color="primary">
                 <span class="spacer">Db Diagram</span>
@@ -16,12 +16,16 @@
             <div class="spacer toolbar-content">
                 <md-toolbar>
                     <span class="spacer">Entities</span>
-                    <button type="button" md-icon-button (click)="toggleAllEntitiesVisibility()">
+
+                    <button
+                        type="button"
+                        md-icon-button
+                        (click)="toggleAllEntitiesVisibility()">
                         <md-icon *ngIf="modelLayout.visibleEntities.length > 0">visibility</md-icon>
                         <md-icon *ngIf="modelLayout.visibleEntities.length === 0">visibility_off</md-icon>
                     </button>
                 </md-toolbar>
-                <md-nav-list>
+                <md-nav-list class="entities-list" dense>
                     <md-list-item *ngFor="let entity of modelLayout.entities">
                         <md-icon md-list-icon>web_asset</md-icon>
                         <a href="javascript:void(0);" md-line>
@@ -36,6 +40,44 @@
                         </button>
                     </md-list-item>
                 </md-nav-list>
+
+                <md-toolbar>
+                    <span class="spacer">Entity Settings</span>
+                </md-toolbar>
+                <section>
+                    <h4>Properties Table Columns</h4>
+                    <div *ngFor="let column of modelLayout.entitiesTableSettings.columns">
+                        <md-slide-toggle
+                            [checked]="column.visible"
+                            (change)="column.toggleVisibility()"
+                            [disabled]="column.alwaysVisible">
+                        </md-slide-toggle>
+                        <md-input-container>
+                            <input
+                                type="text"
+                                mdInput
+                                [placeholder]="'Column title - ' + column.key"
+                                [(ngModel)]="column.name">
+                        </md-input-container>
+
+                        <span class="reorder-buttons-container">
+                            <button
+                                type="button"
+                                md-icon-button
+                                [disabled]="!modelLayout.entitiesTableSettings.canMoveColumnUp(column)"
+                                (click)="modelLayout.entitiesTableSettings.moveColumnUp(column)">
+                                <md-icon>arrow_drop_up</md-icon>
+                            </button>
+                            <button
+                                type="button"
+                                md-icon-button
+                                [disabled]="!modelLayout.entitiesTableSettings.canMoveColumnDown(column)"
+                                (click)="modelLayout.entitiesTableSettings.moveColumnDown(column)">
+                                <md-icon>arrow_drop_down</md-icon>
+                            </button>
+                        </span>
+                    </div>
+                </section>
             </div>
 
             <efd-scaling-toolbar [(scale)]="modelLayout.currentScale.scale"></efd-scaling-toolbar>

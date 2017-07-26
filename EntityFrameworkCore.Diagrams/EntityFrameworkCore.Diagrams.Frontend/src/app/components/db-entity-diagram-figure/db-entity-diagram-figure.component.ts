@@ -12,6 +12,8 @@ import { DbModel } from '../../models/db-model';
 import { DbEntity } from '../../models/db-entity';
 import { DbEntityProperty } from '../../models/db-entity-property';
 import { DbEntityLayout } from '../../models/db-entity-layout';
+import { TableSettings } from '../../models/table-settings';
+import { ColumnSettings } from '../../models/column-settings';
 import { EventDebouncer } from '../../core/event-debouncer';
 
 @Component({
@@ -44,6 +46,8 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
 
     @ViewChildren(MdRow, { read: ViewContainerRef })
     rows: QueryList<ViewContainerRef>;
+
+    get modelLayout() { return this._diagramLayout.getModelLayout(this.model); }
 
     entityContext = new DbEntityContext();
     propertiesDataSource = new DbEntityPropertiesDataSource(this.entityContext);

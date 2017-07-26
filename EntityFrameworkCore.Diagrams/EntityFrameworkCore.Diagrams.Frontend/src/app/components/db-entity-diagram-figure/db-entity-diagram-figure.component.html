@@ -10,7 +10,9 @@
         <md-table #table [dataSource]="propertiesDataSource">
             <!-- Key Column -->
             <ng-container cdkColumnDef="key">
-                <md-header-cell *cdkHeaderCellDef> Key </md-header-cell>
+                <md-header-cell *cdkHeaderCellDef>
+                    {{ modelLayout.entitiesTableSettings.getColumn('key').name }}
+                </md-header-cell>
                 <md-cell *cdkCellDef="let row">
                     <md-icon *ngIf="isKey(row)">vpn_key</md-icon>
                     <span *ngIf="isForeignKey(row)">FK</span>
@@ -19,13 +21,17 @@
 
             <!-- Name Column -->
             <ng-container cdkColumnDef="name">
-                <md-header-cell *cdkHeaderCellDef> Property </md-header-cell>
+                <md-header-cell *cdkHeaderCellDef>
+                    {{ modelLayout.entitiesTableSettings.getColumn('name').name }}
+                </md-header-cell>
                 <md-cell *cdkCellDef="let row"> {{ row.name }} </md-cell>
             </ng-container>
 
             <!-- Type Column -->
             <ng-container cdkColumnDef="clrType">
-                <md-header-cell *cdkHeaderCellDef> Type </md-header-cell>
+                <md-header-cell *cdkHeaderCellDef>
+                    {{ modelLayout.entitiesTableSettings.getColumn('clrType').name }}
+                </md-header-cell>
                 <md-cell *cdkCellDef="let row">
                     <efd-clr-type [type]="row.clrType"></efd-clr-type>
                 </md-cell>
@@ -33,14 +39,16 @@
 
             <!-- Nullable Column -->
             <ng-container cdkColumnDef="nullable">
-                <md-header-cell *cdkHeaderCellDef> Nullable </md-header-cell>
+                <md-header-cell *cdkHeaderCellDef>
+                    {{ modelLayout.entitiesTableSettings.getColumn('nullable').name }}
+                </md-header-cell>
                 <md-cell *cdkCellDef="let row">
                     <ng-container *ngIf="row.isNullable">NULL</ng-container>
                 </md-cell>
             </ng-container>
 
-            <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-            <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+            <md-header-row *cdkHeaderRowDef="modelLayout.entitiesTableSettings.displayedColumnsKeys"></md-header-row>
+            <md-row *cdkRowDef="let row; columns: modelLayout.entitiesTableSettings.displayedColumnsKeys;"></md-row>
         </md-table>
     </md-card-content>
 </md-card>

@@ -169,6 +169,7 @@ export class DiagramLayoutService {
             this.layoutRelation(modelLayout, relation);
         }
 
+        modelLayout.initialized = true;
     }
 
     private layoutEntities(modelLayout: DbModelLayout) {
