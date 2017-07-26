@@ -38,4 +38,13 @@ export class MinimapComponent implements OnInit {
     ngOnInit() {
     }
 
+    onViewportDrag({ top, left }: { top: number, left: number }) {
+        const element = this._el.nativeElement as HTMLElement;
+        const rect = element.getBoundingClientRect();
+        left = Math.min(Math.max(left - rect.left, 0), rect.width);
+        top = Math.min(Math.max(top - rect.top, 0), rect.height);
+        this.targetElement.scrollLeft = left / rect.width * this.targetElement.scrollWidth;
+        this.targetElement.scrollTop = top / rect.height * this.targetElement.scrollHeight;
+    }
+
 }

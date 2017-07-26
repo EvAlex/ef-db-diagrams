@@ -4,5 +4,8 @@
     [style.width.px]="viewportWidth"
     [style.height.px]="viewportHeight"
     [style.marginLeft.px]="viewportLeft"
-    [style.marginTop.px]="viewportTop">
+    [style.marginTop.px]="viewportTop"
+    efdDraggable
+    [dragChangeElementStyle]="false"
+    (efdDrag)="onViewportDrag($event)">
 </div>
