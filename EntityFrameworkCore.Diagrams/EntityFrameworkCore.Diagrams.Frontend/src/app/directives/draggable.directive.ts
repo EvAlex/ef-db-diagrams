@@ -1,6 +1,7 @@
 import { Directive, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef, Renderer2, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { ScalableDirective } from './scalable.directive';
 import { EventDebouncer } from '../core/event-debouncer';
 
 @Directive({
@@ -16,6 +17,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
     @Input()
     dragChangeElementStyle = true;
+
+    @Input()
+    efdDraggableScaleInfo: ScalableDirective;
 
     @Output()
     efdDrag = new EventEmitter<{ top: number, left: number }>();
@@ -95,15 +99,21 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
             const subscription = this.mousedrag
                 // .debounceTime(40)
-                .subscribe(pos => {
+                .subscribe(({ top, left }) => {
+                    if (this.efdDraggableScaleInfo) {
+                        const { scale, clientRect } = this.efdDraggableScaleInfo;
+                        left = left / scale - clientRect.left / scale;
+                        top = top / scale - clientRect.top / scale;
+                    }
+
                     if (this.dragChangeElementStyle) {
-                        this.element.nativeElement.style.top = pos.top + 'px';
-                        this.element.nativeElement.style.left = pos.left + 'px';
+                        this.element.nativeElement.style.top = top + 'px';
+                        this.element.nativeElement.style.left = left + 'px';
                     }
                     this.zone.run(() => {
                         this.efdDrag.emit({
-                            top: pos.top,
-                            left: pos.left
+                            top: top,
+                            left: left
                         });
                     });
                 });

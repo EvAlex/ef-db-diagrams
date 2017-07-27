@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
     modelLoading = false;
     modelLoadError = null;
 
+    toolbarCollapsed = false;
+
     get modelLayout() { return this._diagramLayout.getModelLayout(this.model); }
 
     constructor(

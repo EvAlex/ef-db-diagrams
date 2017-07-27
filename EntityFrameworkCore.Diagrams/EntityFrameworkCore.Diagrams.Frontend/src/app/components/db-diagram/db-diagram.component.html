@@ -5,13 +5,14 @@
 
 <div *ngIf="model?.entities.length > 0" #scrollContainer efdScrollbarWidth #scrollbar="efdScrollbarWidth" class="diagram-scroll-container" efdMouseEdgePan>
 
-    <div class="diagram-container" efdScalable [scale]="modelLayout.currentScale.scale" (scaleChange)="modelLayout.currentScale = $event">
+    <div class="diagram-container" efdScalable #scaleInfo="efdScalable" [scale]="modelLayout.currentScale.scale" (scaleChange)="modelLayout.currentScale = $event">
 
         <efd-db-entity-diagram-figure
             *ngFor="let e of model.entities; trackBy: getEntityKey"
             [model]="model"
             [entity]="e"
             efdDraggable
+            [efdDraggableScaleInfo]="scaleInfo"
             [dragChangeElementStyle]="false"
             (efdDrag)="onEntityDrag(e, $event)"
             (efdDragStart)="onEntityDragStart(e)"
@@ -41,6 +42,7 @@
                 (mouseover)="onMouseOverRelation($event, relation)"
                 [efdDraggable]="relation.isDraggable(line)"
                 dragCursor="col-resize"
+                [efdDraggableScaleInfo]="scaleInfo"
                 [dragChangeElementStyle]="false"
                 (efdDrag)="onRelationLineDrag(relation, line, $event)"
                 (efdDragStart)="onRelationLineDragStart(relation, line)"

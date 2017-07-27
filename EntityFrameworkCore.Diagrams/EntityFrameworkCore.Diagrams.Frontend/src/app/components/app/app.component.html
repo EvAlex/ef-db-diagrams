@@ -1,6 +1,6 @@
 
 <md-grid-list cols="4" rowHeight="fit">
-    <md-grid-tile class="toolbar">
+    <md-grid-tile class="toolbar" [colspan]="toolbarCollapsed ? 0 : 1">
         <div *ngIf="model && modelLayout && modelLayout.initialized" class="toolbar-inner">
 
             <md-toolbar color="primary">
@@ -10,6 +10,9 @@
                 </button>
                 <button type="button" md-icon-button (click)="restoreLayout()" mdTooltip="Load layout">
                     <md-icon>folder_open</md-icon>
+                </button>
+                <button type="button" md-icon-button (click)="toolbarCollapsed = true" mdTooltip="Collapse">
+                    <md-icon>expand_less</md-icon>
                 </button>
             </md-toolbar>
 
@@ -83,7 +86,7 @@
             <efd-scaling-toolbar [(scale)]="modelLayout.currentScale.scale"></efd-scaling-toolbar>
         </div>
     </md-grid-tile>
-    <md-grid-tile colspan="3" class="diagram">
+    <md-grid-tile [colspan]="toolbarCollapsed ? 4 : 3" class="diagram">
         <md-spinner *ngIf="modelLoading"></md-spinner>
 
         <ng-container *ngIf="modelLoadError">
@@ -93,6 +96,21 @@
             <pre>
                 {{ modelLoadError }}
             </pre>
+        </ng-container>
+
+        <ng-container *ngIf="toolbarCollapsed">
+            <md-toolbar color="primary" class="floating-toolbar">
+                <span class="spacer">Db Diagram</span>
+                <button type="button" md-icon-button (click)="saveLayout()" mdTooltip="Save layout">
+                    <md-icon>save</md-icon>
+                </button>
+                <button type="button" md-icon-button (click)="restoreLayout()" mdTooltip="Load layout">
+                    <md-icon>folder_open</md-icon>
+                </button>
+                <button type="button" md-icon-button (click)="toolbarCollapsed = false" mdTooltip="Expand">
+                    <md-icon>expand_more</md-icon>
+                </button>
+            </md-toolbar>
         </ng-container>
 
         <efd-db-diagram *ngIf="!modelLoading && !modelLoadError" [model]="model"></efd-db-diagram>

@@ -12,11 +12,11 @@ export interface IScaleInfo {
     scale: number;
     translateX?: number;
     translateY?: number;
-    clientRect?: ClientRect;
 }
 
 @Directive({
-    selector: '[efdScalable]'
+    selector: '[efdScalable]',
+    exportAs: 'efdScalable'
 })
 export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
     private _removeMouseWheelListener = noop;
@@ -25,6 +25,7 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
     private _translateX = 0;
     private _translateY = 0;
 
+    get scale() { return this._scale; }
     @Input()
     set scale(value: number) {
         const element = this._el.nativeElement as HTMLElement;
@@ -43,6 +44,11 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
 
     @Output()
     scaleChange = new EventEmitter<IScaleInfo>();
+
+    get clientRect() {
+        const element = this._el.nativeElement as HTMLElement;
+        return element.getBoundingClientRect();
+    }
 
     constructor(
         private readonly _el: ElementRef,
@@ -67,7 +73,6 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
             scale: this._scale,
             translateX: this._translateX,
             translateY: this._translateY,
-            clientRect: element.getBoundingClientRect()
         });
     }
 
@@ -115,7 +120,6 @@ export class ScalableDirective implements OnInit, AfterViewInit, OnDestroy {
                 scale: newScale,
                 translateX: newX,
                 translateY: newY,
-                clientRect: element.getBoundingClientRect()
             });
         }
     }
