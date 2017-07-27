@@ -63,9 +63,6 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
     }
 
     onEntityDrag(entity: DbEntity, { top, left }: { top: number, left: number }) {
-        const { currentScale } = this.modelLayout;
-        left = left / currentScale.scale - currentScale.clientRect.left / currentScale.scale;
-        top = top / currentScale.scale - currentScale.clientRect.top / currentScale.scale;
         this._diagramLayout.moveEntity(this.model, entity, left, top);
     }
 
@@ -75,10 +72,6 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
     }
 
     onRelationLineDrag(relation: DbEntityRelationLayout, line: Line, { top, left }: { top: number, left: number }) {
-        const { currentScale } = this.modelLayout;
-        left = left / currentScale.scale - currentScale.clientRect.left / currentScale.scale;
-        top = top / currentScale.scale - currentScale.clientRect.top / currentScale.scale;
-        // console.log('drag line:', left, top);
         relation.moveLine(line, left, top);
     }
 
