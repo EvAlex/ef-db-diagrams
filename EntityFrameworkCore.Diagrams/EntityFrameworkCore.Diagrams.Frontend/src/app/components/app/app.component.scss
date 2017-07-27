@@ -1,17 +1,23 @@
 @import '~@angular/material/theming';
 
+$toolbar-zindex: 30;
+
 :host {
     display: block;
     overflow: hidden;
     height: 100vh;
     width: 100vw;
 
+    .spacer {
+        flex: 1;
+    }
+
     md-grid-list {
         height: 100%;
 
         .toolbar {
-            @include mat-elevation(8);
-            z-index: 30;
+            @include mat-elevation(4);
+            z-index: $toolbar-zindex;
 
             @media print {
                 display: none;
@@ -23,10 +29,6 @@
                 display: flex;
                 flex-direction: column;
                 align-items: stretch;
-
-                .spacer {
-                    flex: 1;
-                }
 
                 .toolbar-content {
                     overflow: auto;
@@ -100,5 +102,16 @@
                 width: 100vw !important;
             }
         }
+    }
+
+    .floating-toolbar {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        @include mat-elevation(2);
+        z-index: $toolbar-zindex;
+        width: 25%;
+        border-radius: 2px;
+        // background: white;
     }
 }
