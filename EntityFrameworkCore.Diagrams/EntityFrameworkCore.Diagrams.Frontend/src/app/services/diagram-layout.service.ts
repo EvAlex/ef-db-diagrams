@@ -357,8 +357,7 @@ export class DiagramLayoutService {
     }
 
     saveLayout(model: DbModel) {
-        const modelLayout = this.getModelLayout(model);
-        const dto = modelLayout.toDto();
+        const dto = this.exportLayout(model);
         const dtoStr = JSON.stringify(dto);
         localStorage.setItem(LOCAL_STORAGE_KEY_MODEL_LAYOUT, dtoStr);
     }
@@ -371,6 +370,12 @@ export class DiagramLayoutService {
             const dto = DbModelLayoutDto.fromJSON(dtoObj);
             modelLayout.applyLayout(dto);
         }
+    }
+
+    exportLayout(model: DbModel): Object {
+        const modelLayout = this.getModelLayout(model);
+        const dto = modelLayout.toDto();
+        return dto;
     }
 
 }

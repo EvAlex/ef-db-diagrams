@@ -16,17 +16,11 @@
         </button>
 
         <md-menu #appMenu="mdMenu">
-            <button md-menu-item>
-                <md-icon>file_download</md-icon>
-                Export Layout
+            <button md-menu-item (click)="showExportDialog()">
+                <md-icon>file_download</md-icon> Export
             </button>
             <button md-menu-item>
-                <md-icon>file_download</md-icon>
-                Export Diagram w/ Layout
-            </button>
-            <button md-menu-item>
-                <md-icon>file_upload</md-icon>
-                Import
+                <md-icon>file_upload</md-icon> Import
             </button>
         </md-menu>
     </md-toolbar>

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { ApiService } from '../../services/api.service';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';
 import { DbEntityLayout } from '../../models/db-entity-layout';
+import { ExportDialogComponent } from '../export-dialog/export-dialog.component';
 
 @Component({
     selector: 'efd-root',
@@ -22,7 +24,8 @@ export class AppComponent implements OnInit {
 
     constructor(
         private readonly _api: ApiService,
-        private readonly _diagramLayout: DiagramLayoutService
+        private readonly _diagramLayout: DiagramLayoutService,
+        private readonly _dialog: MdDialog
     ) {
     }
 
@@ -63,5 +66,9 @@ export class AppComponent implements OnInit {
 
     toggleEntityVisibility(entity: DbEntityLayout) {
         this.modelLayout.toggleEntityVisibility(entity);
+    }
+
+    showExportDialog() {
+        this._dialog.open(ExportDialogComponent, { data: this.model });
     }
 }
