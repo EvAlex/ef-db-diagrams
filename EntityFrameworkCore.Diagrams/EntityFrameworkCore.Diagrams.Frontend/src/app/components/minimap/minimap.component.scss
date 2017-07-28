@@ -1,8 +1,13 @@
 
 :host {
+    position: fixed;
     display: block;
     border: 1px solid rgba(black, 0.4);
     border-radius: 2px;
+
+    @media print {
+        display: none;
+    }
 
     &:hover {
         .viewport {
