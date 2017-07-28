@@ -12,7 +12,7 @@
 
 <md-dialog-actions>
 
-    <a [efdDownloadData]="exportData" [efdDownloadFilename]="exportFilename" md-button md-dialog-close>
+    <a [efdDownloadData]="exportData" [efdDownloadFilename]="exportFilename" md-button (click)="exportClick.emit()">
         <md-icon>file_download</md-icon>
         Export
     </a>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
 import { MD_DIALOG_DATA } from '@angular/material';
 
 import { DbModel } from '../../models/db-model';
@@ -15,6 +15,11 @@ enum ExportType {
     styleUrls: ['./export-dialog.component.scss']
 })
 export class ExportDialogComponent implements OnInit {
+
+    /**
+     * https://github.com/angular/material2/issues/6113
+     */
+    exportClick = new EventEmitter<never>();
 
     get exportTypeLayout() { return ExportType.Layout; }
     get exportTypeModelWithLayout() { return ExportType.ModelWithLayout; }

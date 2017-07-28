@@ -69,7 +69,8 @@ export class AppComponent implements OnInit {
     }
 
     showExportDialog() {
-        this._dialog.open(ExportDialogComponent, { data: this.model });
+        const dialog = this._dialog.open(ExportDialogComponent, { data: this.model });
+        dialog.componentInstance.exportClick.subscribe(_ => dialog.close());
     }
 
     onImportFileUpload(e: Event) {
