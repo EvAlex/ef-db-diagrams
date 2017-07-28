@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from '../../services/api.service';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
@@ -80,8 +81,25 @@ export class AppComponent implements OnInit {
             reader.readAsText(file);
             reader.addEventListener('load', ee => {
                 const dataStr = ee.target['result'];
-                this.model = this._diagramLayout.importDiagram(this.model, dataStr);
+                const newModel = this._diagramLayout.importDiagram(this.model, dataStr);
+                this.updateModel(newModel);;
             });
+        }
+    }
+
+    private updateModel(newModel: DbModel) {
+        if (newModel !== this.model) {
+            Observable.timer(1)
+                .do(() => {
+                    this.model = null;
+                    this.modelLoading = true;
+                })
+                .mergeMap(() => Observable.timer(1))
+                .do(() => {
+                    this.model = newModel;
+                    this.modelLoading = false;
+                })
+                .subscribe();
         }
     }
 }
