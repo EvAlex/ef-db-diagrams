@@ -113,5 +113,9 @@ $toolbar-zindex: 30;
         width: 25%;
         border-radius: 2px;
         // background: white;
+
+        @media print {
+            display: none;
+        }
     }
 }

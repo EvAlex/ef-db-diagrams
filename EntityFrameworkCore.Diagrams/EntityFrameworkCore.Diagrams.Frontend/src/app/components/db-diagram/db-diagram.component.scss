@@ -29,6 +29,10 @@ $relation-color-normal: #cacaca;
 
         efd-minimap {
             position: fixed;
+
+            @media print {
+                display: none;
+            }
         }
     }
 
@@ -39,6 +43,7 @@ $relation-color-normal: #cacaca;
         position: absolute;
         background: $relation-color-normal;
         // transition: transition-property(background);
+        // @include mat-elevation(2);
 
         @media print {
             -webkit-print-color-adjust: exact;
