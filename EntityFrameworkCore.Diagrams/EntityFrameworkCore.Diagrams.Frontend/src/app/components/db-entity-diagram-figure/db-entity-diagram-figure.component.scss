@@ -31,10 +31,30 @@
             display: none;
         }
 
+        .mat-table {
+            display: table;
+            width: 100%;
+
+            > .mat-header-row, > .mat-row {
+                display: table-row;
+                padding: 0;
+                border: none;
+
+                > .mat-header-cell, > .mat-cell {
+                    display: table-cell;
+                    height: 48px;
+                    vertical-align: middle;
+
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+                }
+            }
+        }
+
         md-table {
 
             .mat-column-key {
-                flex: 0 0 36px;
+                width: 36px;
+                padding: 0 16px;
 
                 &.mat-cell {
                     color: rgba(0, 0, 0, 0.4);
@@ -47,12 +67,12 @@
             }
 
             .mat-column-clrType {
-                text-align: right;
+                padding: 0 16px;
             }
 
             .mat-column-nullable {
-                flex: 0 0 60px;
-                text-align: right;
+                width: 60px;
+                padding: 0 16px;
 
                 &.mat-cell {
                     color: rgba(0, 0, 0, 0.4);
