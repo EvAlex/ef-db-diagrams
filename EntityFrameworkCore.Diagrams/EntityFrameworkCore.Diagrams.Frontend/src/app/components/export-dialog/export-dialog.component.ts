@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
-import { MD_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 
 import { DbModel } from '../../models/db-model';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
@@ -16,11 +16,6 @@ enum ExportType {
 })
 export class ExportDialogComponent implements OnInit {
 
-    /**
-     * https://github.com/angular/material2/issues/6113
-     */
-    exportClick = new EventEmitter<never>();
-
     get exportTypeLayout() { return ExportType.Layout; }
     get exportTypeModelWithLayout() { return ExportType.ModelWithLayout; }
 
@@ -36,6 +31,7 @@ export class ExportDialogComponent implements OnInit {
 
     constructor(
         private readonly _diagramLayout: DiagramLayoutService,
+        private readonly _dialog: MdDialogRef<ExportDialogComponent>,
         @Inject(MD_DIALOG_DATA) public model: DbModel
     ) {
     }
@@ -48,13 +44,19 @@ export class ExportDialogComponent implements OnInit {
         switch (this.selectedExportType) {
             case ExportType.Layout:
                 this.exportData = this._diagramLayout.exportLayout(this.model);
-                this.exportFilename = `db-diagram-layout_${this.getTimestamp()}.json`;
+                this.exportFilename = `db-diagram_layout_${this.getTimestamp()}.json`;
                 break;
             case ExportType.ModelWithLayout:
-                throw new Error('Export type not supported: ' + this.selectedExportType);
+                this.exportData = this._diagramLayout.exportModelWithLayout(this.model);
+                this.exportFilename = `db-diagram_model-and-layout_${this.getTimestamp()}.json`;
+                break;
             default:
                 throw new Error('Export type not supported: ' + this.selectedExportType);
         }
+    }
+
+    close() {
+        this._dialog.close();
     }
 
     private getTimestamp() {

@@ -69,8 +69,7 @@ export class AppComponent implements OnInit {
     }
 
     showExportDialog() {
-        const dialog = this._dialog.open(ExportDialogComponent, { data: this.model });
-        dialog.componentInstance.exportClick.subscribe(_ => dialog.close());
+        this._dialog.open(ExportDialogComponent, { data: this.model });
     }
 
     onImportFileUpload(e: Event) {
@@ -81,7 +80,7 @@ export class AppComponent implements OnInit {
             reader.readAsText(file);
             reader.addEventListener('load', ee => {
                 const dataStr = ee.target['result'];
-                this._diagramLayout.importLayout(this.model, dataStr);
+                this.model = this._diagramLayout.importDiagram(this.model, dataStr);
             });
         }
     }
