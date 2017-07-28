@@ -21,6 +21,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
     @Input()
     efdDraggableScaleInfo: ScalableDirective;
 
+    @Input()
+    efdDraggableScrollContainer: HTMLElement;
+
     @Output()
     efdDrag = new EventEmitter<{ top: number, left: number }>();
 
@@ -104,6 +107,11 @@ export class DraggableDirective implements OnInit, OnDestroy {
                         const { scale, clientRect } = this.efdDraggableScaleInfo;
                         left = left / scale - clientRect.left / scale;
                         top = top / scale - clientRect.top / scale;
+                    }
+                    if (this.efdDraggableScrollContainer) {
+                        const { scrollLeft, scrollTop } = this.efdDraggableScrollContainer;
+                        left -= scrollLeft;
+                        top -= scrollTop;
                     }
 
                     if (this.dragChangeElementStyle) {

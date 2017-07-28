@@ -13,6 +13,7 @@
             [entity]="e"
             efdDraggable
             [efdDraggableScaleInfo]="scaleInfo"
+            [efdDraggableScrollContainer]="scrollContainer"
             [dragChangeElementStyle]="false"
             (efdDrag)="onEntityDrag(e, $event)"
             (efdDragStart)="onEntityDragStart(e)"
@@ -42,6 +43,7 @@
                 (mouseover)="onMouseOverRelation($event, relation)"
                 [efdDraggable]="relation.isDraggable(line)"
                 dragCursor="col-resize"
+                [efdDraggableScrollContainer]="scrollContainer"
                 [efdDraggableScaleInfo]="scaleInfo"
                 [dragChangeElementStyle]="false"
                 (efdDrag)="onRelationLineDrag(relation, line, $event)"
