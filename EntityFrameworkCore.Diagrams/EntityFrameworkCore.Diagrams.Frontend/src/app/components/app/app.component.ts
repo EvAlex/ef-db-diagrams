@@ -71,4 +71,17 @@ export class AppComponent implements OnInit {
     showExportDialog() {
         this._dialog.open(ExportDialogComponent, { data: this.model });
     }
+
+    onImportFileUpload(e: Event) {
+        const { files } = e.target as HTMLInputElement;
+        if (files instanceof FileList && files.length > 0) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.readAsText(file);
+            reader.addEventListener('load', ee => {
+                const dataStr = ee.target['result'];
+                this._diagramLayout.importLayout(this.model, dataStr);
+            });
+        }
+    }
 }

@@ -19,8 +19,15 @@
             <button md-menu-item (click)="showExportDialog()">
                 <md-icon>file_download</md-icon> Export
             </button>
-            <button md-menu-item>
+            <button
+                type="button"
+                class="import-btn"
+                md-menu-item>
                 <md-icon>file_upload</md-icon> Import
+                <input
+                    type="file"
+                    name="aligned-points"
+                    (change)="onImportFileUpload($event)">
             </button>
         </md-menu>
     </md-toolbar>

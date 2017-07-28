@@ -363,19 +363,23 @@ export class DiagramLayoutService {
     }
 
     restoreLayout(model: DbModel) {
-        const modelLayout = this.getModelLayout(model);
         const dtoStr = localStorage.getItem(LOCAL_STORAGE_KEY_MODEL_LAYOUT);
         if (dtoStr) {
-            const dtoObj = JSON.parse(dtoStr);
-            const dto = DbModelLayoutDto.fromJSON(dtoObj);
-            modelLayout.applyLayout(dto);
+            this.importLayout(model, dtoStr);
         }
     }
 
-    exportLayout(model: DbModel): Object {
+    exportLayout(model: DbModel): DbModelLayoutDto {
         const modelLayout = this.getModelLayout(model);
         const dto = modelLayout.toDto();
         return dto;
+    }
+
+    importLayout(model: DbModel, jsonStr: string) {
+        const modelLayout = this.getModelLayout(model);
+        const dtoObj = JSON.parse(jsonStr);
+        const dto = DbModelLayoutDto.fromJSON(dtoObj);
+        modelLayout.applyLayout(dto);
     }
 
 }
