@@ -1,0 +1,22 @@
+
+<h2 md-dialog-title>Export</h2>
+
+<md-dialog-content>
+
+    <md-radio-group [(ngModel)]="selectedExportType">
+        <md-radio-button [value]="exportTypeLayout">Layout only</md-radio-button>
+        <md-radio-button [value]="exportTypeModelWithLayout">Model with Layout</md-radio-button>
+    </md-radio-group>
+
+</md-dialog-content>
+
+<md-dialog-actions>
+
+    <a [efdDownloadData]="exportData" [efdDownloadFilename]="exportFilename" md-button (click)="close()">
+        <md-icon>file_download</md-icon>
+        Export
+    </a>
+
+    <button md-button md-dialog-close>Cancel</button>
+
+</md-dialog-actions>

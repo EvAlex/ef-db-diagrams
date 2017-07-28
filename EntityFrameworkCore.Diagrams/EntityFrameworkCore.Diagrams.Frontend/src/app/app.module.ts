@@ -32,6 +32,8 @@ import { ScalingToolbarComponent } from './components/scaling-toolbar/scaling-to
 import { MouseEdgePanDirective } from './directives/mouse-edge-pan.directive';
 import { MinimapComponent } from './components/minimap/minimap.component';
 import { ScrollbarWidthDirective } from './directives/scrollbar-width.directive';
+import { DownloadDataDirective } from './directives/download-data.directive';
+import { ExportDialogComponent } from './components/export-dialog/export-dialog.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +48,10 @@ import { ScrollbarWidthDirective } from './directives/scrollbar-width.directive'
         MouseEdgePanDirective,
         MinimapComponent,
         ScrollbarWidthDirective,
+        DownloadDataDirective,
+        ExportDialogComponent,
     ],
+    entryComponents: [ExportDialogComponent],
     imports: [
         BrowserModule,
         HttpModule,

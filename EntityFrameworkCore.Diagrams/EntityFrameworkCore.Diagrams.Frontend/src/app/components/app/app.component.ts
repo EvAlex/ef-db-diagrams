@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from '../../services/api.service';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';
 import { DbEntityLayout } from '../../models/db-entity-layout';
+import { ExportDialogComponent } from '../export-dialog/export-dialog.component';
 
 @Component({
     selector: 'efd-root',
@@ -22,7 +25,8 @@ export class AppComponent implements OnInit {
 
     constructor(
         private readonly _api: ApiService,
-        private readonly _diagramLayout: DiagramLayoutService
+        private readonly _diagramLayout: DiagramLayoutService,
+        private readonly _dialog: MdDialog
     ) {
     }
 
@@ -63,5 +67,39 @@ export class AppComponent implements OnInit {
 
     toggleEntityVisibility(entity: DbEntityLayout) {
         this.modelLayout.toggleEntityVisibility(entity);
+    }
+
+    showExportDialog() {
+        this._dialog.open(ExportDialogComponent, { data: this.model });
+    }
+
+    onImportFileUpload(e: Event) {
+        const { files } = e.target as HTMLInputElement;
+        if (files instanceof FileList && files.length > 0) {
+            const file = files[0];
+            const reader = new FileReader();
+            reader.readAsText(file);
+            reader.addEventListener('load', ee => {
+                const dataStr = ee.target['result'];
+                const newModel = this._diagramLayout.importDiagram(this.model, dataStr);
+                this.updateModel(newModel);;
+            });
+        }
+    }
+
+    private updateModel(newModel: DbModel) {
+        if (newModel !== this.model) {
+            Observable.timer(1)
+                .do(() => {
+                    this.model = null;
+                    this.modelLoading = true;
+                })
+                .mergeMap(() => Observable.timer(1))
+                .do(() => {
+                    this.model = newModel;
+                    this.modelLoading = false;
+                })
+                .subscribe();
+        }
     }
 }

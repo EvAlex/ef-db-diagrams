@@ -1,20 +1,43 @@
+<ng-template #toolbar>
+    <md-toolbar color="primary" [class.floating-toolbar]="toolbarCollapsed">
+        <span class="spacer">Db Diagram</span>
+        <button type="button" md-icon-button (click)="saveLayout()" mdTooltip="Save layout">
+            <md-icon>save</md-icon>
+        </button>
+        <button type="button" md-icon-button (click)="restoreLayout()" mdTooltip="Load layout">
+            <md-icon>folder_open</md-icon>
+        </button>
+        <button type="button" md-icon-button (click)="toolbarCollapsed = !toolbarCollapsed" [mdTooltip]="toolbarCollapsed ? 'Expand' : 'Collapse'">
+            <md-icon *ngIf="!toolbarCollapsed">expand_less</md-icon>
+            <md-icon *ngIf="toolbarCollapsed">expand_more</md-icon>
+        </button>
+        <button type="button" md-icon-button [mdMenuTriggerFor]="appMenu">
+            <md-icon>more_vert</md-icon>
+        </button>
+
+        <md-menu #appMenu="mdMenu">
+            <button md-menu-item (click)="showExportDialog()">
+                <md-icon>file_download</md-icon> Export
+            </button>
+            <button
+                type="button"
+                class="import-btn"
+                md-menu-item>
+                <md-icon>file_upload</md-icon> Import
+                <input
+                    type="file"
+                    name="aligned-points"
+                    (change)="onImportFileUpload($event)">
+            </button>
+        </md-menu>
+    </md-toolbar>
+</ng-template>
 
 <md-grid-list cols="4" rowHeight="fit">
     <md-grid-tile class="toolbar" [colspan]="toolbarCollapsed ? 0 : 1">
         <div *ngIf="model && modelLayout && modelLayout.initialized" class="toolbar-inner">
 
-            <md-toolbar color="primary">
-                <span class="spacer">Db Diagram</span>
-                <button type="button" md-icon-button (click)="saveLayout()" mdTooltip="Save layout">
-                    <md-icon>save</md-icon>
-                </button>
-                <button type="button" md-icon-button (click)="restoreLayout()" mdTooltip="Load layout">
-                    <md-icon>folder_open</md-icon>
-                </button>
-                <button type="button" md-icon-button (click)="toolbarCollapsed = true" mdTooltip="Collapse">
-                    <md-icon>expand_less</md-icon>
-                </button>
-            </md-toolbar>
+            <ng-template *ngIf="true; then toolbar"></ng-template>
 
             <div class="spacer toolbar-content">
                 <md-toolbar>
@@ -98,20 +121,7 @@
             </pre>
         </ng-container>
 
-        <ng-container *ngIf="toolbarCollapsed">
-            <md-toolbar color="primary" class="floating-toolbar">
-                <span class="spacer">Db Diagram</span>
-                <button type="button" md-icon-button (click)="saveLayout()" mdTooltip="Save layout">
-                    <md-icon>save</md-icon>
-                </button>
-                <button type="button" md-icon-button (click)="restoreLayout()" mdTooltip="Load layout">
-                    <md-icon>folder_open</md-icon>
-                </button>
-                <button type="button" md-icon-button (click)="toolbarCollapsed = false" mdTooltip="Expand">
-                    <md-icon>expand_more</md-icon>
-                </button>
-            </md-toolbar>
-        </ng-container>
+        <ng-template *ngIf="toolbarCollapsed; then toolbar"></ng-template>
 
         <efd-db-diagram *ngIf="!modelLoading && !modelLoadError" [model]="model"></efd-db-diagram>
     </md-grid-tile>

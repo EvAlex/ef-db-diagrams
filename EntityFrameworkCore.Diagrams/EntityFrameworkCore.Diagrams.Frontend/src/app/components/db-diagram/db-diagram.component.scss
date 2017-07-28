@@ -26,14 +26,6 @@ $relation-color-normal: #cacaca;
             position: relative;
             height: 100%;
         }
-
-        efd-minimap {
-            position: fixed;
-
-            @media print {
-                display: none;
-            }
-        }
     }
 
     efd-db-entity-diagram-figure {

@@ -1,0 +1,17 @@
+
+:host {
+    min-width: 320px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+
+    md-dialog-content {
+        flex: 1;
+        padding: 16px;
+
+        md-radio-button {
+            display: block;
+            margin-bottom: 16px;
+        }
+    }
+}

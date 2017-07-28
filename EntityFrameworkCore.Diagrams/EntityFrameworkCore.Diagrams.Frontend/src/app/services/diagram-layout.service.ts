@@ -10,6 +10,7 @@ import { Point } from '../models/point';
 import { Line } from '../models/line';
 import { DbEntityRelationConnector, Direction } from '../models/db-entity-relation-connector';
 import { DbModelLayoutDto } from '../models/dto/db-model-layout-dto';
+import { DbDiagramDto } from '../models/dto/db-diagram-dto';
 
 const MIN_RELATION_EDGE = 16;
 
@@ -357,20 +358,41 @@ export class DiagramLayoutService {
     }
 
     saveLayout(model: DbModel) {
-        const modelLayout = this.getModelLayout(model);
-        const dto = modelLayout.toDto();
+        const dto = this.exportLayout(model);
         const dtoStr = JSON.stringify(dto);
         localStorage.setItem(LOCAL_STORAGE_KEY_MODEL_LAYOUT, dtoStr);
     }
 
     restoreLayout(model: DbModel) {
-        const modelLayout = this.getModelLayout(model);
         const dtoStr = localStorage.getItem(LOCAL_STORAGE_KEY_MODEL_LAYOUT);
         if (dtoStr) {
-            const dtoObj = JSON.parse(dtoStr);
-            const dto = DbModelLayoutDto.fromJSON(dtoObj);
-            modelLayout.applyLayout(dto);
+            this.importDiagram(model, dtoStr);
         }
+    }
+
+    exportLayout(model: DbModel): DbDiagramDto {
+        const modelLayout = this.getModelLayout(model);
+        const dto = new DbDiagramDto(null, modelLayout.toDto());
+        return dto;
+    }
+
+    exportModelWithLayout(model: DbModel): DbDiagramDto {
+        const modelLayout = this.getModelLayout(model);
+        const dto = new DbDiagramDto(model, modelLayout.toDto());
+        return dto;
+    }
+
+    importDiagram(model: DbModel, jsonStr: string): DbModel {
+        const modelLayout = this.getModelLayout(model);
+        const dtoObj = JSON.parse(jsonStr);
+        const dto = DbDiagramDto.fromJSON(dtoObj);
+        if (dto.model) {
+            model = dto.model;
+        }
+        if (dto.layout) {
+            modelLayout.applyLayout(dto.layout);
+        }
+        return model;
     }
 
 }

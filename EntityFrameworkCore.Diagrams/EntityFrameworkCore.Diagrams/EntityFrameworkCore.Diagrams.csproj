@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageVersion>0.3.3</PackageVersion>
+    <PackageVersion>0.4.0</PackageVersion>
     <Description>
 ASP.NET Core Middleware serving Angular app displaying your EF Core DbContext model as a diagram.
 
@@ -19,16 +19,15 @@ Feel free to report any bugs or feature requests. Contributions are appreciated!
     <RepositoryUrl>https://github.com/EvAlex/ef-db-diagrams</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>
-- fix: entity properties table support for long property names
-- fix: entity properties table cell paddings for reordering columns
+- feature: export and import diagram
     </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <AssemblyVersion>0.2.4.0</AssemblyVersion>
-    <FileVersion>0.2.4.0</FileVersion>
+    <AssemblyVersion>0.4.0.0</AssemblyVersion>
+    <FileVersion>0.4.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
