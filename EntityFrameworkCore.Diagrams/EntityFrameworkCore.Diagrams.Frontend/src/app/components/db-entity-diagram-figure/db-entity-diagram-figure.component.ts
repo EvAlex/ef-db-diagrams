@@ -1,6 +1,6 @@
 import {
     Component, HostBinding, OnInit, Input, OnChanges, OnDestroy, ChangeDetectorRef, AfterViewInit, ElementRef,
-    ViewChildren, QueryList, ViewContainerRef, HostListener, NgZone, Renderer2
+    ViewChildren, QueryList, ViewContainerRef, HostListener, NgZone, Renderer2, ChangeDetectionStrategy
 } from '@angular/core';
 import { DataSource, CollectionViewer } from '@angular/cdk';
 import { MdRow } from '@angular/material';
@@ -19,7 +19,8 @@ import { EventDebouncer } from '../../core/event-debouncer';
 @Component({
     selector: 'efd-db-entity-diagram-figure',
     templateUrl: './db-entity-diagram-figure.component.html',
-    styleUrls: ['./db-entity-diagram-figure.component.scss']
+    styleUrls: ['./db-entity-diagram-figure.component.scss'],
+    //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     private _removeListeners: Function[] = [];
