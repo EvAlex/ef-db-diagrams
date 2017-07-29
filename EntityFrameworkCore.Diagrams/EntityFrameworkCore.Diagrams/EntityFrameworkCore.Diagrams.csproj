@@ -21,14 +21,15 @@ Feel free to report any bugs or feature requests. Contributions are appreciated!
     <PackageReleaseNotes>
 - fix: namespaces for CLR types
 - fix: pretty display for CLR array types
+- fix: entity names display as CLR types
     </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <AssemblyVersion>0.4.0.0</AssemblyVersion>
-    <FileVersion>0.4.0.0</FileVersion>
+    <AssemblyVersion>0.4.1.0</AssemblyVersion>
+    <FileVersion>0.4.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

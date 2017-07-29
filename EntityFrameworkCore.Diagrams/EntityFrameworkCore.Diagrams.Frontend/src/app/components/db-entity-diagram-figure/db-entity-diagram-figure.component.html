@@ -1,6 +1,8 @@
 <md-card>
     <md-card-title>
-        <span>{{entity.shortName}}</span>
+        <span>
+            <efd-clr-type [type]="entity.clrType" typeColor="black"></efd-clr-type>
+        </span>
         <button type="button" md-icon-button (click)="toggleEntityCollapsed()">
             <md-icon *ngIf="entityLayout.collapsed">expand_more</md-icon>
             <md-icon *ngIf="!entityLayout.collapsed">expand_less</md-icon>

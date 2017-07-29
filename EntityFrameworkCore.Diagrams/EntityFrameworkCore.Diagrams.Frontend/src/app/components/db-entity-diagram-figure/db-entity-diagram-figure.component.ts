@@ -20,7 +20,7 @@ import { EventDebouncer } from '../../core/event-debouncer';
     selector: 'efd-db-entity-diagram-figure',
     templateUrl: './db-entity-diagram-figure.component.html',
     styleUrls: ['./db-entity-diagram-figure.component.scss'],
-    //changeDetection: ChangeDetectionStrategy.OnPush
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     private _removeListeners: Function[] = [];

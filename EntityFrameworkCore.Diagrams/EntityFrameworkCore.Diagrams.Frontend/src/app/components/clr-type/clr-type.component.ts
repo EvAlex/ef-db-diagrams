@@ -13,6 +13,15 @@ export class ClrTypeComponent implements OnInit, OnChanges {
     @Input()
     type: ClrType;
 
+    @Input()
+    typeColor = '#2B91AF';
+
+    @Input()
+    keywordColor = '#0000FF';
+
+    @Input()
+    tokenColor = '#000000';
+
     tokens: Token[] = [];
 
     constructor() { }
@@ -26,6 +35,24 @@ export class ClrTypeComponent implements OnInit, OnChanges {
         } else {
             this.tokens = [];
         }
+    }
+
+    getColor(token: Token): string {
+        let result: string;
+        switch (token.type) {
+            case TokenType.Keyword:
+                result = this.keywordColor;
+                break;
+            case TokenType.Token:
+                result = this.tokenColor;
+                break;
+            case TokenType.Type:
+                result = this.typeColor;
+                break;
+            default:
+                throw new Error('TokenType not supported: ' + token.type);
+        }
+        return result;
     }
 
 }
@@ -65,8 +92,8 @@ function getTokens(type: ClrType): Token[] {
             result.push(new Token('<', TokenType.Token));
             for (let i = 0; i < type.genericTypeArguments.length; i++) {
                 const cur = type.genericTypeArguments[i];
-                const curType =  type.isPrettyNameKeyword ? TokenType.Keyword : TokenType.Type;
-                const isLast = i + 1 === type.genericTypeArguments.length - 1;
+                const curType =  cur.isPrettyNameKeyword ? TokenType.Keyword : TokenType.Type;
+                const isLast = i === type.genericTypeArguments.length - 1;
                 result.push(new Token(cur.prettyName, curType));
                 if (!isLast) {
                     result.push(new Token(',', TokenType.Token));

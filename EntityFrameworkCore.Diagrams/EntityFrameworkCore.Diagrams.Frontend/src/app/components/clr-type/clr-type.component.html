@@ -3,6 +3,7 @@
     *ngFor="let token of tokens"
     [class.token]="token.isToken"
     [class.type]="token.isType"
-    [class.keyword]="token.isKeyword">
+    [class.keyword]="token.isKeyword"
+    [style.color]="getColor(token)">
     {{ token.value }}
 </span>

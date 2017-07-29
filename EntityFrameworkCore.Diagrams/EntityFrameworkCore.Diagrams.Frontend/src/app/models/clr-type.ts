@@ -53,11 +53,17 @@ export class ClrType {
                 result = 'bool';
                 break;
         }
+
+        const index = result.indexOf('`');
+        if (index !== -1) {
+            result = result.substring(0, index);
+        }
+
         return result;
     }
 
     get isPrettyNameKeyword(): boolean {
-        return this.prettyName !== this.name;
+        return this.name.indexOf('`') === -1 && this.prettyName !== this.name;
     }
 
     static fromJSON(obj: Object) {
