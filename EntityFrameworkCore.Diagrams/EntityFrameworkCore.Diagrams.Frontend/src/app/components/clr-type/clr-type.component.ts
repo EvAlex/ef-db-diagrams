@@ -51,6 +51,13 @@ function getTokens(type: ClrType): Token[] {
             new Token(realType.prettyName, tokenType),
             new Token('?', TokenType.Token)
         );
+    } else if (type.name.indexOf('[') !== -1) {
+        const bracketIndex = type.name.indexOf('[');
+        const typeName = type.name.substring(0, bracketIndex);
+        const brackets = type.name.substring(bracketIndex);
+        type.name = typeName;
+        result.push(...getTokens(type));
+        result.push(new Token(brackets, TokenType.Token));
     } else {
         const tokenType = type.isPrettyNameKeyword ? TokenType.Keyword : TokenType.Type;
         result.push(new Token(type.prettyName, tokenType));

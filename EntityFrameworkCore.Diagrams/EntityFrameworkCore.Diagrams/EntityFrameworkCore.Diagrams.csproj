@@ -20,6 +20,7 @@ Feel free to report any bugs or feature requests. Contributions are appreciated!
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>
 - fix: namespaces for CLR types
+- fix: pretty display for CLR array types
     </PackageReleaseNotes>
   </PropertyGroup>
 
