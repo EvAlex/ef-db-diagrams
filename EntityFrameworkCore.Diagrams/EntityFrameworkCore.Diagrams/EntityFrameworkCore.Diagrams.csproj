@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageVersion>0.4.0</PackageVersion>
+    <PackageVersion>0.4.1</PackageVersion>
     <Description>
 ASP.NET Core Middleware serving Angular app displaying your EF Core DbContext model as a diagram.
 
@@ -19,7 +19,7 @@ Feel free to report any bugs or feature requests. Contributions are appreciated!
     <RepositoryUrl>https://github.com/EvAlex/ef-db-diagrams</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>
-- feature: export and import diagram
+- fix: namespaces for CLR types
     </PackageReleaseNotes>
   </PropertyGroup>
 

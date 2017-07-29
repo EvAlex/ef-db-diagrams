@@ -50,7 +50,7 @@ namespace EntityFrameworkCore.Diagrams.Dto
             return new ClrType
             {
                 Name = type.Name,
-                Namespace = type.Name,
+                Namespace = type.Namespace,
                 Assembly = type.AssemblyQualifiedName,
                 GenericTypeArguments = type.GenericTypeArguments.Select(e => ConvertToDto(e))
             };
