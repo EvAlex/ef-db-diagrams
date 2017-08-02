@@ -1,0 +1,25 @@
+
+.title {
+    flex: 0 0 160px;
+    padding-left: 16px;
+    text-decoration: none;
+    color: white;
+
+    img {
+        height: 32px;
+        vertical-align: middle;
+        margin-right: 8px;
+    }
+
+    span {
+        vertical-align: middle;
+    }
+
+    @media (max-width: 600px) {
+        flex: 0 0 120px;
+    }
+
+    @media (max-width: 320px) {
+        flex: 0 0 96px;
+    }
+}
