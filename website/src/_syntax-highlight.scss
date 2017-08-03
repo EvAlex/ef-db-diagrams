@@ -1,0 +1,15 @@
+
+.hljs {
+    background: none;
+
+    &.cs {
+        .hljs-keyword {
+            font-weight: normal;
+            color: #0000FF;
+        }
+
+        .hljs-number {
+            color: #000000;
+        }
+    }
+}

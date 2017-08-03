@@ -9,12 +9,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { GettingStartedComponent } from './components/getting-started/getting-started.component';
+import { GuidesComponent } from './components/guides/guides.component';
+import { MarkdownDirective } from './directives/markdown.directive';
+import { SyntaxHighlightDirective } from './directives/syntax-highlight.directive';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavbarComponent,
-        HomepageComponent
+        HomepageComponent,
+        GettingStartedComponent,
+        GuidesComponent,
+        MarkdownDirective,
+        SyntaxHighlightDirective
     ],
     imports: [
         BrowserModule,
