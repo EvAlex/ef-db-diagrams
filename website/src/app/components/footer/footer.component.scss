@@ -1,0 +1,51 @@
+@import '~@angular/material/theming';
+@import '../../../theme';
+
+footer {
+    margin-top: 40px;
+    padding: 12px;
+    font-size: 12px;
+    background: mat-color(map-get($efd-app-theme, primary));
+    color: rgba(255, 255, 255, 0.87);
+
+    .footer-list {
+        display: flex;
+        padding: 8px;
+        flex-flow: row wrap;
+        align-items: center;
+
+        .footer-logo {
+            border-radius: 50%;
+            overflow: hidden;
+
+            img {
+                height: 50px;
+            }
+        }
+
+        .footer-links {
+            ul {
+                list-style: none;
+                margin: 0 40px;
+                padding: 0;
+
+                a {
+                    font-size: 16px;
+                    padding: 0;
+                    text-decoration: none;
+                    color: rgba(255, 255, 255, 0.87);
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        .footer-copyright {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+}

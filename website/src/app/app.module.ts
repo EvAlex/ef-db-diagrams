@@ -13,6 +13,7 @@ import { GettingStartedComponent } from './components/getting-started/getting-st
 import { GuidesComponent } from './components/guides/guides.component';
 import { MarkdownDirective } from './directives/markdown.directive';
 import { SyntaxHighlightDirective } from './directives/syntax-highlight.directive';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { SyntaxHighlightDirective } from './directives/syntax-highlight.directiv
         GettingStartedComponent,
         GuidesComponent,
         MarkdownDirective,
-        SyntaxHighlightDirective
+        SyntaxHighlightDirective,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
