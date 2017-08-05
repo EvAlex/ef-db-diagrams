@@ -1,0 +1,59 @@
+@import '~@angular/material/theming';
+@import '../../../theme';
+
+header {
+    background: mat-color(map-get($efd-app-theme, primary));
+    color: rgba(255, 255, 255, 0.87);
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    h1 {
+        font-size: 30px;
+        font-weight: 300;
+        margin: 0;
+        padding: 50px;
+    }
+}
+
+main {
+
+    .getting-started-steps {
+        margin: 20px auto;
+        max-width: 940px;
+
+        h2 {
+            margin-top: 40px;
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 28px;
+        }
+
+        h2, p {
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        pre,
+        code {
+            font-family: Roboto Mono,monospace;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.01);
+            border: 0.5px solid rgba(0, 0, 0, 0.03);
+            border-radius: 5px;
+            margin: 16px auto;
+            display: block;
+            padding: 20px;
+            white-space: pre-wrap;
+            font-size: 14px;
+
+            code {
+                font-size: 90%;
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'theme';
+@import 'syntax-highlight';
+
+html {
+    font-family: Roboto;
+
+    body {
+        margin: 0;
+
+        [md-button],
+        [md-raised-button] {
+            text-transform: uppercase;
+        }
+    }
+}
