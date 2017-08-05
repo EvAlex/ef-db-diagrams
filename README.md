@@ -1,6 +1,8 @@
 # EntityFrameworkCore.Diargams
 
-A tool to visualize entity model created with EntityFrameworkCore in ASP.NET Core app.
+Visualize model created with EntityFramework Core in ASP.NET Core app.
+
+https://db-diagrams.firebaseapp.com/
 
 ## Installation
 
