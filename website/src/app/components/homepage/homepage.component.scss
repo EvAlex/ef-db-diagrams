@@ -31,4 +31,45 @@ header {
 
 main {
     min-height: 300px;
+
+    .rows {
+        overflow: hidden;
+        color: rgba(0, 0, 0, 0.87);
+
+        .row {
+            max-width: 920px;
+            margin: 32px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+
+            .img-container,
+            .text-container {
+                max-width: 50%;
+            }
+
+            .img-container {
+
+            }
+
+            .text-container {
+                h2 {
+                    font-size: 25px;
+                    font-weight: 400;
+                    margin: 0 0 16px 0;
+                    padding: 0;
+                }
+
+                p {
+                        font-size: 16px;
+                    font-weight: 400;
+                    line-height: 28px;
+                    margin: 0 0 24px 0;
+                    padding: 0;
+                }
+
+            }
+        }
+    }
 }
