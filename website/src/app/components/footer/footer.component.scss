@@ -14,6 +14,10 @@ footer {
         flex-flow: row wrap;
         align-items: center;
 
+        @media (max-width: 488px) {
+            padding: 0;
+        }
+
         .footer-logo {
             border-radius: 50%;
             overflow: hidden;
@@ -24,10 +28,18 @@ footer {
         }
 
         .footer-links {
+            @media (max-width: 488px) {
+                flex-basis: 80%;
+            }
+
             ul {
                 list-style: none;
                 margin: 0 40px;
                 padding: 0;
+
+                @media (max-width: 488px) {
+                    margin: 0 0 0 16px;
+                }
 
                 a {
                     font-size: 16px;

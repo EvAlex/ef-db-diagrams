@@ -12,6 +12,10 @@ header {
         font-weight: 300;
         margin: 0;
         padding: 50px;
+
+        @media (max-width: 488px) {
+            padding: 32px;
+        }
     }
 }
 
@@ -20,6 +24,10 @@ main {
     .getting-started-steps {
         margin: 20px auto;
         max-width: 940px;
+
+        @media (max-width: 488px) {
+            margin: 16px;
+        }
 
         h2 {
             margin-top: 40px;

@@ -12,6 +12,10 @@ header {
         font-weight: 300;
         margin: 0;
         padding: 50px;
+
+        @media (max-width: 488px) {
+            padding: 32px;
+        }
     }
 }
 
@@ -20,6 +24,10 @@ main {
 
     md-nav-list {
         margin: 50px;
+
+        @media (max-width: 488px) {
+            margin: 16px;
+        }
 
         [md-list-item] {
             color: mat-color(map-get($efd-app-theme, primary));

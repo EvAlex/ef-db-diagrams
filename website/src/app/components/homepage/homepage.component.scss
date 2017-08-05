@@ -10,11 +10,19 @@ header {
     text-align: center;
     color: rgba(255, 255, 255, 0.87);
 
+    @media (max-width: 488px) {
+        padding-top: 8px;
+    }
+
     h1 {
         font-size: 56px;
         font-weight: 300;
         line-height: 56px;
         margin: 15px 0 15px 0;
+
+        @media (max-width: 488px) {
+            margin-top: 0;
+        }
     }
 
     h2 {
@@ -26,49 +34,63 @@ header {
 
     a {
         margin-top: 36px;
+
+        @media (max-width: 488px) {
+            margin-top: 16px;
+        }
     }
 }
 
 main {
     min-height: 300px;
 
-    .rows {
-        overflow: hidden;
-        color: rgba(0, 0, 0, 0.87);
+    article {
+        margin: 0 16px;
 
-        .row {
-            max-width: 920px;
-            margin: 32px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
+        .rows {
+            overflow: hidden;
+            color: rgba(0, 0, 0, 0.87);
 
-            .img-container,
-            .text-container {
-                max-width: 50%;
-            }
+            .row {
+                max-width: 920px;
+                margin: 32px auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
 
-            .img-container {
-
-            }
-
-            .text-container {
-                h2 {
-                    font-size: 25px;
-                    font-weight: 400;
-                    margin: 0 0 16px 0;
-                    padding: 0;
+                .img-container,
+                .text-container {
+                    max-width: 50%;
                 }
 
-                p {
-                        font-size: 16px;
-                    font-weight: 400;
-                    line-height: 28px;
-                    margin: 0 0 24px 0;
-                    padding: 0;
+                .img-container {
+
                 }
 
+                .text-container {
+
+                    @media (max-width: 488px) {
+                        flex: 1;
+                        max-width: none;
+                    }
+
+                    h2 {
+                        font-size: 25px;
+                        font-weight: 400;
+                        margin: 0 0 16px 0;
+                        padding: 0;
+                    }
+
+                    p {
+                            font-size: 16px;
+                        font-weight: 400;
+                        line-height: 28px;
+                        margin: 0 0 24px 0;
+                        padding: 0;
+                    }
+
+                }
             }
         }
     }
