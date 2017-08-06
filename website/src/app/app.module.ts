@@ -18,6 +18,8 @@ import { GuidesComponent } from './components/guides/guides.component';
 import { MarkdownDirective } from './directives/markdown.directive';
 import { SyntaxHighlightDirective } from './directives/syntax-highlight.directive';
 import { FooterComponent } from './components/footer/footer.component';
+import { DemoComponent } from './components/demo/demo.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,9 @@ import { FooterComponent } from './components/footer/footer.component';
         GuidesComponent,
         MarkdownDirective,
         SyntaxHighlightDirective,
-        FooterComponent
+        FooterComponent,
+        DemoComponent,
+        HeaderComponent
     ],
     imports: [
         BrowserModule,

@@ -5,12 +5,12 @@ $header-breakpoint: 503px;
 
 header {
     background: mat-color(map-get($efd-app-theme, primary));
+    color: rgba(255, 255, 255, 0.87);
     height: 300px;
     box-sizing: border-box;
     margin-bottom: 30px;
     padding: 60px 0 0;
     text-align: center;
-    color: rgba(255, 255, 255, 0.87);
 
     @media (max-width: $header-breakpoint) {
         padding-top: 8px;

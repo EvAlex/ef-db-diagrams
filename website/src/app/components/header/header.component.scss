@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+@import '../../../theme';
+
+header {
+    background: mat-color(map-get($efd-app-theme, primary));
+    color: rgba(255, 255, 255, 0.87);
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    ::ng-deep {
+        h1 {
+            font-size: 30px;
+            font-weight: 300;
+            margin: 0;
+            padding: 50px;
+
+            @media (max-width: 488px) {
+                padding: 32px;
+            }
+        }
+    }
+}
