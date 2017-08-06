@@ -1,6 +1,8 @@
 @import '~@angular/material/theming';
 @import '../../../theme';
 
+$header-breakpoint: 503px;
+
 header {
     background: mat-color(map-get($efd-app-theme, primary));
     height: 300px;
@@ -10,7 +12,7 @@ header {
     text-align: center;
     color: rgba(255, 255, 255, 0.87);
 
-    @media (max-width: 488px) {
+    @media (max-width: $header-breakpoint) {
         padding-top: 8px;
     }
 
@@ -20,7 +22,7 @@ header {
         line-height: 56px;
         margin: 15px 0 15px 0;
 
-        @media (max-width: 488px) {
+        @media (max-width: $header-breakpoint) {
             margin-top: 0;
         }
     }
@@ -35,7 +37,7 @@ header {
     a {
         margin-top: 36px;
 
-        @media (max-width: 488px) {
+        @media (max-width: $header-breakpoint) {
             margin-top: 16px;
         }
     }
@@ -59,21 +61,13 @@ main {
                 justify-content: center;
                 box-sizing: border-box;
 
-                .img-container,
-                .text-container {
-                    max-width: 50%;
-                }
-
-                .img-container {
-
+                @media (max-width: 952px) {
+                    margin: 16px;
                 }
 
                 .text-container {
-
-                    @media (max-width: 488px) {
-                        flex: 1;
-                        max-width: none;
-                    }
+                    max-width: 450px;
+                    margin: auto;
 
                     h2 {
                         font-size: 25px;
@@ -83,7 +77,7 @@ main {
                     }
 
                     p {
-                            font-size: 16px;
+                        font-size: 16px;
                         font-weight: 400;
                         line-height: 28px;
                         margin: 0 0 24px 0;

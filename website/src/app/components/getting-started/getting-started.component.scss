@@ -25,7 +25,7 @@ main {
         margin: 20px auto;
         max-width: 940px;
 
-        @media (max-width: 488px) {
+        @media (max-width: 972px) {
             margin: 16px;
         }
 
@@ -42,11 +42,13 @@ main {
 
         h2, p {
             color: rgba(0, 0, 0, 0.87);
+            overflow-x: auto;
         }
 
         pre,
         code {
             font-family: Roboto Mono,monospace;
+            white-space: pre;
         }
 
         pre {
@@ -58,9 +60,17 @@ main {
             padding: 20px;
             white-space: pre-wrap;
             font-size: 14px;
+            overflow-x: auto;
 
             code {
                 font-size: 90%;
+
+                strong {
+                    padding: 2px 8px;
+                    margin: 0 -8px;
+                    background: rgba(mat-color(map-get($efd-app-theme, primary)), 0.16);
+                    border-radius: 2px;
+                }
             }
         }
     }

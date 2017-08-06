@@ -21,6 +21,7 @@ footer {
         .footer-logo {
             border-radius: 50%;
             overflow: hidden;
+            flex: 0 0 auto;
 
             img {
                 height: 50px;
@@ -28,8 +29,10 @@ footer {
         }
 
         .footer-links {
+            min-width: 180px;
+
             @media (max-width: 488px) {
-                flex-basis: 80%;
+                // flex-basis: 80%;
             }
 
             ul {
@@ -58,6 +61,7 @@ footer {
             flex: 1;
             display: flex;
             justify-content: flex-end;
+            min-width: 180px;
         }
     }
 }

@@ -1,33 +1,52 @@
 
-.title {
-    flex: 0 0 160px;
-    padding-left: 16px;
-    text-decoration: none;
+md-toolbar {
+    overflow-x: hidden;
 
-    img {
-        height: 32px;
-        vertical-align: middle;
-        margin-right: 8px;
+    .title {
+        flex: 0 0 160px;
+        padding-left: 16px;
+        text-decoration: none;
+        margin-top: 1px;
+
+        img {
+            height: 32px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        span {
+            vertical-align: middle;
+        }
+
+        @media (max-width: 600px) {
+            flex: 0 0 120px;
+        }
     }
 
-    span {
-        vertical-align: middle;
+    .content {
+        flex: 1;
     }
 
-    @media (max-width: 600px) {
-        flex: 0 0 120px;
+    .github-logo {
+
+        @media (max-width: 488px) {
+            display: none;
+        }
+
+        &-sm {
+            display: none;
+
+            @media (max-width: 488px) {
+                display: inline-block;
+            }
+        }
     }
 
-    @media (max-width: 320px) {
-        flex: 0 0 96px;
+    .github-logo,
+    .github-logo-sm {
+        img {
+            height: 22px;
+            margin: 0 6px;
+        }
     }
-}
-
-.content {
-    flex: 1;
-}
-
-.github-logo {
-    height: 21px;
-    margin: 0 7px 2px 0;
 }
