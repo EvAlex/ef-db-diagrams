@@ -64,5 +64,5 @@ import { ExportDialogComponent } from './components/export-dialog/export-dialog.
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {
+export class DbDiagramsAppModule {
 }

@@ -20,6 +20,9 @@ import { SyntaxHighlightDirective } from './directives/syntax-highlight.directiv
 import { FooterComponent } from './components/footer/footer.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { HeaderComponent } from './components/header/header.component';
+import {
+    DbDiagramsAppModule
+} from '../../src/app/app.module';
 
 @NgModule({
     declarations: [
@@ -38,6 +41,9 @@ import { HeaderComponent } from './components/header/header.component';
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
+
+        DbDiagramsAppModule,
+
         AngularFireModule.initializeApp(environment.firebase),
         MdButtonModule,
         MdToolbarModule,
