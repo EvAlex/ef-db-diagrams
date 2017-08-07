@@ -3,6 +3,54 @@
     <h1>Live Demo</h1>
 </efd-header>
 
-<main>
+<main [class.fullscreen]="fullscreen">
 
+    <section>
+        <h2>The actual app</h2>
+        <p>
+            The live demo below is an actual app that you will see at <code>/db-diagrams</code> page
+            after installing the library to your project. It will automatically display your DbContext's
+            model.
+        </p>
+
+        <h2>View in fullscreen</h2>
+        <p>
+            Click the button below to make the demo app fullscreen. Otherwise there will be bugs with
+            floating minimap and collapsed toolbar.
+        </p>
+        <button
+            type="button"
+            class="toggle-fullscreen-btn"
+            md-raised-button
+            (click)="fullscreen = !fullscreen">
+            Toggle fullscreen
+        </button>
+    </section>
+
+    <efd-root></efd-root>
+
+    <button
+        *ngIf="fullscreen"
+        type="button"
+        class="toggle-fullscreen-btn"
+        md-fab
+        mdTooltip="Exit fullscreen mode"
+        (click)="fullscreen = !fullscreen">
+        <md-icon>fullscreen_exit</md-icon>
+    </button>
+
+    <section>
+        <h2>Latest version here</h2>
+        <p>
+            The latest version of the app always will be published here.
+        </p>
+        <p>
+            Found a bug? Try exporting your diagram and importing it here to see whether the issue is
+            already resolved in the latest version. If not - <a href="https://github.com/EvAlex/ef-db-diagrams/issues/new?labels=bug" target="_blank">create an issue</a>.
+        </p>
+        <p>
+            Have a feature proposal? Try this version first to see, whether the feature is already
+            implemented. If not - <a href="https://github.com/EvAlex/ef-db-diagrams/issues/new?labels=enhancement" target="_blank">create an issue</a>.
+        </p>
+    </section>
 </main>

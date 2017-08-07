@@ -4,10 +4,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MdButtonModule,
     MdToolbarModule,
-    MdListModule
+    MdListModule,
+    MdIconModule,
+    MdTooltipModule
 } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
+
+import 'rxjs/add/operator/map';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,9 +25,10 @@ import { SyntaxHighlightDirective } from './directives/syntax-highlight.directiv
 import { FooterComponent } from './components/footer/footer.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { HeaderComponent } from './components/header/header.component';
-import {
-    DbDiagramsAppModule
-} from '../../src/app/app.module';
+import { FirebaseBackendService } from './services/firebase-backend.service';
+
+import { DbDiagramsAppModule } from '../../src/app/app.module';
+import { ApiService } from '../../src/app/services/api.service';
 
 @NgModule({
     declarations: [
@@ -45,11 +51,21 @@ import {
         DbDiagramsAppModule,
 
         AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+
         MdButtonModule,
         MdToolbarModule,
-        MdListModule
+        MdListModule,
+        MdIconModule,
+        MdTooltipModule
     ],
-    providers: [],
+    providers: [
+        FirebaseBackendService,
+        {
+            provide: ApiService,
+            useExisting: FirebaseBackendService
+        }
+    ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

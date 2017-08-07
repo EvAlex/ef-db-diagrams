@@ -62,7 +62,10 @@ import { ExportDialogComponent } from './components/export-dialog/export-dialog.
     ],
     providers: [ApiService, DiagramLayoutService],
     bootstrap: [AppComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    exports: [
+        AppComponent
+    ]
 })
 export class DbDiagramsAppModule {
 }

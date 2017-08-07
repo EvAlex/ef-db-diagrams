@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'efd-demo',
-  templateUrl: './demo.component.html',
-  styleUrls: ['./demo.component.scss']
+    selector: 'efd-demo',
+    templateUrl: './demo.component.html',
+    styleUrls: ['./demo.component.scss']
 })
 export class DemoComponent implements OnInit {
 
-  constructor() { }
+    fullscreen = false;
 
-  ngOnInit() {
-  }
+    constructor() { }
+
+    ngOnInit() {
+    }
 
 }
