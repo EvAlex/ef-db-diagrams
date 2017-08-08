@@ -26,6 +26,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FirebaseBackendService } from './services/firebase-backend.service';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { DbDiagramsAppModule } from '../../src/app/app.module';
 import { ApiService } from '../../src/app/services/api.service';
@@ -52,6 +53,7 @@ import { ApiService } from '../../src/app/services/api.service';
 
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        AngularFireAuthModule,
 
         MdButtonModule,
         MdToolbarModule,

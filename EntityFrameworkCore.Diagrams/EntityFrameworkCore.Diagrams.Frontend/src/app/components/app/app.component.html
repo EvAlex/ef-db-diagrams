@@ -121,14 +121,14 @@
     <md-grid-tile [colspan]="toolbarCollapsed ? 4 : 3" class="diagram">
         <md-spinner *ngIf="modelLoading"></md-spinner>
 
-        <ng-container *ngIf="modelLoadError">
+        <div *ngIf="modelLoadError">
 
             <h1>Failed to load database model.</h1>
 
             <pre>
                 {{ modelLoadError }}
             </pre>
-        </ng-container>
+        </div>
 
         <ng-template *ngIf="toolbarCollapsed; then toolbar"></ng-template>
 
