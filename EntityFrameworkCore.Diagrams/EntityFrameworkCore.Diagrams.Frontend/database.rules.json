@@ -3,10 +3,9 @@
         ".read": "auth != null",
         ".write": "auth != null",
         "diagrams": {
+            ".read": true,
+            ".write": "auth != null",
             "$diagram_id": {
-                ".read": true,
-                ".write": "auth != null",
-
                 ".validate": "newData.hasChildren(['diagram', 'authorUid', 'timestamp']) && newData.child('authorUid').isString() && newData.child('timestamp').isNumber()",
 
                 "diagram": { ".validate": "newData.exists()" },
