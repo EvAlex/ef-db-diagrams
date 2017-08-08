@@ -68,7 +68,9 @@ export class ClrType {
 
     static fromJSON(obj: Object) {
         return Object.assign(new ClrType(), obj, {
-            genericTypeArguments: obj['genericTypeArguments'].map(e => ClrType.fromJSON(e))
+            genericTypeArguments: obj['genericTypeArguments']
+                ? obj['genericTypeArguments'].map(e => ClrType.fromJSON(e))
+                : []
         });
     }
 

@@ -1,0 +1,51 @@
+@import '~@angular/material/theming';
+
+main {
+
+    &.fullscreen {
+        section {
+            display: none;
+        }
+        efd-root {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: white;
+            margin: 0;
+        }
+
+        .toggle-fullscreen-btn {
+            position: fixed;
+            bottom: 28px;
+            left: 260px;
+        }
+    }
+
+    section {
+        margin: 20px auto;
+        max-width: 940px;
+
+        @media (max-width: 972px) {
+            margin: 16px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 28px;
+        }
+    }
+
+    efd-root {
+        @include mat-elevation(4);
+        margin: 32px 0;
+        width: 100%;
+    }
+}

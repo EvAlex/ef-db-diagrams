@@ -4,8 +4,10 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 import { dbModel } from './test-data';
+import { versions } from './versions';
 
 export const environment = {
     production: false,
-    dbModel: dbModel
+    dbModel: dbModel,
+    versions: versions
 };

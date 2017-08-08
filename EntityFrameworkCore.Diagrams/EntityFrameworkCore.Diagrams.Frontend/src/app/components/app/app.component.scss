@@ -101,6 +101,10 @@ $toolbar-zindex: 30;
                 left: 0 !important;
                 width: 100vw !important;
             }
+
+            .no-diagram-cont {
+                text-align: center;
+            }
         }
     }
 
@@ -132,4 +136,17 @@ $toolbar-zindex: 30;
         z-index: 1;
         cursor: pointer;
     }
+}
+
+h1, h2 {
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 22px;
 }

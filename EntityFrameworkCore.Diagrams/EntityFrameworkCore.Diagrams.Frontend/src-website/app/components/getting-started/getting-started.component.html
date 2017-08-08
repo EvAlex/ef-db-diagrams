@@ -1,0 +1,46 @@
+
+<efd-header>
+    <h1>Getting Started</h1>
+</efd-header>
+
+<main>
+    <div class="getting-started-steps">
+
+        <h2>Step 1: Install EntityFrameworkCore.Diagrams</h2>
+        <pre><code>dotnet add package EntityFrameworkCore.Diagrams</code></pre>
+
+        <h2>Step 2: Add middleware</h2>
+        <p>Use <code>AddEfDiagrams()</code> extension method in <code>Configure()</code> method of your <code>Startup</code> class to add middleware. Specify your <code>DbContext</code> type instead of <code>ApplicationDbContext</code> in the following example:</p>
+        <pre><code efdSyntaxHighlight="cs">app.AddEfDiagrams&lt;ApplicationDbContext&gt;();</code></pre>
+        <p>Here's how your <code>Configure()</code> method might look like after this step (notice highlighted line):</p>
+        <pre><code efdSyntaxHighlight="cs">public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+&#123;
+    loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+    loggerFactory.AddDebug();
+
+    if (env.IsDevelopment())
+    &#123;
+        app.UseDeveloperExceptionPage();
+        app.UseBrowserLink();
+        <strong>app.AddEfDiagrams&lt;ApplicationDbContext&gt;();</strong>
+    &#125;
+    else
+    &#123;
+        app.UseExceptionHandler("/Home/Error");
+    &#125;
+
+    app.UseStaticFiles();
+
+    app.UseMvc(routes =&gt;
+    &#123;
+        routes.MapRoute(
+            name: "default",
+            template: "&#123;controller=Home&#125;/&#123;action=Index&#125;/&#123;id?&#125;");
+    &#125;);
+&#125;</code></pre>
+        <p>Notice that the middleware is added only in Development mode. This is important! Otherwise, any user in Production will se your model structure, which may not be desireable. This is not the case if you are developing public API, though.</p>
+
+        <h2>Step 3: Start your app and see the diagram</h2>
+        <p>Start your app and browse to <code>/db-diagrams</code> page. You should see the diagram now.</p>
+    </div>
+</main>

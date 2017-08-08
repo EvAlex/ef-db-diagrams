@@ -81,8 +81,8 @@ export class AppComponent implements OnInit {
             reader.readAsText(file);
             reader.addEventListener('load', ee => {
                 const dataStr = ee.target['result'];
-                const newModel = this._diagramLayout.importDiagram(this.model, dataStr);
-                this.updateModel(newModel);;
+                const newModel = this._diagramLayout.importDiagram(this.model || new DbModel(), dataStr);
+                this.updateModel(newModel);
             });
         }
     }

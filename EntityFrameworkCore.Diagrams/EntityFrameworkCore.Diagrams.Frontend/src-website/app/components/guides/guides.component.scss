@@ -1,0 +1,18 @@
+@import '~@angular/material/theming';
+@import '../../../theme';
+
+main {
+    min-height: 300px;
+
+    md-nav-list {
+        margin: 50px;
+
+        @media (max-width: 488px) {
+            margin: 16px;
+        }
+
+        [md-list-item] {
+            color: mat-color(map-get($efd-app-theme, primary));
+        }
+    }
+}

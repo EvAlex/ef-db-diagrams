@@ -17,10 +17,10 @@ export class DbEntity {
     static fromJSON(obj: Object): DbEntity {
         return Object.assign(new DbEntity(), obj, {
             clrType: ClrType.fromJSON(obj['clrType']),
-            properties: obj['properties'].map(e => DbEntityProperty.fromJSON(e)),
-            keys: obj['keys'].map(e => DbEntityKey.fromJSON(e)),
-            foreignKeys: obj['foreignKeys'].map(e => DbEntityForeignKey.fromJSON(e)),
-            indexes: obj['indexes'].map(e => DbEntityIndex.fromJSON(e)),
+            properties: (obj['properties'] || []).map(e => DbEntityProperty.fromJSON(e)),
+            keys: (obj['keys'] || []).map(e => DbEntityKey.fromJSON(e)),
+            foreignKeys: (obj['foreignKeys'] || []).map(e => DbEntityForeignKey.fromJSON(e)),
+            indexes: (obj['indexes'] || []).map(e => DbEntityIndex.fromJSON(e)),
         });
     }
 

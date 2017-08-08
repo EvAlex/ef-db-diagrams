@@ -11,7 +11,7 @@ export class DbEntityForeignKey {
         return Object.assign(new DbEntityForeignKey(), obj, {
             principalEntity: DbEntity.fromJSON(obj['principalEntity']),
             principalKey: DbEntityKey.fromJSON(obj['principalKey']),
-            properties: obj['properties'].map(e => DbEntityProperty.fromJSON(e)),
+            properties: (obj['properties'] || []).map(e => DbEntityProperty.fromJSON(e)),
         });
     }
 }

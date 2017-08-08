@@ -1,12 +1,15 @@
 <ng-template #toolbar>
     <md-toolbar color="primary" [class.floating-toolbar]="toolbarCollapsed">
         <span class="spacer">Db Diagram</span>
-        <button type="button" md-icon-button (click)="saveLayout()" mdTooltip="Save layout">
-            <md-icon>save</md-icon>
-        </button>
-        <button type="button" md-icon-button (click)="restoreLayout()" mdTooltip="Load layout">
-            <md-icon>folder_open</md-icon>
-        </button>
+
+        <ng-container *ngIf="model && modelLayout?.initialized">
+            <button type="button" md-icon-button (click)="saveLayout()" mdTooltip="Save layout">
+                <md-icon>save</md-icon>
+            </button>
+            <button type="button" md-icon-button (click)="restoreLayout()" mdTooltip="Load layout">
+                <md-icon>folder_open</md-icon>
+            </button>
+        </ng-container>
         <button type="button" md-icon-button (click)="toolbarCollapsed = !toolbarCollapsed" [mdTooltip]="toolbarCollapsed ? 'Expand' : 'Collapse'">
             <md-icon *ngIf="!toolbarCollapsed">expand_less</md-icon>
             <md-icon *ngIf="toolbarCollapsed">expand_more</md-icon>
@@ -16,9 +19,11 @@
         </button>
 
         <md-menu #appMenu="mdMenu">
-            <button md-menu-item (click)="showExportDialog()">
-                <md-icon>file_download</md-icon> Export
-            </button>
+            <ng-container *ngIf="model && modelLayout?.initialized">
+                <button md-menu-item (click)="showExportDialog()">
+                    <md-icon>file_download</md-icon> Export
+                </button>
+            </ng-container>
             <button
                 type="button"
                 class="import-btn"
@@ -35,94 +40,103 @@
 
 <md-grid-list cols="4" rowHeight="fit">
     <md-grid-tile class="toolbar" [colspan]="toolbarCollapsed ? 0 : 1">
-        <div *ngIf="model && modelLayout && modelLayout.initialized" class="toolbar-inner">
+        <div class="toolbar-inner">
 
             <ng-template *ngIf="true; then toolbar"></ng-template>
 
-            <div class="spacer toolbar-content">
-                <md-toolbar>
-                    <span class="spacer">Entities</span>
+            <ng-container *ngIf="model && modelLayout?.initialized">
 
-                    <button
-                        type="button"
-                        md-icon-button
-                        (click)="toggleAllEntitiesVisibility()">
-                        <md-icon *ngIf="modelLayout.visibleEntities.length > 0">visibility</md-icon>
-                        <md-icon *ngIf="modelLayout.visibleEntities.length === 0">visibility_off</md-icon>
-                    </button>
-                </md-toolbar>
-                <md-nav-list class="entities-list" dense>
-                    <md-list-item *ngFor="let entity of modelLayout.entities">
-                        <md-icon md-list-icon>web_asset</md-icon>
-                        <a href="javascript:void(0);" md-line>
-                            {{ entity.entity.shortName }}
-                        </a>
+                <div class="spacer toolbar-content">
+                    <md-toolbar>
+                        <span class="spacer">Entities</span>
+
                         <button
                             type="button"
                             md-icon-button
-                            (click)="toggleEntityVisibility(entity); $event.stopPropagation()">
-                            <md-icon *ngIf="entity.visible">visibility</md-icon>
-                            <md-icon *ngIf="!entity.visible">visibility_off</md-icon>
+                            (click)="toggleAllEntitiesVisibility()">
+                            <md-icon *ngIf="modelLayout.visibleEntities.length > 0">visibility</md-icon>
+                            <md-icon *ngIf="modelLayout.visibleEntities.length === 0">visibility_off</md-icon>
                         </button>
-                    </md-list-item>
-                </md-nav-list>
-
-                <md-toolbar>
-                    <span class="spacer">Entity Settings</span>
-                </md-toolbar>
-                <section>
-                    <h4>Properties Table Columns</h4>
-                    <div *ngFor="let column of modelLayout.entitiesTableSettings.columns">
-                        <md-slide-toggle
-                            [checked]="column.visible"
-                            (change)="column.toggleVisibility()"
-                            [disabled]="column.alwaysVisible">
-                        </md-slide-toggle>
-                        <md-input-container>
-                            <input
-                                type="text"
-                                mdInput
-                                [placeholder]="'Column title - ' + column.key"
-                                [(ngModel)]="column.name">
-                        </md-input-container>
-
-                        <span class="reorder-buttons-container">
+                    </md-toolbar>
+                    <md-nav-list class="entities-list" dense>
+                        <md-list-item *ngFor="let entity of modelLayout.entities">
+                            <md-icon md-list-icon>web_asset</md-icon>
+                            <a href="javascript:void(0);" md-line>
+                                {{ entity.entity.shortName }}
+                            </a>
                             <button
                                 type="button"
                                 md-icon-button
-                                [disabled]="!modelLayout.entitiesTableSettings.canMoveColumnUp(column)"
-                                (click)="modelLayout.entitiesTableSettings.moveColumnUp(column)">
-                                <md-icon>arrow_drop_up</md-icon>
+                                (click)="toggleEntityVisibility(entity); $event.stopPropagation()">
+                                <md-icon *ngIf="entity.visible">visibility</md-icon>
+                                <md-icon *ngIf="!entity.visible">visibility_off</md-icon>
                             </button>
-                            <button
-                                type="button"
-                                md-icon-button
-                                [disabled]="!modelLayout.entitiesTableSettings.canMoveColumnDown(column)"
-                                (click)="modelLayout.entitiesTableSettings.moveColumnDown(column)">
-                                <md-icon>arrow_drop_down</md-icon>
-                            </button>
-                        </span>
-                    </div>
-                </section>
-            </div>
+                        </md-list-item>
+                    </md-nav-list>
 
-            <efd-scaling-toolbar [(scale)]="modelLayout.currentScale.scale"></efd-scaling-toolbar>
+                    <md-toolbar>
+                        <span class="spacer">Entity Settings</span>
+                    </md-toolbar>
+                    <section>
+                        <h4>Properties Table Columns</h4>
+                        <div *ngFor="let column of modelLayout.entitiesTableSettings.columns">
+                            <md-slide-toggle
+                                [checked]="column.visible"
+                                (change)="column.toggleVisibility()"
+                                [disabled]="column.alwaysVisible">
+                            </md-slide-toggle>
+                            <md-input-container>
+                                <input
+                                    type="text"
+                                    mdInput
+                                    [placeholder]="'Column title - ' + column.key"
+                                    [(ngModel)]="column.name">
+                            </md-input-container>
+
+                            <span class="reorder-buttons-container">
+                                <button
+                                    type="button"
+                                    md-icon-button
+                                    [disabled]="!modelLayout.entitiesTableSettings.canMoveColumnUp(column)"
+                                    (click)="modelLayout.entitiesTableSettings.moveColumnUp(column)">
+                                    <md-icon>arrow_drop_up</md-icon>
+                                </button>
+                                <button
+                                    type="button"
+                                    md-icon-button
+                                    [disabled]="!modelLayout.entitiesTableSettings.canMoveColumnDown(column)"
+                                    (click)="modelLayout.entitiesTableSettings.moveColumnDown(column)">
+                                    <md-icon>arrow_drop_down</md-icon>
+                                </button>
+                            </span>
+                        </div>
+                    </section>
+                </div>
+
+                <efd-scaling-toolbar [(scale)]="modelLayout.currentScale.scale"></efd-scaling-toolbar>
+
+            </ng-container>
         </div>
     </md-grid-tile>
     <md-grid-tile [colspan]="toolbarCollapsed ? 4 : 3" class="diagram">
         <md-spinner *ngIf="modelLoading"></md-spinner>
 
-        <ng-container *ngIf="modelLoadError">
+        <div *ngIf="modelLoadError">
 
             <h1>Failed to load database model.</h1>
 
             <pre>
                 {{ modelLoadError }}
             </pre>
-        </ng-container>
+        </div>
 
         <ng-template *ngIf="toolbarCollapsed; then toolbar"></ng-template>
 
-        <efd-db-diagram *ngIf="!modelLoading && !modelLoadError" [model]="model"></efd-db-diagram>
+        <efd-db-diagram *ngIf="!modelLoading && !modelLoadError && model" [model]="model"></efd-db-diagram>
+
+        <div *ngIf="!modelLoading && !modelLoadError && !model" class="no-diagram-cont">
+            <h1>No diagram found</h1>
+            <h2>Try importing one</h2>
+        </div>
     </md-grid-tile>
 </md-grid-list>
