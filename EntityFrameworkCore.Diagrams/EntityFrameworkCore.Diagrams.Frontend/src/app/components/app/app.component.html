@@ -2,7 +2,7 @@
     <md-toolbar color="primary" [class.floating-toolbar]="toolbarCollapsed">
         <span class="spacer">Db Diagram</span>
 
-        <ng-container *ngIf="model && modelLayout?.initialized">
+        <ng-container *ngIf="!!model && modelLayout?.initialized">
             <button type="button" md-icon-button (click)="saveLayout()" mdTooltip="Save layout">
                 <md-icon>save</md-icon>
             </button>
@@ -19,7 +19,7 @@
         </button>
 
         <md-menu #appMenu="mdMenu">
-            <ng-container *ngIf="model && modelLayout?.initialized">
+            <ng-container *ngIf="!!model && modelLayout?.initialized">
                 <button md-menu-item (click)="showExportDialog()">
                     <md-icon>file_download</md-icon> Export
                 </button>
@@ -44,7 +44,7 @@
 
             <ng-template *ngIf="true; then toolbar"></ng-template>
 
-            <ng-container *ngIf="model && modelLayout?.initialized">
+            <ng-container *ngIf="!!model && modelLayout?.initialized">
 
                 <div class="spacer toolbar-content">
                     <md-toolbar>
@@ -132,7 +132,7 @@
 
         <ng-template *ngIf="toolbarCollapsed; then toolbar"></ng-template>
 
-        <efd-db-diagram *ngIf="!modelLoading && !modelLoadError && model" [model]="model"></efd-db-diagram>
+        <efd-db-diagram *ngIf="!modelLoading && !modelLoadError && !!model" [model]="model"></efd-db-diagram>
 
         <div *ngIf="!modelLoading && !modelLoadError && !model" class="no-diagram-cont">
             <h1>No diagram found</h1>

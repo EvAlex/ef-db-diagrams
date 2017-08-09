@@ -1,35 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageVersion>0.4.1</PackageVersion>
+    <PackageVersion>0.4.2</PackageVersion>
     <Description>
-ASP.NET Core Middleware serving Angular app displaying your EF Core DbContext model as a diagram.
+Visualize model created with EntityFramework Core in ASP.NET Core app.
 
-To use it call `app.AddEfDiagrams()` in your `Configure` method within `Startup` class.
-Use it only in development mode (`if (env.IsDevelopment())`): you don't want everyone in public see your entire data structure :)
+https://db-diagrams.firebaseapp.com/
 
-That's all the config! Start your app and browse to `/ef-diagrams` page. You should see yor entity model diagram.
+1. Install the NuGet package
+2. Use AddEfDiagrams() extension method in Configure() method of your Startup class to add middleware. Specify your DbContext type instead of ApplicationDbContext in the following example: app.AddEfDiagrams&lt;ApplicationDbContext&gt;();
+3. Start your app and browse to /db-diagrams page. You should see the diagram now.
 
-Feel free to report any bugs or feature requests. Contributions are appreciated!
+Use the middleware is only in Development mode. This is important! Otherwise, any user in Production will se your model structure, which may not be desireable. This is not the case if you are developing public API, though.
+
+Feel free to report any bugs or feature requests - just create an issue. Contributions are appreciated!
+https://github.com/EvAlex/ef-db-diagrams
     </Description>
     <PackageIconUrl>https://github.com/EvAlex/ef-db-diagrams/raw/master/icon.png</PackageIconUrl>
     <Authors>Alexander Pavlyuk (EvAlex)</Authors>
-    <PackageProjectUrl>https://github.com/EvAlex/ef-db-diagrams</PackageProjectUrl>
+    <PackageProjectUrl>https://db-diagrams.firebaseapp.com/</PackageProjectUrl>
     <PackageTags>aspnetcore;entityframeworkcore;ef;diagram;er;</PackageTags>
     <RepositoryUrl>https://github.com/EvAlex/ef-db-diagrams</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>
-- fix: namespaces for CLR types
-- fix: pretty display for CLR array types
-- fix: entity names display as CLR types
+- fix: misplaced relation connectors
     </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <AssemblyVersion>0.4.1.0</AssemblyVersion>
-    <FileVersion>0.4.1.0</FileVersion>
+    <AssemblyVersion>0.4.2.0</AssemblyVersion>
+    <FileVersion>0.4.2.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

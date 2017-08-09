@@ -161,13 +161,13 @@ export class DiagramLayoutService {
         const modelLayout = this.getModelLayout(model);
         function propsToString(entity: DbEntityLayout): string {
             return entity.properties
-                .map(p => `    - ${p.property.name} (${p.x}, ${p.y}, ${p.width}, ${p.height})`)
+                .map(p => `    - ${p.property.name} (x: ${p.x}, y: ${p.y}, w: ${p.width}, h: ${p.height})`)
                 .join('\n');
         }
         console.log(
             'arrangeLayout(). Entities:\n' +
             modelLayout.entities
-                .map(e => `  - ${e.entity.shortName} (${e.width}, ${e.height}):\n${propsToString(e)}`)
+                .map(e => `  - ${e.entity.shortName} (w: ${e.width}, h: ${e.height}):\n${propsToString(e)}`)
                 .join('\n')
         );
 

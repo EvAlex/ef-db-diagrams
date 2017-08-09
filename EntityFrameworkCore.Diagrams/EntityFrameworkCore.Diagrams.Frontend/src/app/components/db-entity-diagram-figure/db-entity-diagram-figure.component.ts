@@ -102,10 +102,11 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
         // NOTE: force md-table to display initial data. Seems like a bug in library
         this._changeDetector.detectChanges();
 
-        this.entityLayout.width = this._el.nativeElement.clientWidth;
-        this.entityLayout.height = this._el.nativeElement.clientHeight;
-
         const entityElement = this._el.nativeElement as HTMLElement;
+
+        this.entityLayout.width = entityElement.clientWidth;
+        this.entityLayout.height = entityElement.clientHeight;
+
         const entityRect = entityElement.getBoundingClientRect();
         const rows = this.rows.toArray();
         for (let i = 0; i < rows.length; i++) {
@@ -118,6 +119,36 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
             propLayout.width = propRect.width;
             propLayout.height = propRect.height;
         }
+
+        this.fixDuplicateRows();
+    }
+
+    /**
+     * cdk-data-table renders every row twice, and one of rendered rows is empty.
+     * This should be a bug in library. Later those empty rows are removed, but
+     * they affect dimensions. So here's the fix.
+     */
+    private fixDuplicateRows() {
+        const entityElement = this._el.nativeElement as HTMLElement;
+        const rows = this.rows.toArray();
+
+        const domRows = entityElement.querySelectorAll('.mat-header-row, .mat-row');
+        const expectedRowsCount = rows.length + 1;  //  + 1 header row
+        if (domRows.length > expectedRowsCount) {
+            const bounds: ClientRect[] = [];
+            for (let i = 0; i < domRows.length; i++) {
+                bounds.push(domRows[i].getBoundingClientRect());
+            }
+
+            //  Well, every row has the same height, ok?
+            const entityRect = entityElement.getBoundingClientRect();
+            for (let i = 0; i < this.entityLayout.properties.length; i++) {
+                const prop = this.entityLayout.properties[i];
+                prop.y = bounds[i + 1].top - entityRect.top;
+            }
+            this.entityLayout.height -= (domRows.length - expectedRowsCount) * this.entityLayout.properties[0].height;
+        }
+
     }
 
     ngOnDestroy() {
