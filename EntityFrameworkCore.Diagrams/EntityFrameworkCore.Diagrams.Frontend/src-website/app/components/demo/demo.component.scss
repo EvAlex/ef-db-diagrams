@@ -19,7 +19,7 @@ main {
         .toggle-fullscreen-btn {
             position: fixed;
             bottom: 28px;
-            left: 260px;
+            left: calc(25% - 80px);
         }
     }
 

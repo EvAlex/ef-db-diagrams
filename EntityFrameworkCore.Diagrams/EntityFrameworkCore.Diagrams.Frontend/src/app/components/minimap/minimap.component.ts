@@ -71,9 +71,11 @@ export class MinimapComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        const newSize = this.getMinimapSize();
-        if (!areEqual(newSize, this.prevSize)) {
-            this.updateMinimap(newSize);
+        if (this.targetElement) {
+            const newSize = this.getMinimapSize();
+            if (!areEqual(newSize, this.prevSize)) {
+                this.updateMinimap(newSize);
+            }
         }
     }
 

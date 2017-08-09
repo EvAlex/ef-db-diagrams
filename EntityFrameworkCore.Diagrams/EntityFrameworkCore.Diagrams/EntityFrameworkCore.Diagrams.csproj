@@ -22,6 +22,8 @@ https://github.com/EvAlex/ef-db-diagrams
     <PackageTags>aspnetcore;entityframeworkcore;ef;diagram;er;</PackageTags>
     <RepositoryUrl>https://github.com/EvAlex/ef-db-diagrams</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright © Alexander Pavlyuk 2017</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/EvAlex/ef-db-diagrams/master/LICENSE.TXT</PackageLicenseUrl>
     <PackageReleaseNotes>
 - fix: misplaced relation connectors
     </PackageReleaseNotes>

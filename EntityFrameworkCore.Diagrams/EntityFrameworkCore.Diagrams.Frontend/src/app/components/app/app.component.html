@@ -10,7 +10,12 @@
                 <md-icon>folder_open</md-icon>
             </button>
         </ng-container>
-        <button type="button" md-icon-button (click)="toolbarCollapsed = !toolbarCollapsed" [mdTooltip]="toolbarCollapsed ? 'Expand' : 'Collapse'">
+        <button
+            *ngIf="allowToolbarCollapse"
+            type="button"
+            md-icon-button
+            (click)="toolbarCollapsed = !toolbarCollapsed"
+            [mdTooltip]="toolbarCollapsed ? 'Expand' : 'Collapse'">
             <md-icon *ngIf="!toolbarCollapsed">expand_less</md-icon>
             <md-icon *ngIf="toolbarCollapsed">expand_more</md-icon>
         </button>

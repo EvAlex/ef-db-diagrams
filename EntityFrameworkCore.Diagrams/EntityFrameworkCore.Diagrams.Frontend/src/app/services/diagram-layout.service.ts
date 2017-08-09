@@ -357,6 +357,10 @@ export class DiagramLayoutService {
         return result;
     }
 
+    getModelLayouts(): DbModelLayout[] {
+        return this._modelLayouts.slice();
+    }
+
     saveLayout(model: DbModel) {
         const dto = this.exportLayout(model);
         const dtoStr = JSON.stringify(dto);

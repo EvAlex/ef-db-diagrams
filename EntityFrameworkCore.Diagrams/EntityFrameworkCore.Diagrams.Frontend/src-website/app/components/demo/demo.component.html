@@ -13,21 +13,22 @@
             model.
         </p>
 
-        <h2>View in fullscreen</h2>
+        <h2 #viewInFullscreen>View in fullscreen</h2>
         <p>
-            Click the button below to make the demo app fullscreen. Otherwise there will be bugs with
-            floating minimap and collapsed toolbar.
+            Fullscreen mode lets you see how actual app looks like.
+            Some features are available only in fullscreen mode, e.g. minimap and toolbar expand-collapse.
         </p>
         <button
             type="button"
             class="toggle-fullscreen-btn"
             md-raised-button
-            (click)="fullscreen = !fullscreen">
-            Toggle fullscreen
+            (click)="toggleFullscreen()">
+            <md-icon>fullscreen_enter</md-icon>
+            Fullscreen
         </button>
     </section>
 
-    <efd-root></efd-root>
+    <efd-root [allowToolbarCollapse]="fullscreen" (diagramLoad)="onDiagramLoaded($event)"></efd-root>
 
     <button
         *ngIf="fullscreen"
@@ -36,7 +37,7 @@
         md-fab
         mdTooltip="Exit fullscreen mode"
         mdTooltipPosition="right"
-        (click)="fullscreen = !fullscreen">
+        (click)="toggleFullscreen()">
         <md-icon>fullscreen_exit</md-icon>
     </button>
 

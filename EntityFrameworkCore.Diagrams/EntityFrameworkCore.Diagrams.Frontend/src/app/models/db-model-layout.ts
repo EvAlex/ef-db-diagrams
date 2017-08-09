@@ -24,6 +24,8 @@ export class DbModelLayout {
 
     entitiesTableSettings = getDefaultEntityTableSettings();
 
+    showMinimap = true;
+
     constructor(public readonly model: DbModel) {
         for (const entity of model.entities) {
             for (const fk of entity.foreignKeys) {
@@ -57,6 +59,7 @@ export class DbModelLayout {
         result.entities = this.entities.map(e => e.toDto());
         result.relations = this.relations.map(e => e.toDto());
         result.entitiesTableSettings = this.entitiesTableSettings;
+        result.showMinimap = this.showMinimap;
         return result;
     }
 
@@ -81,6 +84,8 @@ export class DbModelLayout {
             }
         }
         this.entitiesTableSettings = dto.entitiesTableSettings;
+
+        this.showMinimap = dto.showMinimap;
 
         this.updateVisibleObjects();
     }

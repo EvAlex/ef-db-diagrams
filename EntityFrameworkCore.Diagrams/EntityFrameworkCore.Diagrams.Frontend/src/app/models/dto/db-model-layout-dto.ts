@@ -6,6 +6,7 @@ export class DbModelLayoutDto {
     entities: DbEntityLayoutDto[] = [];
     relations: DbEntityRelationLayoutDto[] = [];
     entitiesTableSettings: TableSettings;
+    showMinimap: boolean;
 
     static fromJSON(value: Object): DbModelLayoutDto {
         return Object.assign(

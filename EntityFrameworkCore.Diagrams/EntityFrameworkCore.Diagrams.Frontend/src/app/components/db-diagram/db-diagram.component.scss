@@ -79,4 +79,10 @@ $relation-color-normal: #cacaca;
             }
         }
     }
+
+    efd-minimap {
+        &.hidden {
+            display: none;
+        }
+    }
 }

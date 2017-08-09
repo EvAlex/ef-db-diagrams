@@ -54,6 +54,6 @@
 
     </div>
 
-    <efd-minimap [targetElement]="scrollContainer"></efd-minimap>
+    <efd-minimap [class.hidden]="!modelLayout.showMinimap" [targetElement]="scrollContainer"></efd-minimap>
 
 </div>

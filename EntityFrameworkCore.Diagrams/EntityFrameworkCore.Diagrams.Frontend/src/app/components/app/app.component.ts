@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from '../../services/api.service';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';
+import { DbModelLayout } from '../../models/db-model-layout';
 import { DbEntityLayout } from '../../models/db-entity-layout';
 import { ExportDialogComponent } from '../export-dialog/export-dialog.component';
 
@@ -13,7 +14,7 @@ import { ExportDialogComponent } from '../export-dialog/export-dialog.component'
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
 
     model: DbModel = null;
     modelLoading = false;
@@ -22,6 +23,12 @@ export class AppComponent implements OnInit {
     toolbarCollapsed = false;
 
     get modelLayout() { return this._diagramLayout.getModelLayout(this.model); }
+
+    @Input()
+    allowToolbarCollapse = true;
+
+    @Output()
+    diagramLoad = new EventEmitter<DbModelLayout>();
 
     constructor(
         private readonly _api: ApiService,
@@ -36,10 +43,17 @@ export class AppComponent implements OnInit {
             .subscribe(e => this.onModel(e), e => this.onModelError(e));
     }
 
+    ngOnChanges(changes) {
+        if ('allowToolbarCollapse' in changes && !this.allowToolbarCollapse && this.toolbarCollapsed) {
+            this.toolbarCollapsed = false;
+        }
+    }
+
     onModel(model: DbModel) {
         this.model = model;
         this.modelLoading = false;
         this.modelLoadError = null;
+        this.diagramLoad.emit(this._diagramLayout.getModelLayout(model));
     }
 
     onModelError(err) {
@@ -54,6 +68,7 @@ export class AppComponent implements OnInit {
 
     restoreLayout() {
         this._diagramLayout.restoreLayout(this.model);
+        this.diagramLoad.emit(this._diagramLayout.getModelLayout(this.model));
     }
 
     toggleAllEntitiesVisibility() {
@@ -98,6 +113,7 @@ export class AppComponent implements OnInit {
                 .do(() => {
                     this.model = newModel;
                     this.modelLoading = false;
+                    this.diagramLoad.emit(this._diagramLayout.getModelLayout(this.model));
                 })
                 .subscribe();
         }
