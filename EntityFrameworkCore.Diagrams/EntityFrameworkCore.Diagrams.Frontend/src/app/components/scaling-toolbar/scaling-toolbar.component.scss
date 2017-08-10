@@ -1,0 +1,22 @@
+
+@media (max-width: 800px) {
+    .mat-button {
+        min-width: 48px;
+    }
+}
+
+@media (max-width: 700px) {
+    .mat-icon-button {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+    }
+}
+
+@media (max-width: 570px) {
+    :host {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

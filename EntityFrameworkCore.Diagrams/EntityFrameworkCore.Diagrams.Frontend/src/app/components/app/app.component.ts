@@ -30,6 +30,11 @@ export class AppComponent implements OnInit, OnChanges {
     @Output()
     diagramLoad = new EventEmitter<DbModelLayout>();
 
+    responsiveBreakpoints = {
+        saveBtn: 148,
+        restoreBtn: 108
+    };
+
     constructor(
         private readonly _api: ApiService,
         private readonly _diagramLayout: DiagramLayoutService,
