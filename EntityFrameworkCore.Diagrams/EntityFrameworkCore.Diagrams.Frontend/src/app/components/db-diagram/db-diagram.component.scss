@@ -81,6 +81,8 @@ $relation-color-normal: #cacaca;
     }
 
     efd-minimap {
+        z-index: 20;
+
         &.hidden {
             display: none;
         }

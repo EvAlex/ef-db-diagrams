@@ -8,8 +8,11 @@
     transition: transition-property(top) transition-property(left);
 
     md-card {
+        padding: 24px;
+
         @media print {
             border: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: none;
         }
     }
 
@@ -48,6 +51,10 @@
                     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
                 }
             }
+
+            > .mat-row:last-child > .mat-cell {
+                border-bottom: none;
+            }
         }
 
         md-table {
@@ -79,7 +86,7 @@
                 }
             }
 
-            @media print {
+            /* @media print {
             }
 
             @media print and (orientation: landscape) {
@@ -88,7 +95,7 @@
 
             @media print and (orientation: portrait) {
                 margin: 0 -15px;
-            }
+            } */
         }
     }
 
