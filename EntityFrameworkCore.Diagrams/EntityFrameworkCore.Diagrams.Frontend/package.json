@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --app efd --port 4200",
+    "start": "ng serve --app efd --port 4200 --host 0.0.0.0",
     "start-website": "ng serve --app efd-website --port 4201",
     "build": "ng build",
     "test": "ng test",

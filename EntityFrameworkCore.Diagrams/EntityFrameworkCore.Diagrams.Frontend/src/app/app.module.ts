@@ -13,9 +13,11 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/debounce';
+import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/timer';
+import 'rxjs/add/observable/fromEvent';
 
 import 'hammerjs';
 
@@ -34,6 +36,7 @@ import { MinimapComponent } from './components/minimap/minimap.component';
 import { ScrollbarWidthDirective } from './directives/scrollbar-width.directive';
 import { DownloadDataDirective } from './directives/download-data.directive';
 import { ExportDialogComponent } from './components/export-dialog/export-dialog.component';
+import { DevicemotionScrollDirective } from './directives/devicemotion-scroll.directive';
 
 @NgModule({
     declarations: [
@@ -50,6 +53,7 @@ import { ExportDialogComponent } from './components/export-dialog/export-dialog.
         ScrollbarWidthDirective,
         DownloadDataDirective,
         ExportDialogComponent,
+        DevicemotionScrollDirective,
     ],
     entryComponents: [ExportDialogComponent],
     imports: [
