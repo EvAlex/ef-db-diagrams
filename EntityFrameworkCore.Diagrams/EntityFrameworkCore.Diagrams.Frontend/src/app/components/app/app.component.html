@@ -1,45 +1,77 @@
 <ng-template #toolbar>
-    <md-toolbar color="primary" [class.floating-toolbar]="toolbarCollapsed">
-        <span class="spacer">Db Diagram</span>
+    <md-toolbar class="main-toolbar" color="primary" [class.floating-toolbar]="toolbarCollapsed">
 
-        <ng-container *ngIf="!!model && modelLayout?.initialized">
-            <button type="button" md-icon-button (click)="saveLayout()" mdTooltip="Save layout">
-                <md-icon>save</md-icon>
-            </button>
-            <button type="button" md-icon-button (click)="restoreLayout()" mdTooltip="Load layout">
-                <md-icon>folder_open</md-icon>
-            </button>
-        </ng-container>
-        <button
-            *ngIf="allowToolbarCollapse"
-            type="button"
-            md-icon-button
-            (click)="toolbarCollapsed = !toolbarCollapsed"
-            [mdTooltip]="toolbarCollapsed ? 'Expand' : 'Collapse'">
-            <md-icon *ngIf="!toolbarCollapsed">expand_less</md-icon>
-            <md-icon *ngIf="toolbarCollapsed">expand_more</md-icon>
-        </button>
-        <button type="button" md-icon-button [mdMenuTriggerFor]="appMenu">
-            <md-icon>more_vert</md-icon>
-        </button>
+        <span #toolbarTitle class="title">
+            Db Diagram
+        </span>
 
-        <md-menu #appMenu="mdMenu">
+        <span #toolbarControls class="controls">
+
             <ng-container *ngIf="!!model && modelLayout?.initialized">
-                <button md-menu-item (click)="showExportDialog()">
-                    <md-icon>file_download</md-icon> Export
+                <button
+                    *ngIf="toolbarControls.parentElement.clientWidth >= responsiveBreakpoints.saveBtn"
+                    type="button"
+                    md-icon-button
+                    (click)="saveLayout()"
+                    mdTooltip="Save layout">
+                    <md-icon>save</md-icon>
+                </button>
+                <button
+                    *ngIf="toolbarControls.parentElement.clientWidth >= responsiveBreakpoints.restoreBtn"
+                    type="button"
+                    md-icon-button
+                    (click)="restoreLayout()"
+                    mdTooltip="Load layout">
+                    <md-icon>folder_open</md-icon>
                 </button>
             </ng-container>
             <button
+                *ngIf="allowToolbarCollapse"
                 type="button"
-                class="import-btn"
-                md-menu-item>
-                <md-icon>file_upload</md-icon> Import
-                <input
-                    type="file"
-                    name="aligned-points"
-                    (change)="onImportFileUpload($event)">
+                md-icon-button
+                (click)="toolbarCollapsed = !toolbarCollapsed"
+                [mdTooltip]="toolbarCollapsed ? 'Expand' : 'Collapse'">
+                <md-icon *ngIf="!toolbarCollapsed">expand_less</md-icon>
+                <md-icon *ngIf="toolbarCollapsed">expand_more</md-icon>
             </button>
-        </md-menu>
+            <button type="button" md-icon-button [mdMenuTriggerFor]="appMenu">
+                <md-icon>more_vert</md-icon>
+            </button>
+
+            <md-menu #appMenu="mdMenu" class="app-menu">
+                <button
+                    *ngIf="toolbarControls.parentElement.clientWidth < responsiveBreakpoints.saveBtn"
+                    type="button"
+                    md-menu-item
+                    (click)="saveLayout()">
+                    <md-icon>save</md-icon> Save Layout
+                </button>
+                <button
+                    *ngIf="toolbarControls.parentElement.clientWidth < responsiveBreakpoints.restoreBtn"
+                    type="button"
+                    md-menu-item
+                    (click)="restoreLayout()">
+                    <md-icon>folder_open</md-icon> Restore Layout
+                </button>
+                <ng-container *ngIf="!!model && modelLayout?.initialized">
+                    <button md-menu-item (click)="showExportDialog()">
+                        <md-icon>file_download</md-icon> Export
+                    </button>
+                </ng-container>
+                <button
+                    type="button"
+                    class="import-btn"
+                    md-menu-item>
+                    <md-icon>file_upload</md-icon> Import
+                    <input
+                        type="file"
+                        name="aligned-points"
+                        (change)="onImportFileUpload($event)">
+                </button>
+            </md-menu>
+
+        </span>
+
     </md-toolbar>
 </ng-template>
 
@@ -53,7 +85,7 @@
 
                 <div class="spacer toolbar-content">
                     <md-toolbar>
-                        <span class="spacer">Entities</span>
+                        <span class="title">Entities</span>
 
                         <button
                             type="button"
@@ -80,23 +112,13 @@
                     </md-nav-list>
 
                     <md-toolbar>
-                        <span class="spacer">Entity Settings</span>
+                        <span class="title">Entity Settings</span>
                     </md-toolbar>
                     <section>
                         <h4>Properties Table Columns</h4>
-                        <div *ngFor="let column of modelLayout.entitiesTableSettings.columns">
-                            <md-slide-toggle
-                                [checked]="column.visible"
-                                (change)="column.toggleVisibility()"
-                                [disabled]="column.alwaysVisible">
-                            </md-slide-toggle>
-                            <md-input-container>
-                                <input
-                                    type="text"
-                                    mdInput
-                                    [placeholder]="'Column title - ' + column.key"
-                                    [(ngModel)]="column.name">
-                            </md-input-container>
+                        <div
+                            *ngFor="let column of modelLayout.entitiesTableSettings.columns"
+                            class="column-settings">
 
                             <span class="reorder-buttons-container">
                                 <button
@@ -114,6 +136,21 @@
                                     <md-icon>arrow_drop_down</md-icon>
                                 </button>
                             </span>
+
+                            <md-slide-toggle
+                                [checked]="column.visible"
+                                (change)="column.toggleVisibility()"
+                                [disabled]="column.alwaysVisible">
+                            </md-slide-toggle>
+
+                            <md-input-container>
+                                <input
+                                    type="text"
+                                    mdInput
+                                    [placeholder]="'Column title - ' + column.key"
+                                    [(ngModel)]="column.name">
+                            </md-input-container>
+
                         </div>
                     </section>
                 </div>
