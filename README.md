@@ -1,4 +1,4 @@
-# EntityFrameworkCore.Diargams
+# EntityFrameworkCore.Diagrams
 
 Visualize model created with EntityFramework Core in ASP.NET Core app.
 
