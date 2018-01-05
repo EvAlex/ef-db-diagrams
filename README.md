@@ -1,4 +1,4 @@
-# EntityFrameworkCore.Diargams
+# EntityFrameworkCore.Diagrams
 
 Visualize model created with EntityFramework Core in ASP.NET Core app.
 
@@ -6,7 +6,10 @@ https://db-diagrams.firebaseapp.com/
 
 ## Installation
 
-1. Install NuGet package `EntityFrameworkCore.Diagrams`
+1. Install NuGet package [_EntityFrameworkCore.Diagrams_](https://www.nuget.org/packages/EntityFrameworkCore.Diagrams/)
+
+If you install in .Net Core 1.1 project you should take [_this version_](https://www.nuget.org/packages/EntityFrameworkCore.Diagrams/0.4.2) 
+
 2. Use `AddEfDiagrams()` extension method in `Configure()` method of your Startup class to add middleware. Specify your DbContext type instead of ApplicationDbContext in the following example: `app.AddEfDiagrams<ApplicationDbContext>();`
 Here's how your Configure() method might look like after this step (notice commented line):
   ```cs

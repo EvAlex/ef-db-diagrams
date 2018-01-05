@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using EntityFrameworkCore.Diagrams.Dto;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace EntityFrameworkCore.Diagrams.Dto
 {
@@ -64,11 +65,11 @@ namespace EntityFrameworkCore.Diagrams.Dto
                 ClrType = ConvertToDto(e.ClrType),
                 IsConcurrencyToken = e.IsConcurrencyToken,
                 IsNullable = e.IsNullable,
-                IsReadOnlyAfterSave = e.IsReadOnlyAfterSave,
-                IsReadOnlyBeforeSave = e.IsReadOnlyBeforeSave,
+                IsReadOnlyAfterSave = e.AfterSaveBehavior == PropertySaveBehavior.Throw,
+                IsReadOnlyBeforeSave = e.BeforeSaveBehavior == PropertySaveBehavior.Throw,
                 IsShadowProperty = e.IsShadowProperty,
-                IsStoreGeneratedAlways = e.IsStoreGeneratedAlways,
-                RequiresValueGenerator = e.RequiresValueGenerator,
+                IsStoreGeneratedAlways = e.BeforeSaveBehavior == PropertySaveBehavior.Ignore,
+                RequiresValueGenerator = e.RequiresValueGenerator(),
                 ValueGenerated = e.ValueGenerated
             };
         }

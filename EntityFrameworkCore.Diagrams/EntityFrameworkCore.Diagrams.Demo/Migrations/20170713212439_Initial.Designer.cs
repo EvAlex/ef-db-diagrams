@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using EntityFrameworkCore.Diagrams.Demo.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EntityFrameworkCore.Diagrams.Demo.Migrations
 {

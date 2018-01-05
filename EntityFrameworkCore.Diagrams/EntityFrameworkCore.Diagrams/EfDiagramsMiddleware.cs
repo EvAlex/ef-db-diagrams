@@ -86,7 +86,10 @@ namespace Microsoft.Extensions.DependencyInjection
             var dbContext = httpContext.RequestServices.GetService(_options.DbContextType) as DbContext;
             var converter = new DtoConverter();
             var dto = converter.ConvertToDto(dbContext.Model);
-            string json = JsonConvert.SerializeObject(dto, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+            string json = JsonConvert.SerializeObject(dto, new JsonSerializerSettings {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                ReferenceLoopHandling = ReferenceLoopHandling.Error                
+            });
             await httpContext.Response.WriteAsync(json);
         }
 
