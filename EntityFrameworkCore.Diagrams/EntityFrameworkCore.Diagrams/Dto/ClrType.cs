@@ -19,7 +19,7 @@ namespace EntityFrameworkCore.Diagrams.Dto
         {
             return other is ClrType
                 && Name == other.Name
-                && Namespace == other.Name
+                && Namespace == other.Namespace
                 && Assembly == other.Assembly
                 && GenericTypeArguments.Count() == other.GenericTypeArguments.Count()
                 && GenericTypeArguments.All(e => other.GenericTypeArguments.Any(ee => e.Equals(ee)));
@@ -29,7 +29,7 @@ namespace EntityFrameworkCore.Diagrams.Dto
         {
             return other is Type
                 && Name == other.Name
-                && Namespace == other.Name
+                && Namespace == other.Namespace
                 && Assembly == other.AssemblyQualifiedName
                 && GenericTypeArguments.Count() == other.GenericTypeArguments.Length
                 && GenericTypeArguments.All(e => other.GenericTypeArguments.Any(ee => e.Equals(ee)));

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EntityFrameworkCore.Diagrams.Dto
 {
