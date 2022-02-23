@@ -55,6 +55,7 @@ export class AppComponent implements OnInit, OnChanges {
     }
 
     onModel(model: DbModel) {
+        console.log('model',model);
         this.model = model;
         this.modelLoading = false;
         this.modelLoadError = null;

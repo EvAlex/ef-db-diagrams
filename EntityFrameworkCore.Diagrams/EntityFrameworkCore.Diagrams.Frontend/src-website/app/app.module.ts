@@ -8,9 +8,6 @@ import {
     MdIconModule,
     MdTooltipModule
 } from '@angular/material';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { environment } from '../environments/environment';
 
 import 'rxjs/add/operator/map';
 
@@ -25,8 +22,6 @@ import { SyntaxHighlightDirective } from './directives/syntax-highlight.directiv
 import { FooterComponent } from './components/footer/footer.component';
 import { DemoComponent } from './components/demo/demo.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FirebaseBackendService } from './services/firebase-backend.service';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { DbDiagramsAppModule } from '../../src/app/app.module';
 import { ApiService } from '../../src/app/services/api.service';
@@ -51,10 +46,6 @@ import { ApiService } from '../../src/app/services/api.service';
 
         DbDiagramsAppModule,
 
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireDatabaseModule,
-        AngularFireAuthModule,
-
         MdButtonModule,
         MdToolbarModule,
         MdListModule,
@@ -62,11 +53,7 @@ import { ApiService } from '../../src/app/services/api.service';
         MdTooltipModule
     ],
     providers: [
-        FirebaseBackendService,
-        {
-            provide: ApiService,
-            useExisting: FirebaseBackendService
-        }
+        ApiService
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
