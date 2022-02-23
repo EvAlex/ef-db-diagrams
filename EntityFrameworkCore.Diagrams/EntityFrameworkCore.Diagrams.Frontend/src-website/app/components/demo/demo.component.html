@@ -1,4 +1,3 @@
-
 <efd-header>
     <h1>Live Demo</h1>
 </efd-header>
@@ -18,27 +17,17 @@
             Fullscreen mode lets you see how actual app looks like.
             Some features are available only in fullscreen mode, e.g. minimap and toolbar expand-collapse.
         </p>
-        <button
-            type="button"
-            class="toggle-fullscreen-btn"
-            md-raised-button
-            (click)="toggleFullscreen()">
-            <md-icon>fullscreen_enter</md-icon>
+        <button type="button" class="toggle-fullscreen-btn" md-raised-button (click)="toggleFullscreen()">
+            <mat-icon>fullscreen_enter</mat-icon>
             Fullscreen
         </button>
     </section>
 
     <efd-root [allowToolbarCollapse]="fullscreen" (diagramLoad)="onDiagramLoaded($event)"></efd-root>
 
-    <button
-        *ngIf="fullscreen"
-        type="button"
-        class="toggle-fullscreen-btn"
-        md-fab
-        mdTooltip="Exit fullscreen mode"
-        mdTooltipPosition="right"
-        (click)="toggleFullscreen()">
-        <md-icon>fullscreen_exit</md-icon>
+    <button *ngIf="fullscreen" type="button" class="toggle-fullscreen-btn" md-fab matTooltip="Exit fullscreen mode"
+        [matTooltipPosition]="right" (click)="toggleFullscreen()">
+        <mat-icon>fullscreen_exit</mat-icon>
     </button>
 
     <section>
@@ -49,11 +38,14 @@
         </p>
         <p>
             Found a bug? Try exporting your diagram and importing it here to see whether the issue is
-            already resolved in the latest version. If not - <a href="https://github.com/EvAlex/ef-db-diagrams/issues/new?labels=bug" target="_blank">create an issue</a>.
+            already resolved in the latest version. If not - <a
+                href="https://github.com/EvAlex/ef-db-diagrams/issues/new?labels=bug" target="_blank">create an
+                issue</a>.
         </p>
         <p>
             Have a feature proposal? Try this version first to see, whether the feature is already
-            implemented. If not - <a href="https://github.com/EvAlex/ef-db-diagrams/issues/new?labels=enhancement" target="_blank">create an issue</a>.
+            implemented. If not - <a href="https://github.com/EvAlex/ef-db-diagrams/issues/new?labels=enhancement"
+                target="_blank">create an issue</a>.
         </p>
     </section>
 </main>

@@ -3,9 +3,9 @@
         <span>
             <efd-clr-type [type]="entity.clrType" typeColor="black"></efd-clr-type>
         </span>
-        <button type="button" md-icon-button (click)="toggleEntityCollapsed()">
-            <md-icon *ngIf="entityLayout.collapsed">expand_more</md-icon>
-            <md-icon *ngIf="!entityLayout.collapsed">expand_less</md-icon>
+        <button type="button" mat-icon-button (click)="toggleEntityCollapsed()">
+            <mat-icon *ngIf="entityLayout.collapsed">expand_more</mat-icon>
+            <mat-icon *ngIf="!entityLayout.collapsed">expand_less</mat-icon>
         </button>
     </md-card-title>
     <md-card-content [class.collapsed]="entityLayout.collapsed">
@@ -16,7 +16,7 @@
                     {{ modelLayout.entitiesTableSettings.getColumn('key').name }}
                 </md-header-cell>
                 <md-cell *cdkCellDef="let row">
-                    <md-icon *ngIf="isKey(row)">vpn_key</md-icon>
+                    <mat-icon *ngIf="isKey(row)">vpn_key</mat-icon>
                     <span *ngIf="isForeignKey(row)">FK</span>
                 </md-cell>
             </ng-container>

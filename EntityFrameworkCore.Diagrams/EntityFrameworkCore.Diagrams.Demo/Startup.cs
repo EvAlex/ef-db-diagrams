@@ -26,7 +26,7 @@ namespace EntityFrameworkCore.Diagrams.Demo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseInMemoryDatabase("demo"));
 
             // Add framework services.
             services.AddMvc();
@@ -47,13 +47,6 @@ namespace EntityFrameworkCore.Diagrams.Demo
             }
 
             app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
         }
     }
 }
