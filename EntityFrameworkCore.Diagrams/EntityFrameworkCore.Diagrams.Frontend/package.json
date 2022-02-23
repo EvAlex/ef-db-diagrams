@@ -37,6 +37,7 @@
     "zone.js": "^0.11.4"
   },
   "devDependencies": {
+    "@angular/cli": "^13.1.2",
     "codelyzer": "^6.0.2",
     "jasmine-core": "~3.8",
     "jasmine-spec-reporter": "~4.1.0",
