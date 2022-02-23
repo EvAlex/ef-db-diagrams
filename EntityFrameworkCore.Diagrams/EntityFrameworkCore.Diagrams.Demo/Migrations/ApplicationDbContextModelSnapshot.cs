@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using EntityFrameworkCore.Diagrams.Demo.Models;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EntityFrameworkCore.Diagrams.Demo.Migrations
 {

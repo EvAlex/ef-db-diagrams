@@ -30,7 +30,7 @@ https://github.com/EvAlex/ef-db-diagrams
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyVersion>0.4.2.0</AssemblyVersion>
     <FileVersion>0.4.2.0</FileVersion>
