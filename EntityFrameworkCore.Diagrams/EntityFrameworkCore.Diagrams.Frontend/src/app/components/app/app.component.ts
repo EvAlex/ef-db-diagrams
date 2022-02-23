@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
-import { Observable } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { mergeMap, tap, timer } from 'rxjs';
 
 import { ApiService } from '../../services/api.service';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, OnChanges {
     constructor(
         private readonly _api: ApiService,
         private readonly _diagramLayout: DiagramLayoutService,
-        private readonly _dialog: MdDialog
+        private readonly _dialog: MatDialog
     ) {
     }
 
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnChanges {
     }
 
     onModel(model: DbModel) {
-        console.log('model',model);
+        console.log('model', model);
         this.model = model;
         this.modelLoading = false;
         this.modelLoadError = null;
@@ -102,7 +102,7 @@ export class AppComponent implements OnInit, OnChanges {
             reader.readAsText(file);
             reader.addEventListener('load', ee => {
                 const dataStr = ee.target['result'];
-                const newModel = this._diagramLayout.importDiagram(this.model || new DbModel(), dataStr);
+                const newModel = this._diagramLayout.importDiagram(this.model || new DbModel(), dataStr as string);
                 this.updateModel(newModel);
             });
         }
@@ -110,17 +110,17 @@ export class AppComponent implements OnInit, OnChanges {
 
     private updateModel(newModel: DbModel) {
         if (newModel !== this.model) {
-            Observable.timer(1)
-                .do(() => {
+            timer(1)
+                .pipe(tap(() => {
                     this.model = null;
                     this.modelLoading = true;
-                })
-                .mergeMap(() => Observable.timer(1))
-                .do(() => {
+                }))
+                .pipe(mergeMap(() => timer(1)))
+                .pipe(tap(() => {
                     this.model = newModel;
                     this.modelLoading = false;
                     this.diagramLoad.emit(this._diagramLayout.getModelLayout(this.model));
-                })
+                }))
                 .subscribe();
         }
     }

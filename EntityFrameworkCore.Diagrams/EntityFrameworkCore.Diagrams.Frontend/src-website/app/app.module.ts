@@ -1,13 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-    MdButtonModule,
-    MdToolbarModule,
-    MdListModule,
-    MdIconModule,
-    MdTooltipModule
-} from '@angular/material';
+
 
 
 
@@ -25,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { DbDiagramsAppModule } from '../../src/app/app.module';
 import { ApiService } from '../../src/app/services/api.service';
+import { MaterialModule } from '../../src/app/material.module';
 
 @NgModule({
     declarations: [
@@ -46,11 +41,7 @@ import { ApiService } from '../../src/app/services/api.service';
 
         DbDiagramsAppModule,
 
-        MdButtonModule,
-        MdToolbarModule,
-        MdListModule,
-        MdIconModule,
-        MdTooltipModule
+        MaterialModule
     ],
     providers: [
         ApiService

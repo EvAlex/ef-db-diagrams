@@ -1,9 +1,9 @@
 import {
     Component, HostBinding, OnInit, Input, OnChanges, OnDestroy, ChangeDetectorRef, AfterViewInit, ElementRef,
-    ViewChildren, QueryList, ViewContainerRef, HostListener, NgZone, Renderer2, ChangeDetectionStrategy
-} from '@angular/core';
-import { DataSource, CollectionViewer } from '@angular/cdk';
-import { MdRow } from '@angular/material';
+    ViewChildren, QueryList, ViewContainerRef, NgZone, Renderer2} from '@angular/core';
+import {CollectionViewer, DataSource} from "@angular/cdk/collections";
+import { MatRow} from '@angular/material/table';
+//import { MdRow } from '@angular/material';
 import { Observable ,  BehaviorSubject } from 'rxjs';
 
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
@@ -11,8 +11,6 @@ import { DbModel } from '../../models/db-model';
 import { DbEntity } from '../../models/db-entity';
 import { DbEntityProperty } from '../../models/db-entity-property';
 import { DbEntityLayout } from '../../models/db-entity-layout';
-import { TableSettings } from '../../models/table-settings';
-import { ColumnSettings } from '../../models/column-settings';
 import { EventDebouncer } from '../../core/event-debouncer';
 
 @Component({
@@ -44,7 +42,7 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
     @HostBinding('style.display')
     get display() { return this.entityLayout.visible ? 'inline-block' : 'none'; }
 
-    @ViewChildren(MdRow, { read: ViewContainerRef })
+    @ViewChildren(MatRow, { read: ViewContainerRef })
     rows: QueryList<ViewContainerRef>;
 
     get modelLayout() { return this._diagramLayout.getModelLayout(this.model); }

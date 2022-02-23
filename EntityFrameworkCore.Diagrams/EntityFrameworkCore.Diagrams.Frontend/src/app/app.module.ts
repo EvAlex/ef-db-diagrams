@@ -3,19 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from '@angular/material';
-import { CdkTableModule } from '@angular/cdk';
-
-
-
-
-
-
-
-
-
-
-
+import { CdkTableModule } from '@angular/cdk/table';
 
 
 
@@ -37,6 +25,7 @@ import { ScrollbarWidthDirective } from './directives/scrollbar-width.directive'
 import { DownloadDataDirective } from './directives/download-data.directive';
 import { ExportDialogComponent } from './components/export-dialog/export-dialog.component';
 import { DevicemotionScrollDirective } from './directives/devicemotion-scroll.directive';
+import { MaterialModule } from './material.module';
 
 @NgModule({
     declarations: [

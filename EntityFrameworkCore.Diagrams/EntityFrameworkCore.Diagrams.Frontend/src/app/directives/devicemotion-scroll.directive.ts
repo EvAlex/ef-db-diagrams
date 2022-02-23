@@ -1,5 +1,5 @@
 import { Directive, OnInit, OnDestroy, ElementRef, NgZone } from '@angular/core';
-import { Observable ,  Subscription } from 'rxjs';
+import { fromEvent, Observable, Subscription, throttleTime } from 'rxjs';
 
 const MAX_TILT_X = 30;
 const MAX_TILT_Y = 30;
@@ -43,10 +43,10 @@ export class DevicemotionScrollDirective implements OnInit, OnDestroy {
                 window.removeEventListener('deviceorientation', init, true);
                 this.zeroTilt = tiltToXy(e);
                 this.scrollToTilt(this.zeroTilt);
-                subscription = Observable
-                    .fromEvent<DeviceOrientationEvent>(window, 'deviceorientation', true)
-                    .throttleTime(THROTTLE_TIME)
-                    .subscribe(ee => this.scrollWithDeviceTilt(ee));
+                subscription =
+                    fromEvent<DeviceOrientationEvent>(window, 'deviceorientation')
+                        .pipe(throttleTime(THROTTLE_TIME))
+                        .subscribe(ee => this.scrollWithDeviceTilt(ee));
             };
             window.addEventListener('deviceorientation', init, true);
         }

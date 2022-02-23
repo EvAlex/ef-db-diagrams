@@ -1,5 +1,5 @@
 import { Renderer2, NgZone } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, debounceTime as deb } from 'rxjs';
 
 export class EventDebouncer {
     constructor(private _zone: NgZone, private _renderer: Renderer2) {
@@ -18,7 +18,7 @@ export class EventDebouncer {
                 e.preventDefault();
                 e.stopPropagation();
             });
-            tempSubj.debounceTime(debounceTime).subscribe(e => this._zone.run(() => listener(e)));
+            tempSubj.pipe(deb(debounceTime)).subscribe(e => this._zone.run(() => listener(e)));
             return result;
         });
     }

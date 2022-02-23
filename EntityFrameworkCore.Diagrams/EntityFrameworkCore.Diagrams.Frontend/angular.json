@@ -1,0 +1,54 @@
+{
+    "version": 1,
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "defaultProject": "efd",
+    "projects": {
+        "efd": {
+            "projectType": "application",
+            "root": "src",
+            "sourceRoot": "src",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "angular8:build:production"
+                        }
+                    },
+                    "options": {
+                        "outputPath": "../EntityFrameworkCore.Diagrams/wwwroot/db-diagrams",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.json",
+                        "i18nMissingTranslation": "error",
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "app/shared/styles"
+                            ]
+                        },
+                        "assets": [
+                            "src/assets",
+                            "src/favicon.ico"
+                        ],
+                        "styles": [
+                            "./node_modules/material-design-icons/iconfont/material-icons.css",
+                            "src/styles.scss"
+                        ],
+                        "aot": false,
+                        "buildOptimizer": false,
+                        "optimization": {
+                            "scripts": false,
+                            "styles": false
+                        },
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "sourceMap": true,
+                        "namedChunks": true
+                    }
+                }
+            },
+            "prefix": "efd"
+        }
+    }
+}
