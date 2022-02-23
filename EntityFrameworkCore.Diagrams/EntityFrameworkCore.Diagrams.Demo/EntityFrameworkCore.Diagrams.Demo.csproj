@@ -9,20 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\3rdpartylicenses.txt" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\favicon.ico" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\index.html" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\inline.764ea7e8f233c3a6809b.bundle.js" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\main.d0329d265059e3e55cc6.bundle.js" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\MaterialIcons-Regular.012cf6a10129e2275d79.woff" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\MaterialIcons-Regular.570eb83859dc23dd0eec.woff2" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\MaterialIcons-Regular.a37b0c01c0baf1888ca8.ttf" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\MaterialIcons-Regular.e79bfd88537def476913.eot" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\polyfills.0963b44a58b5526cfab7.bundle.js" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\styles.20f9545db506af88f79c.bundle.css" />
-    <Content Remove="C:\Users\Tomasz Dluski\.nuget\packages\entityframeworkcore.diagrams\0.4.2\contentFiles\any\netstandard1.6\wwwroot\db-diagrams\vendor.fa09c1316e94520ecd3d.bundle.js" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.Diagrams" Version="0.4.2" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.19.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
