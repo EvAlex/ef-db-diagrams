@@ -1,5 +1,8 @@
 {
     "version": 1,
+    "cli": {
+      "analytics": "012855fa-7e20-4f4c-ada9-6c76f47b366e"
+    },
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "defaultProject": "efd",
     "projects": {
