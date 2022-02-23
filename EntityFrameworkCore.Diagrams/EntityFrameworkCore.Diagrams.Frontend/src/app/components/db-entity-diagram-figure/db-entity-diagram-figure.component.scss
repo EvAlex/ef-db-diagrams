@@ -7,7 +7,7 @@
     min-width: 320px;
     transition: transition-property(top) transition-property(left);
 
-    md-card {
+    mat-card {
         padding: 24px;
 
         @media print {
@@ -16,7 +16,7 @@
         }
     }
 
-    md-card-title {
+    mat-card-title {
         display: flex;
         align-items: center;
 
@@ -26,7 +26,7 @@
     }
 
 
-    md-card-content {
+    mat-card-content {
         margin: 0 -24px -24px;
         overflow: hidden;
 
@@ -57,7 +57,7 @@
             }
         }
 
-        md-table {
+        mat-table {
 
             .mat-column-key {
                 width: 36px;

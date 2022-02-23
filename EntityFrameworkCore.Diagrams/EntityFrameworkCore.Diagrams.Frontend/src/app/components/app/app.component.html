@@ -1,5 +1,5 @@
 <ng-template #toolbar>
-    <md-toolbar class="main-toolbar" color="primary" [class.floating-toolbar]="toolbarCollapsed">
+    <mat-toolbar class="main-toolbar" color="primary" [class.floating-toolbar]="toolbarCollapsed">
 
         <span #toolbarTitle class="title">
             Db Diagram
@@ -72,11 +72,11 @@
 
         </span>
 
-    </md-toolbar>
+    </mat-toolbar>
 </ng-template>
 
-<md-grid-list cols="4" rowHeight="fit">
-    <md-grid-tile class="toolbar" [colspan]="toolbarCollapsed ? 0 : 1">
+<mat-grid-list cols="4" rowHeight="fit">
+    <mat-grid-tile class="toolbar" [colspan]="toolbarCollapsed ? 0 : 1">
         <div class="toolbar-inner">
 
             <ng-template *ngIf="true; then toolbar"></ng-template>
@@ -84,7 +84,7 @@
             <ng-container *ngIf="!!model && modelLayout?.initialized">
 
                 <div class="spacer toolbar-content">
-                    <md-toolbar>
+                    <mat-toolbar>
                         <span class="title">Entities</span>
 
                         <button
@@ -94,11 +94,11 @@
                             <mat-icon *ngIf="modelLayout.visibleEntities.length > 0">visibility</mat-icon>
                             <mat-icon *ngIf="modelLayout.visibleEntities.length === 0">visibility_off</mat-icon>
                         </button>
-                    </md-toolbar>
-                    <md-nav-list class="entities-list" dense>
-                        <md-list-item *ngFor="let entity of modelLayout.entities">
-                            <mat-icon md-list-icon>web_asset</mat-icon>
-                            <a href="javascript:void(0);" md-line>
+                    </mat-toolbar>
+                    <mat-nav-list class="entities-list" dense>
+                        <mat-list-item *ngFor="let entity of modelLayout.entities">
+                            <mat-icon mat-list-icon>web_asset</mat-icon>
+                            <a href="javascript:void(0);" mat-line>
                                 {{ entity.entity.shortName }}
                             </a>
                             <button
@@ -108,12 +108,12 @@
                                 <mat-icon *ngIf="entity.visible">visibility</mat-icon>
                                 <mat-icon *ngIf="!entity.visible">visibility_off</mat-icon>
                             </button>
-                        </md-list-item>
-                    </md-nav-list>
+                        </mat-list-item>
+                    </mat-nav-list>
 
-                    <md-toolbar>
+                    <mat-toolbar>
                         <span class="title">Entity Settings</span>
-                    </md-toolbar>
+                    </mat-toolbar>
                     <section>
                         <h4>Properties Table Columns</h4>
                         <div
@@ -137,19 +137,19 @@
                                 </button>
                             </span>
 
-                            <md-slide-toggle
+                            <mat-slide-toggle
                                 [checked]="column.visible"
                                 (change)="column.toggleVisibility()"
                                 [disabled]="column.alwaysVisible">
-                            </md-slide-toggle>
+                            </mat-slide-toggle>
 
-                            <md-input-container>
+                            <mat-input-container>
                                 <input
                                     type="text"
                                     mdInput
                                     [placeholder]="'Column title - ' + column.key"
                                     [(ngModel)]="column.name">
-                            </md-input-container>
+                            </mat-input-container>
 
                         </div>
                     </section>
@@ -159,9 +159,9 @@
 
             </ng-container>
         </div>
-    </md-grid-tile>
-    <md-grid-tile [colspan]="toolbarCollapsed ? 4 : 3" class="diagram">
-        <md-spinner *ngIf="modelLoading"></md-spinner>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="toolbarCollapsed ? 4 : 3" class="diagram">
+        <mat-spinner *ngIf="modelLoading"></mat-spinner>
 
         <div *ngIf="modelLoadError">
 
@@ -180,5 +180,5 @@
             <h1>No diagram found</h1>
             <h2>Try importing one</h2>
         </div>
-    </md-grid-tile>
-</md-grid-list>
+    </mat-grid-tile>
+</mat-grid-list>

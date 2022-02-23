@@ -1,16 +1,16 @@
 
-<md-toolbar color="primary">
-    <a class="title" routerLink="/" md-button>
+<mat-toolbar color="primary">
+    <a class="title" routerLink="/" mat-button>
         <!-- <img src="/assets/icon.png" alt=""> -->
         <span>DB Diagrams</span>
     </a>
     <span class="content">
-        <a [routerLink]="['/demo']" md-button>Demo</a>
-        <a [routerLink]="['/guides']" md-button>Guides</a>
+        <a [routerLink]="['/demo']" mat-button>Demo</a>
+        <a [routerLink]="['/guides']" mat-button>Guides</a>
         <ng-content></ng-content>
     </span>
     <span>
-        <a class="github-logo" href="https://github.com/EvAlex/ef-db-diagrams" target="_blank" md-button>
+        <a class="github-logo" href="https://github.com/EvAlex/ef-db-diagrams" target="_blank" mat-button>
             <img src="/assets/github-circle-white-transparent.svg" alt="GitHub">
             <span>Github</span>
         </a>
@@ -18,4 +18,4 @@
             <img src="/assets/github-circle-white-transparent.svg" alt="GitHub">
         </a>
     </span>
-</md-toolbar>
+</mat-toolbar>

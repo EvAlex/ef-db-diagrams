@@ -12,7 +12,7 @@ $toolbar-zindex: 30;
         flex: 1;
     }
 
-    md-toolbar {
+    mat-toolbar {
 
         &.main-toolbar {
             padding: 0 16px;
@@ -77,7 +77,7 @@ $toolbar-zindex: 30;
         }
     }
 
-    md-grid-list {
+    mat-grid-list {
         height: 100%;
 
         .toolbar {
@@ -135,7 +135,7 @@ $toolbar-zindex: 30;
                         }
                     }
 
-                    md-toolbar {
+                    mat-toolbar {
                         margin-top: 16px;
                     }
 
@@ -172,7 +172,7 @@ $toolbar-zindex: 30;
                                 font-size: 12px;
                             }
 
-                            md-slide-toggle {
+                            mat-slide-toggle {
                                 margin: 0 8px;
 
                                 @media (max-width: 480px) {
