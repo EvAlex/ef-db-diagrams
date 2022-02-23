@@ -53,7 +53,7 @@ https://github.com/EvAlex/ef-db-diagrams
     <Message Text="Downloading dependencies for Frontend App..." />
     <Exec Command="npm i" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
     <Message Text="Building Frontend App..." />
-    <Exec Command="ng build --prod --base-href=/db-diagrams/ --progress=false" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
+    <Exec Command="ng build --configuration production --base-href=/db-diagrams/ --progress=false" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
 
     <ItemGroup>
       <Content Include="wwwroot\db-diagrams\*.*">

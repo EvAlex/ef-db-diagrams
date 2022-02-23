@@ -17,7 +17,7 @@
             Fullscreen mode lets you see how actual app looks like.
             Some features are available only in fullscreen mode, e.g. minimap and toolbar expand-collapse.
         </p>
-        <button type="button" class="toggle-fullscreen-btn" md-raised-button (click)="toggleFullscreen()">
+        <button type="button" class="toggle-fullscreen-btn" mat-raised-button (click)="toggleFullscreen()">
             <mat-icon>fullscreen_enter</mat-icon>
             Fullscreen
         </button>
@@ -25,7 +25,7 @@
 
     <efd-root [allowToolbarCollapse]="fullscreen" (diagramLoad)="onDiagramLoaded($event)"></efd-root>
 
-    <button *ngIf="fullscreen" type="button" class="toggle-fullscreen-btn" md-fab matTooltip="Exit fullscreen mode"
+    <button *ngIf="fullscreen" type="button" class="toggle-fullscreen-btn" mat-fab matTooltip="Exit fullscreen mode"
         [matTooltipPosition]="right" (click)="toggleFullscreen()">
         <mat-icon>fullscreen_exit</mat-icon>
     </button>

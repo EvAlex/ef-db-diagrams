@@ -1,22 +1,22 @@
 
-<h2 md-dialog-title>Export</h2>
+<h2 mat-dialog-title>Export</h2>
 
-<md-dialog-content>
+<mat-dialog-content>
 
-    <md-radio-group [(ngModel)]="selectedExportType">
-        <md-radio-button [value]="exportTypeLayout">Layout only</md-radio-button>
-        <md-radio-button [value]="exportTypeModelWithLayout">Model with Layout</md-radio-button>
-    </md-radio-group>
+    <mat-radio-group [(ngModel)]="selectedExportType">
+        <mat-radio-button [value]="exportTypeLayout">Layout only</mat-radio-button>
+        <mat-radio-button [value]="exportTypeModelWithLayout">Model with Layout</mat-radio-button>
+    </mat-radio-group>
 
-</md-dialog-content>
+</mat-dialog-content>
 
-<md-dialog-actions>
+<mat-dialog-actions>
 
-    <a [efdDownloadData]="exportData" [efdDownloadFilename]="exportFilename" md-button (click)="close()">
+    <a [efdDownloadData]="exportData" [efdDownloadFilename]="exportFilename" mat-button (click)="close()">
         <mat-icon>file_download</mat-icon>
         Export
     </a>
 
-    <button md-button md-dialog-close>Cancel</button>
+    <button mat-button mat-dialog-close>Cancel</button>
 
-</md-dialog-actions>
+</mat-dialog-actions>

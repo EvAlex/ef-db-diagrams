@@ -9,7 +9,7 @@
         </button>
     </mat-card-title>
     <mat-card-content [class.collapsed]="entityLayout.collapsed">
-        <mat-table #table [dataSource]="propertiesDataSource">
+        <mat-table cdk-table #table [dataSource]="propertiesDataSource">
             <!-- Key Column -->
             <ng-container cdkColumnDef="key">
                 <mat-header-cell *cdkHeaderCellDef>

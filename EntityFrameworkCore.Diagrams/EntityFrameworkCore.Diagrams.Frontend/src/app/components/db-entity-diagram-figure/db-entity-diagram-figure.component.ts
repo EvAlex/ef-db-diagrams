@@ -96,7 +96,7 @@ export class DbEntityDiagramFigureComponent implements OnInit, OnChanges, AfterV
     }
 
     ngAfterViewInit() {
-        // NOTE: force md-table to display initial data. Seems like a bug in library
+        // NOTE: force mat-table to display initial data. Seems like a bug in library
         this._changeDetector.detectChanges();
 
         const entityElement = this._el.nativeElement as HTMLElement;

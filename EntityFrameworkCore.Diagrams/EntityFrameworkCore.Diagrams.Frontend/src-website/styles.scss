@@ -9,8 +9,8 @@ html {
     body {
         margin: 0;
 
-        [md-button],
-        [md-raised-button] {
+        [mat-button],
+        [mat-raised-button] {
             text-transform: uppercase;
         }
     }

@@ -15,7 +15,6 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "configurations": {
                         "production": {
-                            "browserTarget": "angular8:build:production"
                         }
                     },
                     "options": {
