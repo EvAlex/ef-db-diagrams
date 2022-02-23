@@ -4,8 +4,7 @@ import {
 } from '@angular/core';
 import { DataSource, CollectionViewer } from '@angular/cdk';
 import { MdRow } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable ,  BehaviorSubject } from 'rxjs';
 
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';

@@ -1,6 +1,5 @@
 import { Directive, OnInit, OnDestroy, HostListener, ElementRef, Renderer2 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable ,  Subject } from 'rxjs';
 
 const TRIGGER_TIME = 100;
 const HOTZONE_WIDTH = 0.1;

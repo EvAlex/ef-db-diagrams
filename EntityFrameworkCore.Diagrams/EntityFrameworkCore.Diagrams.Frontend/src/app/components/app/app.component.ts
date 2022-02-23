@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { ApiService } from '../../services/api.service';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';

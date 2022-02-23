@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, HostListener, Renderer2, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable ,  Subject } from 'rxjs';
 
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';

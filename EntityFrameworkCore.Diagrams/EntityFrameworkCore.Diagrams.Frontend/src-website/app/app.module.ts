@@ -9,7 +9,7 @@ import {
     MdTooltipModule
 } from '@angular/material';
 
-import 'rxjs/add/operator/map';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

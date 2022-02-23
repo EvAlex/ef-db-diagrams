@@ -1,5 +1,5 @@
 import { Component, OnInit, DoCheck, Input, ElementRef, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 const BORDER_WIDTH = 1;
 const SIZE = 0.2;

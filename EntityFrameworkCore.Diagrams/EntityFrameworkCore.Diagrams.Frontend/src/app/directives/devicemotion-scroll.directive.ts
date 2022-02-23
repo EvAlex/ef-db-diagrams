@@ -1,6 +1,5 @@
 import { Directive, OnInit, OnDestroy, ElementRef, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  Subscription } from 'rxjs';
 
 const MAX_TILT_X = 30;
 const MAX_TILT_Y = 30;

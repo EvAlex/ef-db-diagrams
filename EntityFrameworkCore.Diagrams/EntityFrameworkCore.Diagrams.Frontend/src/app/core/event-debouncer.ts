@@ -1,5 +1,5 @@
 import { Renderer2, NgZone } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 export class EventDebouncer {
     constructor(private _zone: NgZone, private _renderer: Renderer2) {

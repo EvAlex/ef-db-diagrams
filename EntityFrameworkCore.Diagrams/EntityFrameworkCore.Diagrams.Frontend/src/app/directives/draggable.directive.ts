@@ -1,5 +1,5 @@
 import { Directive, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef, Renderer2, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { ScalableDirective } from './scalable.directive';
 import { EventDebouncer } from '../core/event-debouncer';

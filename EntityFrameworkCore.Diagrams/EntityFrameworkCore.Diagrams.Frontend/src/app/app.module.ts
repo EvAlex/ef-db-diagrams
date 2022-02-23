@@ -1,23 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/debounce';
-import 'rxjs/add/operator/throttleTime';
-import 'rxjs/add/operator/combineLatest';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/timer';
-import 'rxjs/add/observable/fromEvent';
+
+
+
+
+
+
+
+
+
+
+
+
 
 import 'hammerjs';
 
@@ -58,7 +58,7 @@ import { DevicemotionScrollDirective } from './directives/devicemotion-scroll.di
     entryComponents: [ExportDialogComponent],
     imports: [
         BrowserModule,
-        HttpModule,
+        HttpClientModule,
         FormsModule,
         BrowserAnimationsModule,
         MaterialModule,
