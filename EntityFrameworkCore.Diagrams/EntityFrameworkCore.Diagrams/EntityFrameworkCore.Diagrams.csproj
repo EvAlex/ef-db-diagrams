@@ -49,7 +49,7 @@ https://github.com/EvAlex/ef-db-diagrams
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
-  <Target Name="BuildFrontend" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+  <Target Name="BuildFrontend" BeforeTargets="Build">
     <Message Text="Downloading dependencies for Frontend App..." />
     <Exec Command="npm i" WorkingDirectory="$(ProjectDir)..\EntityFrameworkCore.Diagrams.Frontend" />
     <Message Text="Building Frontend App..." />
