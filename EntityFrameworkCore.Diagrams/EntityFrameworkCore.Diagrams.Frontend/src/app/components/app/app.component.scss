@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 $toolbar-zindex: 30;
 
@@ -13,7 +13,6 @@ $toolbar-zindex: 30;
     }
 
     mat-toolbar {
-
         &.main-toolbar {
             padding: 0 16px;
 
@@ -100,7 +99,8 @@ $toolbar-zindex: 30;
                     overflow-x: hidden;
 
                     .entities-list {
-
+                        display: flex !important;
+                        flex-flow: column wrap !important;
                         [mat-icon-button] {
                             width: 20px;
                             height: 20px;
@@ -127,11 +127,9 @@ $toolbar-zindex: 30;
                         }
 
                         .mat-line {
-
                             @media (max-width: 1024px) {
                                 margin: 0 -12px;
                             }
-
                         }
                     }
 
@@ -198,8 +196,8 @@ $toolbar-zindex: 30;
                                 }
 
                                 @media (max-width: 330px) {
-                                        margin-left: 16px;
-                                        margin-top: 8px;
+                                    margin-left: 16px;
+                                    margin-top: 8px;
                                 }
 
                                 [mat-icon-button] {
@@ -216,7 +214,6 @@ $toolbar-zindex: 30;
                                 }
                             }
                         }
-
                     }
                 }
 
@@ -230,6 +227,7 @@ $toolbar-zindex: 30;
         }
 
         .diagram {
+            width: 90%;
             @media print {
                 left: 0 !important;
                 width: 100vw !important;
@@ -257,7 +255,6 @@ $toolbar-zindex: 30;
     }
 }
 
-
 .import-btn {
     input {
         position: absolute;
@@ -271,7 +268,8 @@ $toolbar-zindex: 30;
     }
 }
 
-h1, h2 {
+h1,
+h2 {
     font-weight: 300;
     color: rgba(0, 0, 0, 0.87);
 }
@@ -282,4 +280,10 @@ h1 {
 
 h2 {
     font-size: 22px;
+}
+
+#container-right-column{
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    width: 100% !important;
 }
