@@ -1,56 +1,56 @@
-<md-card>
-    <md-card-title>
+<mat-card>
+    <mat-card-title>
         <span>
             <efd-clr-type [type]="entity.clrType" typeColor="black"></efd-clr-type>
         </span>
-        <button type="button" md-icon-button (click)="toggleEntityCollapsed()">
-            <md-icon *ngIf="entityLayout.collapsed">expand_more</md-icon>
-            <md-icon *ngIf="!entityLayout.collapsed">expand_less</md-icon>
+        <button type="button" mat-icon-button (click)="toggleEntityCollapsed()">
+            <mat-icon *ngIf="entityLayout.collapsed">expand_more</mat-icon>
+            <mat-icon *ngIf="!entityLayout.collapsed">expand_less</mat-icon>
         </button>
-    </md-card-title>
-    <md-card-content [class.collapsed]="entityLayout.collapsed">
-        <md-table #table [dataSource]="propertiesDataSource">
+    </mat-card-title>
+    <mat-card-content [class.collapsed]="entityLayout.collapsed">
+        <mat-card-content mat-table cdk-table #table [dataSource]="propertiesDataSource">
             <!-- Key Column -->
             <ng-container cdkColumnDef="key">
-                <md-header-cell *cdkHeaderCellDef>
+                <th mat-header-cell *cdkHeaderCellDef>
                     {{ modelLayout.entitiesTableSettings.getColumn('key').name }}
-                </md-header-cell>
-                <md-cell *cdkCellDef="let row">
-                    <md-icon *ngIf="isKey(row)">vpn_key</md-icon>
+                </th>
+                <td mat-cell *cdkCellDef="let row">
+                    <mat-icon *ngIf="isKey(row)">vpn_key</mat-icon>
                     <span *ngIf="isForeignKey(row)">FK</span>
-                </md-cell>
+                </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container cdkColumnDef="name">
-                <md-header-cell *cdkHeaderCellDef>
+                <th mat-header-cell *cdkHeaderCellDef>
                     {{ modelLayout.entitiesTableSettings.getColumn('name').name }}
-                </md-header-cell>
-                <md-cell *cdkCellDef="let row"> {{ row.name }} </md-cell>
+                </th>
+                <td mat-cell *cdkCellDef="let row"> {{ row.name }} </td>
             </ng-container>
 
             <!-- Type Column -->
             <ng-container cdkColumnDef="clrType">
-                <md-header-cell *cdkHeaderCellDef>
+                <th mat-header-cell *cdkHeaderCellDef>
                     {{ modelLayout.entitiesTableSettings.getColumn('clrType').name }}
-                </md-header-cell>
-                <md-cell *cdkCellDef="let row">
+                </th>
+                <td mat-cell *cdkCellDef="let row">
                     <efd-clr-type [type]="row.clrType"></efd-clr-type>
-                </md-cell>
+                </td>
             </ng-container>
 
             <!-- Nullable Column -->
             <ng-container cdkColumnDef="nullable">
-                <md-header-cell *cdkHeaderCellDef>
+                <th mat-header-cell *cdkHeaderCellDef>
                     {{ modelLayout.entitiesTableSettings.getColumn('nullable').name }}
-                </md-header-cell>
-                <md-cell *cdkCellDef="let row">
+                </th>
+                <td mat-cell *cdkCellDef="let row">
                     <ng-container *ngIf="row.isNullable">NULL</ng-container>
-                </md-cell>
+                </td>
             </ng-container>
 
-            <md-header-row *cdkHeaderRowDef="modelLayout.entitiesTableSettings.displayedColumnsKeys"></md-header-row>
-            <md-row *cdkRowDef="let row; columns: modelLayout.entitiesTableSettings.displayedColumnsKeys;"></md-row>
-        </md-table>
-    </md-card-content>
-</md-card>
+            <mat-header-row *cdkHeaderRowDef="modelLayout.entitiesTableSettings.displayedColumnsKeys"></mat-header-row>
+            <mat-row *cdkRowDef="let row; columns: modelLayout.entitiesTableSettings.displayedColumnsKeys;"></mat-row>
+        </mat-card-content>table>
+    </mat-card-content>
+</mat-card>

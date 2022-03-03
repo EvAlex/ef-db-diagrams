@@ -1,5 +1,5 @@
 import { Component, OnInit, DoCheck, Input, ElementRef, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 const BORDER_WIDTH = 1;
 const SIZE = 0.2;
@@ -74,7 +74,9 @@ export class MinimapComponent implements OnInit, DoCheck {
         if (this.targetElement) {
             const newSize = this.getMinimapSize();
             if (!areEqual(newSize, this.prevSize)) {
-                this.updateMinimap(newSize);
+                if (this.viewport) {
+                    this.updateMinimap(newSize);
+                }
             }
         }
     }
@@ -85,7 +87,7 @@ export class MinimapComponent implements OnInit, DoCheck {
         this.element.style.right = size.extent.right + 'px';
         this.element.style.bottom = size.extent.bottom + 'px';
 
-        const viewportElement = this.viewport.nativeElement as HTMLElement;
+        const viewportElement = this.viewport.nativeElement;
         viewportElement.style.width = size.viewport.width + 'px';
         viewportElement.style.height = size.viewport.height + 'px';
         viewportElement.style.marginLeft = size.viewport.left + 'px';

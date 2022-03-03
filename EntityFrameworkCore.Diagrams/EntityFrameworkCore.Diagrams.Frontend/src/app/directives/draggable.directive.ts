@@ -1,5 +1,5 @@
 import { Directive, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef, Renderer2, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { flatMap, map, Observable, takeUntil } from 'rxjs';
 
 import { ScalableDirective } from './scalable.directive';
 import { EventDebouncer } from '../core/event-debouncer';
@@ -76,20 +76,20 @@ export class DraggableDirective implements OnInit, OnDestroy {
         });
 
         this.mousedrag = mousedown
-            .map(e => {
+            .pipe(map(e => {
                 const { top, left } = this.element.nativeElement.getBoundingClientRect();
                 return {
                     top: e.clientY - top,
                     left: e.clientX - left,
                 };
-            })
-            .flatMap(offset =>
-                mousemove.map(e => ({
+            }))
+            .pipe(flatMap(offset =>
+                mousemove.pipe(map(e => ({
                     top: e.clientY - offset.top + (this.scrollContainer ? this.scrollContainer.scrollTop : 0),
                     left: e.clientX - offset.left + (this.scrollContainer ? this.scrollContainer.scrollLeft : 0)
-                }))
-                .takeUntil(mouseup)
-            );
+                })))
+                    .pipe(takeUntil(mouseup))
+            ));
     }
 
     ngOnInit() {

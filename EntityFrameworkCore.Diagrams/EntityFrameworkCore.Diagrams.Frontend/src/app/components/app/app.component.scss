@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
 $toolbar-zindex: 30;
 
@@ -12,8 +12,7 @@ $toolbar-zindex: 30;
         flex: 1;
     }
 
-    md-toolbar {
-
+    mat-toolbar {
         &.main-toolbar {
             padding: 0 16px;
 
@@ -77,7 +76,7 @@ $toolbar-zindex: 30;
         }
     }
 
-    md-grid-list {
+    mat-grid-list {
         height: 100%;
 
         .toolbar {
@@ -100,13 +99,14 @@ $toolbar-zindex: 30;
                     overflow-x: hidden;
 
                     .entities-list {
-
-                        [md-icon-button] {
+                        display: flex !important;
+                        flex-flow: column wrap !important;
+                        [mat-icon-button] {
                             width: 20px;
                             height: 20px;
                             line-height: 20px;
 
-                            md-icon {
+                            mat-icon {
                                 width: 20px;
                                 height: 20px;
                                 line-height: 20px;
@@ -127,15 +127,13 @@ $toolbar-zindex: 30;
                         }
 
                         .mat-line {
-
                             @media (max-width: 1024px) {
                                 margin: 0 -12px;
                             }
-
                         }
                     }
 
-                    md-toolbar {
+                    mat-toolbar {
                         margin-top: 16px;
                     }
 
@@ -172,7 +170,7 @@ $toolbar-zindex: 30;
                                 font-size: 12px;
                             }
 
-                            md-slide-toggle {
+                            mat-slide-toggle {
                                 margin: 0 8px;
 
                                 @media (max-width: 480px) {
@@ -198,16 +196,16 @@ $toolbar-zindex: 30;
                                 }
 
                                 @media (max-width: 330px) {
-                                        margin-left: 16px;
-                                        margin-top: 8px;
+                                    margin-left: 16px;
+                                    margin-top: 8px;
                                 }
 
-                                [md-icon-button] {
+                                [mat-icon-button] {
                                     width: 20px;
                                     height: 20px;
                                     line-height: 20px;
 
-                                    md-icon {
+                                    mat-icon {
                                         width: 20px;
                                         height: 20px;
                                         line-height: 20px;
@@ -216,7 +214,6 @@ $toolbar-zindex: 30;
                                 }
                             }
                         }
-
                     }
                 }
 
@@ -230,6 +227,7 @@ $toolbar-zindex: 30;
         }
 
         .diagram {
+            width: 90%;
             @media print {
                 left: 0 !important;
                 width: 100vw !important;
@@ -257,7 +255,6 @@ $toolbar-zindex: 30;
     }
 }
 
-
 .import-btn {
     input {
         position: absolute;
@@ -271,7 +268,8 @@ $toolbar-zindex: 30;
     }
 }
 
-h1, h2 {
+h1,
+h2 {
     font-weight: 300;
     color: rgba(0, 0, 0, 0.87);
 }
@@ -282,4 +280,10 @@ h1 {
 
 h2 {
     font-size: 22px;
+}
+
+#container-right-column{
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    width: 100% !important;
 }

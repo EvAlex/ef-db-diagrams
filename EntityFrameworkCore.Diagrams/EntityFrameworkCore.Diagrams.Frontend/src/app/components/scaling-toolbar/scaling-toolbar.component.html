@@ -1,13 +1,13 @@
 
-<button type="button" md-icon-button [disabled]="scale <= minScale" (click)="zoomOut()">
-    <md-icon>zoom_out</md-icon>
+<button type="button" mat-icon-button [disabled]="scale <= minScale" (click)="zoomOut()">
+    <mat-icon>zoom_out</mat-icon>
 </button>
 
 
-<button type="button" md-button (click)="resetZoom()">
+<button type="button" mat-button (click)="resetZoom()">
     {{ scale * 100 | number:'1.0-0' }} %
 </button>
 
-<button type="button" md-icon-button [disabled]="scale >= maxScale" (click)="zoomIn()">
-    <md-icon>zoom_in</md-icon>
+<button type="button" mat-icon-button [disabled]="scale >= maxScale" (click)="zoomIn()">
+    <mat-icon>zoom_in</mat-icon>
 </button>

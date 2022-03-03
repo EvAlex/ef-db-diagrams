@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, HostListener, Renderer2, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, timer } from 'rxjs';
 
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
 import { DbModel } from '../../models/db-model';
@@ -44,7 +43,7 @@ export class DbDiagramComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         //  NOTE: need to delay it, because view is already rendered, and data-bound values are applied.
-        Observable.timer(1)
+        timer(1)
             .subscribe(() => this._diagramLayout.arrangeLayout(this.model));
     }
 

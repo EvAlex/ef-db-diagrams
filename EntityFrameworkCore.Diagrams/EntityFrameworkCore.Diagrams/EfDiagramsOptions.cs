@@ -36,6 +36,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 //  NOTE: this means that we are not installed as NuGet packange
                 contentRoot = Path.Combine(dllPath, "..", "..", "..", "..", "EntityFrameworkCore.Diagrams");
             }
+            if (!Directory.Exists(contentRoot))
+            {
+                Directory.CreateDirectory(contentRoot);
+            }
             contentRoot = Path.Combine(contentRoot, "wwwroot", "db-diagrams");
             return contentRoot;
         }

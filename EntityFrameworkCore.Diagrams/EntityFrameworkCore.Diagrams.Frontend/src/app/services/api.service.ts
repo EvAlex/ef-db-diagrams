@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { timer, Observable, map } from 'rxjs';
 
 import { DbModel } from '../models/db-model';
 import { environment } from '../../environments/environment';
@@ -8,14 +8,12 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class ApiService {
 
-    constructor(private readonly _http: Http) {
-
-    }
+    constructor(private http: HttpClient) { }
 
     queryDbModel(): Observable<DbModel> {
         return environment.production
-            ? this._http.get('/db-diagrams/model').map(r => DbModel.fromJSON(r.json()))
-            : Observable.timer(4).map(() => DbModel.fromJSON(environment.dbModel));
+            ? this.http.get('/db-diagrams/model').pipe(map(r => DbModel.fromJSON(r)))
+            : timer(4).pipe(map(() => DbModel.fromJSON(environment.dbModel)));
     }
 
 }

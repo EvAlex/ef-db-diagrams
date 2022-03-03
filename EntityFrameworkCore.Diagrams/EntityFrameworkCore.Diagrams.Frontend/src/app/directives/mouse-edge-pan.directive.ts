@@ -1,6 +1,5 @@
 import { Directive, OnInit, OnDestroy, HostListener, ElementRef, Renderer2 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { timer, Subject, combineLatest, debounce, filter } from 'rxjs';
 
 const TRIGGER_TIME = 100;
 const HOTZONE_WIDTH = 0.1;
@@ -54,14 +53,9 @@ export class MouseEdgePanDirective implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        Observable.timer(0, FEED_PAN_FREQ)
-            .combineLatest(
-                //  NOTE: hovering over hotzone for TRIGGER_TIME causes panning to start. But cancel should be immediate.
-                this._pan.debounce(e => e.dx === e.dy && e.dx === 0 ? Observable.timer(0) : Observable.timer(TRIGGER_TIME)),
-                (a, b) => b
-            )
-            .filter(e => e.dx !== 0 || e.dy !== 0)
-            .subscribe(e => {
+        combineLatest([this._pan.pipe(debounce(e => e.dx === e.dy && e.dx === 0 ? timer(0) : timer(TRIGGER_TIME)))])
+            .pipe(filter(([e]) => e.dx !== 0 || e.dy !== 0))
+            .subscribe(([e]) => {
                 const element = this._el.nativeElement as Element;
                 element.scrollLeft += e.dx;
                 element.scrollTop += e.dy;

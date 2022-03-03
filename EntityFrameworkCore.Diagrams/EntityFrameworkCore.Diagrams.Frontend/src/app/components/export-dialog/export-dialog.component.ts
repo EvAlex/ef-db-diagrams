@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import { DbModel } from '../../models/db-model';
 import { DiagramLayoutService } from '../../services/diagram-layout.service';
@@ -31,8 +31,8 @@ export class ExportDialogComponent implements OnInit {
 
     constructor(
         private readonly _diagramLayout: DiagramLayoutService,
-        private readonly _dialog: MdDialogRef<ExportDialogComponent>,
-        @Inject(MD_DIALOG_DATA) public model: DbModel
+        private readonly _dialog: MatDialogRef<ExportDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public model: DbModel
     ) {
     }
 
